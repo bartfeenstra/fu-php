@@ -32,29 +32,30 @@ Traversable/iterable data structures can be converted to a universal iterator:
 ```php
 <?php
 use BartFeenstra\Functional as F;
+use function BartFeenstra\Functional\iter;
 
 // Arrays.
-$iterator = F\iter([3, 1, 4]);
+$iterator = iter([3, 1, 4]);
 
 // \Traversable (includes native/Spl iterators).
-$iterator = F\iter(new \ArrayIterator([3, 1, 4]));
+$iterator = iter(new \ArrayIterator([3, 1, 4]));
 
 // Callables that (return callables that...) return iterators.
 $callable = function (){
   return function () {
-    return F\iter([]);
+    return iter([]);
   };
 };
-$iterator = F\iter($callable);
+$iterator = iter($callable);
 
 // Existing universal iterators are passed through.
-$iterator = F\iter([]);
-assert($iterator === F\iter($iterator));
+$iterator = iter([]);
+assert($iterator === iter($iterator));
 
 // Objects can expose universal iterators as well.
 $toIterator = new class() implements F\ToIterator {
   public function iter(): F\Iterator {
-    return F\iter([]);
+    return iter([]);
   }
 }
 ?>
@@ -67,7 +68,7 @@ $toIterator = new class() implements F\ToIterator {
 <?php
 $carrier = [];
 $list = [3, 1, 4];
-F\iter($list)->each(function (int $i) use (&$carrier) {
+iter($list)->each(function (int $i) use (&$carrier) {
   $carrier[] = $i;
 });
 assert($list === $carrier);
@@ -77,7 +78,7 @@ assert($list === $carrier);
 #### filter
 ```php
 <?php
-$result = F\iter([3, 1, 4])->filter(F\gt(2));
+$result = iter([3, 1, 4])->filter(F\gt(2));
 assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ?>
 ```
@@ -87,7 +88,7 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 <?php
 $original = [3, 1, 4];
 $expected = [9, 3, 12];
-$result = F\iter($original)->map(function (int $i): int {
+$result = iter($original)->map(function (int $i): int {
   return 3 * $i;
 });
 assert($expected === iterator_to_array($result));
@@ -98,7 +99,7 @@ assert($expected === iterator_to_array($result));
 ```php
 <?php
 $list = [3, 1, 4];
-$sum = F\iter($list)->reduce(function (int $sum, int $item): int {
+$sum = iter($list)->reduce(function (int $sum, int $item): int {
   return $sum + $item;
 });
 assert(8 === $sum);
@@ -110,7 +111,7 @@ assert(8 === $sum);
 <?php
 $start = 2;
 $list = [3, 1, 4];
-$total = F\iter($list)->fold(function (int $total, int $item): int {
+$total = iter($list)->fold(function (int $total, int $item): int {
   return $total + $item;
 }, $start);
 assert(10 === $total);
@@ -122,7 +123,7 @@ assert(10 === $total);
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
-$result = F\iter($list)->take(4);
+$result = iter($list)->take(4);
 assert([3, 1, 4, 1] === iterator_to_array($result));
 ?>
 ```
@@ -132,7 +133,7 @@ assert([3, 1, 4, 1] === iterator_to_array($result));
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
-$result = F\iter($list)->takeWhile(F\le(3));
+$result = iter($list)->takeWhile(F\le(3));
 assert([3, 1] === iterator_to_array($result));
 ?>
 ```
@@ -142,7 +143,7 @@ assert([3, 1] === iterator_to_array($result));
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
-$result = F\iter($list)->slice(2, 3);
+$result = iter($list)->slice(2, 3);
 assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
 ?>
 ```
@@ -151,7 +152,7 @@ assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
-$min = F\iter($list)->min();
+$min = iter($list)->min();
 assert(1 === $min);
 ?>
 ```
@@ -160,7 +161,7 @@ assert(1 === $min);
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
-$max = F\iter($list)->max();
+$max = iter($list)->max();
 assert(9 === $max);
 ?>
 ```
@@ -169,7 +170,7 @@ assert(9 === $max);
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
-$sum = F\iter($list)->sum();
+$sum = iter($list)->sum();
 assert(23 === $sum);
 ?>
 ```
