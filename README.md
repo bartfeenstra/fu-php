@@ -1,5 +1,7 @@
 # Functional PHP
 
+[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php)
+
 This library provides several tools to write more functional PHP.
 
 ## Installation
