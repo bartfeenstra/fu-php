@@ -1,0 +1,176 @@
+<?php
+
+declare(strict_types=1);
+
+namespace BartFeenstra\Tests\Functional;
+
+use BartFeenstra\Functional\ArrayIterator;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @coversDefaultClass \BartFeenstra\Functional\IteratorTrait
+ */
+final class IteratorTraitTest extends TestCase
+{
+
+    /**
+     * @covers ::each
+     */
+    public function testEach()
+    {
+        $carrier = [];
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator->each(function (int $i) use (&$carrier): void {
+            $carrier[] = $i;
+        });
+        $this->assertSame($array, $carrier);
+    }
+
+    /**
+     * @covers ::filter
+     */
+    public function testFilter()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->filter(function (int $value) :bool {
+            return $value < 4;
+        });
+        $expected = [
+            // Make sure the result remains associative.
+            0 => 3,
+            1 => 1,
+            3 => 1,
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::map
+     */
+    public function testMap()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->map(function (int $value) :string {
+            return (string) (3 * $value);
+        });
+        $expected = ['9', '3', '12', '3', '15', '27'];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::reduce
+     */
+    public function testReduce()
+    {
+        $array = [3, 1, 4];
+        $iterator = new ArrayIterator($array);
+        $actual = $iterator->reduce(function (int $carrier, int $item): int {
+            return $carrier + $item;
+        });
+        $this->assertSame(8, $actual);
+    }
+
+    /**
+     * @covers ::fold
+     */
+    public function testFold()
+    {
+        $array = [3, 1, 4];
+        $iterator = new ArrayIterator($array);
+        $actual = $iterator->fold(function (int $carrier, int $item): int {
+            return $carrier + $item;
+        }, 1);
+        $this->assertSame(9, $actual);
+    }
+
+    /**
+     * @covers ::count
+     */
+    public function testCount()
+    {
+        $array = [3, 1, 4];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame(3, $iterator->count());
+        $this->assertSame(3, count($iterator));
+    }
+
+    /**
+     * @covers ::take
+     */
+    public function testTake()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->take(3);
+        $expected = [3, 1, 4];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::takeWhile
+     */
+    public function testTakeWhile()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->takeWhile(function (int $i): bool {
+            return $i < 4;
+        });
+        $expected = [
+            // Make sure the result remains associative.
+            0 => 3,
+            1 => 1,
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::slice
+     */
+    public function testSlice()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->slice(2, 3);
+        $expected = [
+            // Make sure the result remains associative.
+            2 => 4,
+            3 => 1,
+            4 => 5,
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::min
+     */
+    public function testMin()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame(1, $iterator->min());
+    }
+
+    /**
+     * @covers ::max
+     */
+    public function testMax()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame(9, $iterator->max());
+    }
+
+    /**
+     * @covers ::sum
+     */
+    public function testSum()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame(23, $iterator->sum());
+    }
+}
