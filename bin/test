@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+(
+    cd `dirname "$0"`/.. &&
+    ./vendor/bin/phpcs --colors --standard=PSR2 --extensions=php -n ./src &&
+    ./vendor/bin/phpcs --colors --standard=PSR2 --extensions=php -n ./tests/src &&
+    ./vendor/bin/phpunit &&
+    php ./tests/readme.php 1>/dev/null
+)
+

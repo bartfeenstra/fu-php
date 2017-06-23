@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+(
+    cd `dirname "$0"`/.. &&
+    ./vendor/bin/phpcbf --colors --standard=PSR2 --extensions=php -n ./src &&
+    ./vendor/bin/phpcbf --colors --standard=PSR2 --extensions=php -n ./tests/src
+)
+
