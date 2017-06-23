@@ -9,7 +9,7 @@ Run `composer require bartfeenstra/fu` in your project's root directory.
 
 ### Iterators
 Traversable/iterable data structures can be converted to a universal iterator:
-```
+```php
 <?php
 use BartFeenstra\Functional as F;
 
@@ -40,10 +40,10 @@ $toIterator = new class() implements F\ToIterator {
 ?>
 ```
 
-## [Operations](#operations).
+## Operations.
 
 ### each
-```
+```php
 <?php
 $carrier = [];
 $list = [3, 1, 4];
@@ -55,7 +55,7 @@ assert($list === $carrier);
 ```
 
 ### filter
-```
+```php
 <?php
 $result = F\iter([3, 1, 4])->filter(F\gt(2));
 assert([0 => 3, 2 => 4] === iterator_to_array($result));
@@ -63,7 +63,7 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ```
 
 ### map
-```
+```php
 <?php
 $original = [3, 1, 4];
 $expected = [9, 3, 12];
@@ -75,7 +75,7 @@ assert($expected === iterator_to_array($result));
 ```
 
 ### reduce
-```
+```php
 <?php
 $list = [3, 1, 4];
 $sum = F\iter($list)->reduce(function (int $sum, int $item): int {
@@ -86,7 +86,7 @@ assert(8 === $sum);
 ```
 
 ### fold
-```
+```php
 <?php
 $start = 2;
 $list = [3, 1, 4];
@@ -98,7 +98,7 @@ assert(10 === $total);
 ```
 
 ### take
-```
+```php
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
@@ -108,7 +108,7 @@ assert([3, 1, 4, 1] === iterator_to_array($result));
 ```
 
 ### takeWhile
-```
+```php
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
@@ -118,7 +118,7 @@ assert([3, 1] === iterator_to_array($result));
 ```
 
 ### slice
-```
+```php
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
@@ -128,7 +128,7 @@ assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
 ```
 
 ### min
-```
+```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $min = F\iter($list)->min();
@@ -137,7 +137,7 @@ assert(1 === $min);
 ```
 
 ### max
-```
+```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $min = F\iter($list)->max();
@@ -146,7 +146,7 @@ assert(9 === $min);
 ```
 
 ### sum
-```
+```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $sum = F\iter($list)->sum();
@@ -154,9 +154,9 @@ assert(23 === $sum);
 ?>
 ```
 
-## [Predicates](#predicates).
+## Predicates.
 Predicates can be used with `filter()`. These functions provide shortcuts for common conditions.
-```
+```php
 <?php
 // All values equal to "Apples and oranges".
 $predicate = F\eq('Apples and oranges');
