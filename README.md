@@ -142,8 +142,8 @@ assert(1 === $min);
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
-$min = F\iter($list)->max();
-assert(9 === $min);
+$max = F\iter($list)->max();
+assert(9 === $max);
 ?>
 ```
 
