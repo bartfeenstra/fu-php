@@ -20,7 +20,7 @@ applied to the iterator items you actually use.
     1. [Operations](#operations)
     1. [Predicates](#predicates)
 1. [Contributing](#contributing)
-1. [Quality Assurance](#qa)
+1. [Development](#development)
 
 ## [Installation](#installation)
 Run `composer require bartfeenstra/fu` in your project's root directory.
