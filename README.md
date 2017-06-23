@@ -56,7 +56,8 @@ $toIterator = new class() implements F\ToIterator {
   public function iter(): F\Iterator {
     return F\iter([]);
   }
-}
+};
+$iterator = F\iter($toIterator);
 ?>
 ```
 
