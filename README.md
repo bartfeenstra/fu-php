@@ -206,8 +206,20 @@ conditions. These functions take configuration parameters, and return
 predicates.
 ```php
 <?php
+// All values strictly identical to TRUE.
+$predicate = F\true();
+
 // All values strictly identical to FALSE.
-$predicate = F\id(false);
+$predicate = F\false();
+
+// All values that evaluate to TRUE.
+$predicate = F\truthy();
+
+// All values that evaluate to FALSE.
+$predicate = F\falsy();
+
+// All values strictly identical to 0.
+$predicate = F\id(0);
 
 // All values equal to "Apples and oranges".
 $predicate = F\eq('Apples and oranges');

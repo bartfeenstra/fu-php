@@ -22,12 +22,12 @@ final class FilterIterator extends \FilterIterator implements Iterator
    * @param \Iterator $iterator
    *   The iterator to iterate over.
    * @param callable $predicate
-   *   Signature: function($item): bool.
+   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    */
-    public function __construct(\Iterator $iterator, callable $predicate)
+    public function __construct(\Iterator $iterator, callable $predicate = null)
     {
         parent::__construct($iterator);
-        $this->predicate = $predicate;
+        $this->predicate = $predicate ?: truthy();
     }
 
     public function accept()
