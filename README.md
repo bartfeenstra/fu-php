@@ -176,6 +176,16 @@ assert(23 === $sum);
 ?>
 ```
 
+#### forever
+```php
+<?php
+$list = [3, 1, 4];
+$iterator = iter($list)->forever();
+$expected = [3, 1, 4, 3, 1, 4, 3];
+assert($expected === iterator_to_array($iterator->take(7), false));
+?>
+```
+
 ### [Predicates](#predicates)
 Predicates can be used with `filter()`. They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) without
