@@ -186,6 +186,18 @@ assert($expected === iterator_to_array($iterator->take(7), false));
 ?>
 ```
 
+#### zip
+```php
+<?php
+$one = [3, 1, 4];
+$two = [1, 5, 9];
+$three = [2, 9, 2];
+$zip = iter($one)->zip($two, $three);
+$expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
+assert($expected === iterator_to_array($zip));
+?>
+```
+
 ### [Predicates](#predicates)
 Predicates can be used with `filter()`. They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) without
