@@ -10,7 +10,7 @@ namespace BartFeenstra\Functional;
 trait IteratorTrait
 {
 
-    public function each(callable $operation): void
+    public function each(callable $operation)
     {
         foreach ($this as $item) {
             $operation($item);
