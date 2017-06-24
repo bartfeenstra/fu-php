@@ -200,8 +200,8 @@ assert($expected === iterator_to_array($zip));
 
 ### [Predicates](#predicates)
 Predicates can be used with `filter()`. They can be any
-[callable](http://php.net/manual/en/language.types.callable.php) without
-parameters and a boolean return value, but we added some shortcuts for common
+[callable](http://php.net/manual/en/language.types.callable.php) that takes a
+single parameter and returns a boolean, but we added some shortcuts for common
 conditions. These functions take configuration parameters, and return
 predicates.
 ```php
