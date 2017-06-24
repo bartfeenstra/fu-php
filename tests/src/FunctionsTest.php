@@ -159,6 +159,45 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * Provides data to self::testId().
+     */
+    public function provideId()
+    {
+        $data = [];
+
+        // Identical values.
+        $data[] = [true, true, true];
+        $data[] = [true, false, false];
+        $data[] = [true, null, null];
+        $data[] = [true, 7, 7];
+        $object = new \stdClass();
+        $data[] = [true, $object, $object];
+
+        $data[] = [false, true, false];
+        $data[] = [false, 'foo', 'bar'];
+
+        // Confirm strict comparison works.
+        $data[] = [false, true, 1];
+        $data[] = [false, null, false];
+        $data[] = [false, null, ''];
+        $data[] = [false, 7, 7.0];
+        $data[] = [false, '0', 0];
+        $data[] = [false, new \stdClass(), new \stdClass()];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\id
+     *
+     * @dataProvider provideId
+     */
+    public function testId($expected, $value, $other)
+    {
+        $this->assertSame($expected, F\id($other)($value));
+    }
+
+    /**
      * Provides data to self::testEq().
      */
     public function provideEq()
@@ -174,13 +213,15 @@ final class FunctionsTest extends TestCase
         $data[] = [true, $object, $object];
 
         $data[] = [false, true, false];
+        $data[] = [false, 'foo', 'bar'];
 
-        // Confirm strict comparison works.
-        $data[] = [false, true, 1];
-        $data[] = [false, null, false];
-        $data[] = [false, null, ''];
-        $data[] = [false, 7, 7.0];
-        $data[] = [false, new \stdClass(), new \stdClass()];
+        // Confirm loose comparison works.
+        $data[] = [true, true, 1];
+        $data[] = [true, null, false];
+        $data[] = [true, null, ''];
+        $data[] = [true, 7, 7.0];
+        $data[] = [true, '0', 0];
+        $data[] = [true, new \stdClass(), new \stdClass()];
 
         return $data;
     }
