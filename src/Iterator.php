@@ -116,4 +116,11 @@ interface Iterator extends \Iterator, \Countable
    *   The type is the same as that of the items.
    */
     public function sum();
+
+  /**
+   * Repeats all items forever.
+   *
+   * @return \BartFeenstra\Functional\Iterator
+   */
+    public function forever(): self;
 }
