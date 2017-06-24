@@ -90,4 +90,9 @@ trait IteratorTrait
             return $item + $carrier;
         });
     }
+
+    public function zip($other, ...$others): Iterator
+    {
+        return new ZipIterator($this, ...func_get_args());
+    }
 }
