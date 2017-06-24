@@ -187,4 +187,17 @@ final class IteratorTraitTest extends TestCase
         $expected = [3, 1, 4, 3, 1, 4, 3];
         $this->assertSame($expected, iterator_to_array($iterator->take(7), false));
     }
+
+    /**
+     * @covers ::zip
+     */
+    public function testZip()
+    {
+        $one = new ArrayIterator([3, 1, 4]);
+        $two = [1, 5, 9];
+        $three = [2, 9, 2];
+        $iterator = $one->zip($two, $three);
+        $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
 }

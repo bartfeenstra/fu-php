@@ -95,4 +95,9 @@ trait IteratorTrait
     {
         return new InfiniteIterator($this);
     }
+
+    public function zip($other, ...$others): Iterator
+    {
+        return new ZipIterator($this, ...func_get_args());
+    }
 }
