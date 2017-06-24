@@ -26,14 +26,19 @@ applied to the iterator items you actually use.
 Run `composer require bartfeenstra/fu` in your project's root directory.
 
 ## [Usage](#usage)
-
-### [Iterators](#iterators)
-Traversable/iterable data structures can be converted to a universal iterator:
+To use any of the code, you must first import the namespaces at the top of your files:
 ```php
 <?php
 use BartFeenstra\Functional as F;
 use function BartFeenstra\Functional\iter;
+?>
+```
 
+
+### [Iterators](#iterators)
+Traversable/iterable data structures can be converted to universal iterators:
+```php
+<?php
 // Arrays.
 $iterator = iter([3, 1, 4]);
 
