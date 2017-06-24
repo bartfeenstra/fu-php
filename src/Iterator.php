@@ -21,12 +21,12 @@ interface Iterator extends \Iterator, \Countable
   /**
    * Filters items using a predicate.
    *
-   * @param callable $predicate
-   *   Signature: function($item): bool.
+   * @param callable|null $predicate
+   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    *
    * @return \BartFeenstra\Functional\Iterator
    */
-    public function filter(callable $predicate): self;
+    public function filter(callable $predicate = null): self;
 
   /**
    * Maps/converts items.

@@ -17,7 +17,7 @@ trait IteratorTrait
         }
     }
 
-    public function filter(callable $predicate): Iterator
+    public function filter(callable $predicate = null): Iterator
     {
         return new FilterIterator($this, $predicate);
     }

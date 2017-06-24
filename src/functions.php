@@ -64,6 +64,50 @@ function type($value): string
 }
 
 /**
+ * Gets a predicate that matches TRUE.
+ *
+ * @return callable
+ *   A predicate.
+ */
+function true(): callable
+{
+    return id(true);
+}
+
+/**
+ * Gets a predicate that matches FALSE.
+ *
+ * @return callable
+ *   A predicate.
+ */
+function false(): callable
+{
+    return id(false);
+}
+
+/**
+ * Gets a predicate that matches values that evaluate to TRUE.
+ *
+ * @return callable
+ *   A predicate.
+ */
+function truthy(): callable
+{
+    return eq(true);
+}
+
+/**
+ * Gets a predicate that matches values that evaluate to FALSE.
+ *
+ * @return callable
+ *   A predicate.
+ */
+function falsy(): callable
+{
+    return eq(false);
+}
+
+/**
  * Gets an identity predicate.
  *
  * @param $other

@@ -159,6 +159,113 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * Provides data to self::testTrue().
+     */
+    public function provideTrue()
+    {
+        $data = [];
+
+        $data[] = [true, true];
+        $data[] = [false, 7];
+        $data[] = [false, 'foo'];
+        $data[] = [false, new \stdClass()];
+        $data[] = [false, ['foo']];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\true
+     *
+     * @dataProvider provideTrue
+     */
+    public function testTrue($expected, $value)
+    {
+        $this->assertSame($expected, F\true()($value));
+    }
+
+    /**
+     * Provides data to self::testFalse().
+     */
+    public function provideFalse()
+    {
+        $data = [];
+
+        $data[] = [true, false];
+        $data[] = [false, 0];
+        $data[] = [false, ''];
+        $data[] = [false, []];
+        $data[] = [false, null];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\false
+     *
+     * @dataProvider provideFalse
+     */
+    public function testFalse($expected, $value)
+    {
+        $this->assertSame($expected, F\false()($value));
+    }
+
+    /**
+     * Provides data to self::testTruthy().
+     */
+    public function provideTruthy()
+    {
+        $data = [];
+
+        $data[] = [true, true];
+        $data[] = [true, 7];
+        $data[] = [true, 'foo'];
+        $data[] = [true, new \stdClass()];
+        $data[] = [true, ['foo']];
+
+        $data[] = [false, []];
+        $data[] = [false, ''];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\truthy
+     *
+     * @dataProvider provideTruthy
+     */
+    public function testTruthy($expected, $value)
+    {
+        $this->assertSame($expected, F\truthy()($value));
+    }
+
+    /**
+     * Provides data to self::testFalsy().
+     */
+    public function provideFalsy()
+    {
+        $data = [];
+
+        $data[] = [true, false];
+        $data[] = [true, 0];
+        $data[] = [true, ''];
+        $data[] = [true, []];
+        $data[] = [true, null];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\falsy
+     *
+     * @dataProvider provideFalsy
+     */
+    public function testFalsy($expected, $value)
+    {
+        $this->assertSame($expected, F\falsy()($value));
+    }
+
+    /**
      * Provides data to self::testId().
      */
     public function provideId()
