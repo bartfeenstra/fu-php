@@ -118,14 +118,21 @@ interface Iterator extends \Iterator, \Countable
     public function sum();
 
   /**
-   * Zips each item into a tuple with corresponding items from each of the other traversables.
-   *
-   * @param mixed $other
-   *   Any value taken by \BartFeenstra\Functional\iter().
-   * @param mixed ...$others
-   *   Any values taken by \BartFeenstra\Functional\iter().
+   * Repeats all items forever.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
+    public function forever(): self;
+
+    /**
+     * Zips each item into a tuple with corresponding items from each of the other traversables.
+     *
+     * @param mixed $other
+     *   Any value taken by \BartFeenstra\Functional\iter().
+     * @param mixed ...$others
+     *   Any values taken by \BartFeenstra\Functional\iter().
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
     public function zip($other, ...$others): self;
 }

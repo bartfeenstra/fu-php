@@ -175,6 +175,20 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::forever
+     *
+     * @depends testTake
+     */
+    public function testForever()
+    {
+        $array = [3, 1, 4];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->forever();
+        $expected = [3, 1, 4, 3, 1, 4, 3];
+        $this->assertSame($expected, iterator_to_array($iterator->take(7), false));
+    }
+
+    /**
      * @covers ::zip
      */
     public function testZip()
