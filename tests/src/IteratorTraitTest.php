@@ -173,4 +173,18 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator($array);
         $this->assertSame(23, $iterator->sum());
     }
+
+    /**
+     * @covers ::forever
+     *
+     * @depends testTake
+     */
+    public function testForever()
+    {
+        $array = [3, 1, 4];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->forever();
+        $expected = [3, 1, 4, 3, 1, 4, 3];
+        $this->assertSame($expected, iterator_to_array($iterator->take(7), false));
+    }
 }

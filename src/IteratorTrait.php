@@ -90,4 +90,9 @@ trait IteratorTrait
             return $item + $carrier;
         });
     }
+
+    public function forever(): Iterator
+    {
+        return new InfiniteIterator($this);
+    }
 }
