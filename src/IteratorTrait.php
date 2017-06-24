@@ -15,6 +15,7 @@ trait IteratorTrait
         foreach ($this as $item) {
             $operation($item);
         }
+        return;
     }
 
     public function filter(callable $predicate = null): Iterator
