@@ -64,6 +64,22 @@ function type($value): string
 }
 
 /**
+ * Gets an identity predicate.
+ *
+ * @param $other
+ *   The other value to compare against.
+ *
+ * @return callable
+ *   A predicate.
+ */
+function id($other): callable
+{
+    return function ($value) use ($other) {
+        return $value === $other;
+    };
+}
+
+/**
  * Gets an equality predicate.
  *
  * @param $other
@@ -75,7 +91,7 @@ function type($value): string
 function eq($other): callable
 {
     return function ($value) use ($other) {
-        return $value === $other;
+        return $value == $other;
     };
 }
 
