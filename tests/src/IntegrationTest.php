@@ -24,7 +24,7 @@ final class IntegrationTest extends TestCase
             return str_repeat('.', $i);
         })->filter(function (string $s): bool {
             return strlen($s) > 1;
-        })->each(function (string $s) use (&$carrier): void {
+        })->each(function (string $s) use (&$carrier) {
             $carrier[] = $s;
         });
         $expected = ['...', '....', '.....', '.........'];
