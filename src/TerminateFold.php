@@ -19,7 +19,8 @@ final class TerminateFold extends \RuntimeException
         $this->carrier = $carrier;
     }
 
-    public function getCarrier() {
+    public function getCarrier()
+    {
         return $this->carrier;
     }
 }
