@@ -11,6 +11,7 @@ final class SomeLazyValue implements Some
 {
 
     use ImmutableTrait;
+    use UnwrappableTrait;
 
     private $retriever;
 
@@ -26,11 +27,6 @@ final class SomeLazyValue implements Some
     }
 
     public function __invoke()
-    {
-        return call_user_func($this->retriever);
-    }
-
-    public function get()
     {
         return call_user_func($this->retriever);
     }

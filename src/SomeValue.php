@@ -11,6 +11,7 @@ final class SomeValue implements Some
 {
 
     use ImmutableTrait;
+    use UnwrappableTrait;
 
     private $value;
 
@@ -26,11 +27,6 @@ final class SomeValue implements Some
     }
 
     public function __invoke()
-    {
-        return $this->value;
-    }
-
-    public function get()
     {
         return $this->value;
     }
