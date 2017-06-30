@@ -18,6 +18,7 @@ applied to the iterator items you actually use.
 1. [Usage](#usage)
     1. [Iterators](#iterators)
     1. [Operations](#operations)
+    1. [Exception handling](#exception-handling)
     1. [Predicates](#predicates)
 1. [Contributing](#contributing)
 1. [Development](#development)
@@ -203,6 +204,25 @@ assert($expected === iterator_to_array($zip));
 ?>
 ```
 
+### [Exception handling](#exceptions)
+Complex `try`/`catch` blocks can be replaced and converted to `Result` easily:
+```php
+<?php
+// Try executing a callable, catch all exceptions, and output a Result.
+$result = F\try_except(function () {/** ... */});
+
+// Try executing a callable, catch all Foo, Bar, Baz, and Qux exceptions, and output a Result.
+$result = F\try_except(function () {/** ... */}, Foo::class, Bar::class, Baz::class, Qux::class);
+
+// Try executing a callable at most twice, catch all exceptions, and output a Result.
+$result = F\retry_except(function () {/** ... */});
+
+// Try executing a callable at most 5 times, catch all Foo, Bar, Baz, and Qux exceptions, and output a Result.
+$result = F\retry_except(function () {/** ... */}, 5, Foo::class, Bar::class, Baz::class, Qux::class);
+?>
+```
+
+
 ### [Predicates](#predicates)
 Predicates can be used with `filter()`. They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) that takes a
@@ -240,6 +260,9 @@ $predicate = F\lt(15);
 
 // All values lesser than or equal to 666.
 $predicate = F\le(666);
+
+// All values that are instances of Foo, Bar, Baz, or Qux.
+$predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
 ?>
 ```
 

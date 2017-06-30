@@ -159,6 +159,102 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\try_except
+     */
+    public function testTryExceptOk()
+    {
+        $value = new \stdClass();
+        $goal = function () use ($value) {
+            return $value;
+        };
+        $expected = new F\OkValue($value);
+        $this->assertEquals($expected, F\try_except($goal));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\try_except
+     */
+    public function testTryExceptCaughtThrowable()
+    {
+        $throwable = new \BadMethodCallException();
+        $goal = function () use ($throwable) {
+            throw $throwable;
+        };
+        $expected = new F\ThrowableError($throwable);
+        // Except a parent class, so we make sure the code under test can handle inheritance.
+        $this->assertEquals($expected, F\try_except($goal, \BadFunctionCallException::class));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\try_except
+     */
+    public function testTryExceptUncaughtThrowable()
+    {
+        $this->expectException(\RuntimeException::class);
+        $goal = function () {
+            throw new \RuntimeException();
+        };
+        F\try_except($goal, \InvalidArgumentException::class);
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\retry_except
+     */
+    public function testRetryExceptOk()
+    {
+        $value = new \stdClass();
+        $goal = function () use ($value) {
+            return $value;
+        };
+        $expected = new F\OkValue($value);
+        $this->assertEquals($expected, F\retry_except($goal));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\retry_except
+     */
+    public function testRetryExceptOkAfterRetry()
+    {
+        $value = new \stdClass();
+        $goal = function () use ($value) {
+            static $invocations = 0;
+            $invocations++;
+            if ($invocations > 5) {
+                return $value;
+            }
+            throw new \Exception();
+        };
+        $expected = new F\OkValue($value);
+        $this->assertEquals($expected, F\retry_except($goal, 9));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\retry_except
+     */
+    public function testRetryExceptCaughtThrowable()
+    {
+        $throwable = new \BadMethodCallException();
+        $goal = function () use ($throwable) {
+            throw $throwable;
+        };
+        $expected = new F\ThrowableError($throwable);
+        // Except a parent class, so we make sure the code under test can handle inheritance.
+        $this->assertEquals($expected, F\retry_except($goal, 2, \BadFunctionCallException::class));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\retry_except
+     */
+    public function testRetryExceptUncaughtThrowable()
+    {
+        $this->expectException(\RuntimeException::class);
+        $goal = function () {
+            throw new \RuntimeException();
+        };
+        F\retry_except($goal, 2, \InvalidArgumentException::class);
+    }
+
+    /**
      * Provides data to self::testTrue().
      */
     public function provideTrue()
@@ -445,5 +541,38 @@ final class FunctionsTest extends TestCase
     public function testLe($expected, $value, $other)
     {
         $this->assertSame($expected, F\le($other)($value));
+    }
+
+    /**
+     * Provides data to self::testInstanceOf().
+     */
+    public function provideInstanceOf()
+    {
+        $data = [];
+
+        // The exact same type.
+        $data[] = [true, new \BadFunctionCallException(), [\BadFunctionCallException::class]];
+        // A super type.
+        $data[] = [true, new \BadMethodCallException(), [\BadFunctionCallException::class]];
+        // An interface.
+        $data[] = [true, new \BadMethodCallException(), [\Throwable::class]];
+        // A different type.
+        $data[] = [false, new \BadMethodCallException(), [\InvalidArgumentException::class]];
+        // Non-objects.
+        $data[] = [false, 666, [\Throwable::class]];
+        $data[] = [false, 'foo', [\Throwable::class]];
+        $data[] = [false, \Throwable::class, [\Throwable::class]];
+
+        return $data;
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\instance_of
+     *
+     * @dataProvider provideInstanceOf
+     */
+    public function testInstanceOf(bool $expected, $value, array $types)
+    {
+        $this->assertSame($expected, F\instance_of(...$types)($value));
     }
 }

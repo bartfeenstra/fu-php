@@ -10,6 +10,7 @@ namespace BartFeenstra\Functional;
 final class ThrowableError implements Error, Unwrappable
 {
 
+    use ImmutableTrait;
     use UnwrappableTrait;
 
     private $throwable;

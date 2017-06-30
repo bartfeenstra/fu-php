@@ -64,6 +64,70 @@ function type($value): string
 }
 
 /**
+ * Tries code and converts exceptions to errors.
+ *
+ * @param callable $goal
+ *   The code to try and execute. Signature: `function(): mixed`.
+ * @param string ...$except
+ *   The fully qualified names of \Throwable implementations to limit the catch to. Any throwable not listed, will not
+ *   be caught. If not given, all throwables will be caught.
+ *
+ * @return \BartFeenstra\Functional\Result
+ *
+ * @throws \Throwable
+ *   If $except is given, any throwable thrown by $goal that is not in $except.
+ */
+function try_except(callable $goal, string ...$except): Result
+{
+    try {
+        return new OkValue($goal());
+    } catch (\Throwable $t) {
+        if (!$except or instance_of(...$except)($t)) {
+            return new ThrowableError($t);
+        }
+        throw $t;
+    }
+}
+
+/**
+ * Tries code multiple times, and converts exceptions to errors.
+ *
+ * This is a combination of \BartFeenstra\Functional\try_except(), and the retry keyword proposed for PHP's standard
+ * library (https://wiki.php.net/rfc/retry-keyword).
+ *
+ * @param callable $goal
+ *   The code to try and execute. Signature: `function(): mixed`.
+ * @param int $attempts
+ *   The number of times to try to reach the goal. Defaults to 2 attempts / 1 retry.
+ * @param string ...$except
+ *   The fully qualified names of \Throwable implementations to limit the catch to. Any throwable not listed, will not
+ *   be caught. If not given, all throwables will be caught.
+ *
+ * @return \BartFeenstra\Functional\Result
+ *
+ * @throws \Throwable
+ *   If $except is given, any throwable thrown by $goal that is not in $except.
+ */
+function retry_except(callable $goal, int $attempts = 2, string ...$except): Result
+{
+    $remainingAttempts = $attempts;
+    do {
+        $remainingAttempts--;
+        try {
+            return new OkValue($goal());
+        } catch (\Throwable $t) {
+            if (!$except or instance_of(...$except)($t)) {
+                if ($remainingAttempts) {
+                    continue;
+                }
+                return new ThrowableError($t);
+            }
+            throw $t;
+        }
+    } while ($remainingAttempts);
+}
+
+/**
  * Gets a predicate that matches TRUE.
  *
  * @return callable
@@ -200,5 +264,27 @@ function le($other): callable
 {
     return function ($value) use ($other) {
         return $value <= $other;
+    };
+}
+
+/**
+ * Gets a predicate to check if a value is an instance of one or more types.
+ *
+ * @param string $type
+ * @param string ..$types
+ *
+ * @return callable
+ *   A predicate.
+ */
+function instance_of(string $type, string ...$types): callable
+{
+    $types = func_get_args();
+    return function ($value) use ($types) {
+        foreach ($types as $type) {
+            if ($value instanceof $type) {
+                return true;
+            }
+        }
+        return false;
     };
 }
