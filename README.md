@@ -18,7 +18,7 @@ applied to the iterator items you actually use.
 1. [Usage](#usage)
     1. [Iterators](#iterators)
     1. [Operations](#operations)
-    1. [Exception handling](#exceptions)
+    1. [Exception handling](#exception-handling)
     1. [Predicates](#predicates)
 1. [Contributing](#contributing)
 1. [Development](#development)
