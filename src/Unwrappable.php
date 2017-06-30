@@ -13,7 +13,7 @@ interface Unwrappable
     /**
      * Returns the wrapped value.
      *
-     * This allows for short syntax: `$value = $some();`
+     * This allows for short syntax: `$value = $unwrappable();`
      *
      * @return mixed
      *   The wrapped value.
