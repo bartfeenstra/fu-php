@@ -112,6 +112,8 @@ $sum = iter($list)->reduce(function (int $sum, int $item): int {
 assert(8 === $sum);
 ?>
 ```
+To terminate the reduction before all items have been processed, throw a `TerminateReduction` with the final carrier
+value.
 
 #### fold
 ```php
@@ -124,6 +126,7 @@ $total = iter($list)->fold(function (int $total, int $item): int {
 assert(10 === $total);
 ?>
 ```
+To terminate the fold before all items have been processed, throw a `TerminateFold` with the final carrier value.
 
 #### take
 ```php

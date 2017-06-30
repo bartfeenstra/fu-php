@@ -29,23 +29,31 @@ trait IteratorTrait
 
     public function reduce(callable $reduction)
     {
-        $this->rewind();
-        $carrier = $this->current();
-        $this->next();
-        while ($this->valid()) {
-            $carrier = $reduction($carrier, $this->current());
+        try {
+            $this->rewind();
+            $carrier = $this->current();
             $this->next();
+            while ($this->valid()) {
+                $carrier = $reduction($carrier, $this->current());
+                $this->next();
+            }
+            return $carrier;
+        } catch (TerminateReduction $t) {
+            return $t->getCarrier();
         }
-        return $carrier;
     }
 
     public function fold(callable $fold, $initial_carrier)
     {
         $carrier = $initial_carrier;
-        foreach ($this as $item) {
-            $carrier = $fold($carrier, $item);
+        try {
+            foreach ($this as $item) {
+                $carrier = $fold($carrier, $item);
+            }
+            return $carrier;
+        } catch (TerminateFold $t) {
+            return $t->getCarrier();
         }
-        return $carrier;
     }
 
     public function count(): int
