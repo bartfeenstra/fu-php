@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional;
 
 use BartFeenstra\Functional\ArrayIterator;
+use BartFeenstra\Functional\TerminateFold;
+use BartFeenstra\Functional\TerminateReduction;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -74,6 +76,24 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::reduce
+     * @covers \BartFeenstra\Functional\TerminateReduction
+     */
+    public function testReduceWithTermination()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $actual = $iterator->reduce(function (int $carrier, int $item): int {
+            $carrier = $carrier + $item;
+            if ($carrier > 9) {
+                throw new TerminateReduction($carrier);
+            }
+            return $carrier;
+        });
+        $this->assertSame(14, $actual);
+    }
+
+    /**
      * @covers ::fold
      */
     public function testFold()
@@ -84,6 +104,24 @@ final class IteratorTraitTest extends TestCase
             return $carrier + $item;
         }, 1);
         $this->assertSame(9, $actual);
+    }
+
+    /**
+     * @covers ::fold
+     * @covers \BartFeenstra\Functional\TerminateFold
+     */
+    public function testFoldWithTermination()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $actual = $iterator->fold(function (int $carrier, int $item): int {
+            $carrier = $carrier + $item;
+            if ($carrier > 9) {
+                throw new TerminateFold($carrier);
+            }
+            return $carrier;
+        }, 1);
+        $this->assertSame(10, $actual);
     }
 
     /**
