@@ -77,6 +77,17 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::find
+     */
+    public function testFindWithoutPredicate()
+    {
+        $array = [0, null, false, '', [], 666, 777];
+        $iterator = new ArrayIterator($array);
+        $found = $iterator->find();
+        $this->assertEquals(new SomeValue(666), $found);
+    }
+
+    /**
      * @covers ::map
      */
     public function testMap()

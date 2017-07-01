@@ -24,6 +24,7 @@ trait IteratorTrait
 
     public function find(callable $predicate = null): Option
     {
+        $predicate = $predicate ?: truthy();
         return $this->fold(function ($none, $item) use ($predicate): Option {
             if ($predicate($item)) {
                 throw new TerminateFold(new SomeValue($item));
