@@ -156,4 +156,10 @@ trait IteratorTrait
         }
         return new SomeValue($last);
     }
+
+    public function empty(): bool
+    {
+        $this->rewind();
+        return !$this->valid();
+    }
 }

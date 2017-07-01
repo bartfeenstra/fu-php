@@ -285,6 +285,15 @@ assert(new F\SomeValue(9) == iter($array)->last());
 ?>
 ```
 
+#### empty
+Gets the last value.
+```php
+<?php
+assert(TRUE === iter([])->empty());
+assert(FALSE === iter([3, 1, 4])->empty());
+?>
+```
+
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php

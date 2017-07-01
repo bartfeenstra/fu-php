@@ -188,4 +188,12 @@ interface Iterator extends \Iterator, \Countable
      *   An Ok with the value, or None.
      */
     public function last(): Option;
+
+    /**
+     * Checks if the iterator is empty.
+     *
+     * @return bool
+     *   TRUE if there are no items. FALSE if there is at least one.
+     */
+    public function empty(): bool;
 }

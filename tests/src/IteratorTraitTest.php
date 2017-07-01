@@ -372,4 +372,22 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator([]);
         $this->assertEquals(new None(), $iterator->last());
     }
+
+    /**
+     * @covers ::empty
+     */
+    public function testEmptyWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertTrue($iterator->empty());
+    }
+
+    /**
+     * @covers ::empty
+     */
+    public function testEmptyWithNonEmptyIterator()
+    {
+        $iterator = new ArrayIterator([3, 1, 4]);
+        $this->assertFalse($iterator->empty());
+    }
 }
