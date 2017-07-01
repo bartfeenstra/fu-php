@@ -16,7 +16,7 @@ interface Iterator extends \Iterator, \Countable
    * @param callable $operation
    *   Signature: function(mixed $item): void.
    */
-    public function each(callable $operation);
+    public function each(callable $operation): void;
 
   /**
    * Filters items using a predicate.
