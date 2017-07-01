@@ -165,4 +165,20 @@ interface Iterator extends \Iterator, \Countable
      * @return \BartFeenstra\Functional\Iterator
      */
     public function flip(): self;
+
+    /**
+     * Gets the first value.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   An Ok with the value, or None.
+     */
+    public function first(): Option;
+
+    /**
+     * Gets the last value.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   An Ok with the value, or None.
+     */
+    public function last(): Option;
 }

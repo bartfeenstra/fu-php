@@ -319,4 +319,42 @@ final class IteratorTraitTest extends TestCase
         ];
         $this->assertSame($expected, iterator_to_array($iterator->flip()));
     }
+
+    /**
+     * @covers ::first
+     */
+    public function testFirst()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertEquals(new SomeValue(3), $iterator->first());
+    }
+
+    /**
+     * @covers ::first
+     */
+    public function testFirstWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertEquals(new None(), $iterator->first());
+    }
+
+    /**
+     * @covers ::last
+     */
+    public function testLast()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertEquals(new SomeValue(9), $iterator->last());
+    }
+
+    /**
+     * @covers ::last
+     */
+    public function testLastWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertEquals(new None(), $iterator->last());
+    }
 }
