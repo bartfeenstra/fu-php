@@ -22,6 +22,17 @@ trait IteratorTrait
         return new FilterIterator($this, $predicate);
     }
 
+    public function find(callable $predicate = null): Option
+    {
+        $predicate = $predicate ?: truthy();
+        return $this->fold(function ($none, $item) use ($predicate): Option {
+            if ($predicate($item)) {
+                throw new TerminateFold(new SomeValue($item));
+            }
+            return $none;
+        }, new None());
+    }
+
     public function map(callable $conversion): Iterator
     {
         return new MapIterator($this, $conversion);

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional;
 
 use BartFeenstra\Functional\ArrayIterator;
+use BartFeenstra\Functional\None;
+use BartFeenstra\Functional\SomeValue;
 use BartFeenstra\Functional\TerminateFold;
 use BartFeenstra\Functional\TerminateReduction;
 use PHPUnit\Framework\TestCase;
@@ -46,6 +48,43 @@ final class IteratorTraitTest extends TestCase
             3 => 1,
         ];
         $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::find
+     */
+    public function testFindSome()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $found = $iterator->find(function (int $value) :bool {
+            return $value > 4;
+        });
+        $this->assertEquals(new SomeValue(5), $found);
+    }
+
+    /**
+     * @covers ::find
+     */
+    public function testFindNone()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $found = $iterator->find(function (int $value) :bool {
+            return $value > 9;
+        });
+        $this->assertEquals(new None(), $found);
+    }
+
+    /**
+     * @covers ::find
+     */
+    public function testFindWithoutPredicate()
+    {
+        $array = [0, null, false, '', [], 666, 777];
+        $iterator = new ArrayIterator($array);
+        $found = $iterator->find();
+        $this->assertEquals(new SomeValue(666), $found);
     }
 
     /**
