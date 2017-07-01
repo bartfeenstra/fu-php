@@ -347,24 +347,21 @@ $function = function (string $a, string $b, string $c, string $d): string {
     return $a . $b . $c . $d;
 };
 $function = F\apply_l($function, 'A', 'B');
-$expected = 'ABCD';
-assert($expected === $function('C', 'D'));
+assert('ABCD' === $function('C', 'D'));
 
 // Fix the two last/right-handed arguments.
 $function = function (string $a, string $b, string $c, string $d): string {
     return $a . $b . $c . $d;
 };
 $function = F\apply_r($function, 'C', 'D');
-$expected = 'ABCD';
-assert($expected === $function('A', 'B'));
+assert('ABCD' === $function('A', 'B'));
 
 // Fix two arguments by index/in the middle.
 $function = function (string $a, string $b, string $c, string $d): string {
     return $a . $b . $c . $d;
 };
 $function = F\apply_i($function, 1, 'B', 'C');
-$expected = 'ABCD';
-assert($expected === $function('A', 'D'));
+assert('ABCD' === $function('A', 'D'));
 ?>
 ```
 
