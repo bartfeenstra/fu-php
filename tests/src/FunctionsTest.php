@@ -575,4 +575,121 @@ final class FunctionsTest extends TestCase
     {
         $this->assertSame($expected, F\instance_of(...$types)($value));
     }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_l
+     */
+    public function testApplyL()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_l($function, 'A', 'B');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('C', 'D'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_l
+     */
+    public function testApplyLWithoutEnoughArguments()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_l($function, 'A', 'B');
+        $function('C');
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_l
+     */
+    public function testApplyLWithTooManyArguments()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_l($function, 'A', 'B');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('C', 'D', 'E"'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_r
+     */
+    public function testApplyR()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_r($function, 'C', 'D');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('A', 'B'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_l
+     */
+    public function testApplyRWithoutEnoughArguments()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_r($function, 'C', 'D');
+        $function('A');
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_R
+     */
+    public function testApplRLWithTooManyArguments()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_r($function, 'C', 'D');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('A', 'B', 'E'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_i
+     */
+    public function testApplyI()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_i($function, 1, 'B', 'C');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('A', 'D'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_i
+     */
+    public function testApplyIWithoutEnoughArguments()
+    {
+        $this->expectException(\ArgumentCountError::class);
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_i($function, 1, 'B', 'C');
+        $function('A');
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\apply_i
+     */
+    public function testApplyIWithTooManyArguments()
+    {
+        $function = function (string $a, string $b, string $c, string $d): string {
+            return $a . $b . $c . $d;
+        };
+        $function = F\apply_i($function, 1, 'B', 'C');
+        $expected = 'ABCD';
+        $this->assertSame($expected, $function('A', 'D', 'E'));
+    }
 }

@@ -288,3 +288,64 @@ function instance_of(string $type, string ...$types): callable
         return false;
     };
 }
+
+/**
+ * Partially applies a callable, left-sided.
+ *
+ * @see https://en.wikipedia.org/wiki/Partial_application
+ *
+ * @param callable $callable
+ *   The callable to apply.
+ * @param mixed ...$fixedArguments
+ *   The arguments to fix.
+ *
+ * @return callable
+ */
+function apply_l(callable $callable, ...$fixedArguments): callable
+{
+    return function () use ($callable, $fixedArguments) {
+        return call_user_func($callable, ...$fixedArguments, ...func_get_args());
+    };
+}
+
+/**
+ * Partially applies a callable, right-sided.
+ *
+ * @see https://en.wikipedia.org/wiki/Partial_application
+ *
+ * @param callable $callable
+ *   The callable to apply.
+ * @param mixed ...$fixedArguments
+ *   The arguments to fix.
+ *
+ * @return callable
+ */
+function apply_r(callable $callable, ...$fixedArguments): callable
+{
+    $r = new \ReflectionFunction(\Closure::fromCallable($callable));
+    $index = $r->getNumberOfParameters() - count($fixedArguments);
+    return apply_i($callable, $index, ...$fixedArguments);
+}
+
+/**
+ * Partially applies a callable, fixing positioned arguments.
+ *
+ * @see https://en.wikipedia.org/wiki/Partial_application
+ *
+ * @param callable $callable
+ *   The callable to apply.
+ * @param int $index
+ *   The index of the argument to fix.
+ * @param mixed ...$fixedArguments
+ *   The arguments to fix.
+ *
+ * @return callable
+ */
+function apply_i(callable $callable, int $index, ...$fixedArguments): callable
+{
+    return function () use ($callable, $index, $fixedArguments) {
+        $arguments = func_get_args();
+        array_splice($arguments, $index, 0, $fixedArguments);
+        return call_user_func($callable, ...$arguments);
+    };
+}
