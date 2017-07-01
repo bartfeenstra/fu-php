@@ -210,7 +210,7 @@ assert($expected === iterator_to_array($zip));
 ```
 
 ### [Exception handling](#exceptions)
-Complex `try`/`catch` blocks can be replaced and converted to `Result` easily:
+Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php
 <?php
 // Try executing a callable, catch all exceptions, and output a Result.
@@ -229,7 +229,7 @@ $result = F\retry_except(function () {/** ... */}, 5, Foo::class, Bar::class, Ba
 
 
 ### [Predicates](#predicates)
-Predicates can be used with `filter()`. They can be any
+Predicates can be used with [`filter()`](#filter). They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) that takes a
 single parameter and returns a boolean, but we added some shortcuts for common
 conditions. These functions take configuration parameters, and return
@@ -272,8 +272,8 @@ $predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
 ```
 
 ### [The `Option` type](#the-option-type)
-In PHP, NULL signifies the absence of a value, but it is also used as a value itself. In such cases, an `Option` type
-helps to distinguish between NULL as a value, and no value at all.
+In PHP, `NULL` signifies the absence of a value, but it is also used as a value itself. In such cases, an `Option` type
+helps to distinguish between `NULL` as a value, and no value at all.
 ```php
 <?php
 use BartFeenstra\Functional\Option;
@@ -301,8 +301,7 @@ handle_option(get_option());
 
 ### [The `Result` type](#the-result-type)
 The `Result` type can be used to [complement](#exception-handling) or replace exceptions. As such, it is returned by
-functions like `try_except()`. It represents success and a value, or an
-error.
+functions like [`try_except()`](#exception-handling). It represents success and a value, or an error.
 ```php
 <?php
 use BartFeenstra\Functional\Ok;
