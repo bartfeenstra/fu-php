@@ -23,7 +23,7 @@ final class IteratorTraitTest extends TestCase
         $carrier = [];
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator->each(function (int $i) use (&$carrier) {
+        $iterator->each(function (int $i) use (&$carrier): void {
             $carrier[] = $i;
         });
         $this->assertSame($array, $carrier);
