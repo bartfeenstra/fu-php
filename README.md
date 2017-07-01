@@ -20,6 +20,8 @@ applied to the iterator items you actually use.
     1. [Operations](#operations)
     1. [Exception handling](#exception-handling)
     1. [Predicates](#predicates)
+    1. [The `Option` type](#the-option-type)
+    1. [The `Result` type](#the-result-type)
 1. [Contributing](#contributing)
 1. [Development](#development)
 
@@ -268,6 +270,67 @@ $predicate = F\le(666);
 $predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
 ?>
 ```
+
+### [The `Option` type](#the-option-type)
+In PHP, NULL signifies the absence of a value, but it is also used as a value itself. In such cases, an `Option` type
+helps to distinguish between NULL as a value, and no value at all.
+```php
+<?php
+use BartFeenstra\Functional\Option;
+use BartFeenstra\Functional\Some;
+use BartFeenstra\Functional\SomeValue;
+use BartFeenstra\Functional\None;
+function get_option(): Option {
+    if (true) {
+        return new SomeValue(666);
+    }
+    return new None();
+}
+function handle_option(Option $value) {
+    if ($value instanceof Some) {
+        print sprintf('The value is %s.', $value());
+    }
+    // $value is an instance of None.
+    else {
+        print 'No value could be retrieved.';
+    }
+}
+handle_option(get_option());
+?>
+```
+
+### [The `Result` type](#the-result-type)
+The `Result` type can be used to [complement](#exception-handling) or replace exceptions. As such, it is returned by
+functions like `try_except()`. It represents success and a value, or an
+error.
+```php
+<?php
+use BartFeenstra\Functional\Ok;
+use BartFeenstra\Functional\OkValue;
+use BartFeenstra\Functional\Result;
+use BartFeenstra\Functional\ThrowableError;
+function get_result(): Result {
+    try {
+        // Do some things that may throw a ResultComputationException.
+        return new OkValue(666);
+    }
+    catch (\ResultComputationException $e) {
+        return new ThrowableError($e);
+    }
+}
+function handle_result(Result $result) {
+    if ($result instanceof Ok) {
+        print sprintf('The value is %s.', $result());
+    }
+    // $value is an instance of Error.
+    else {
+        print sprintf('An error occurred: %s.', $result);
+    }
+}
+handle_result(get_result());
+?>
+```
+
 
 ## [Contributing](#contributing)
 Your involvement is more than welcome. Please
