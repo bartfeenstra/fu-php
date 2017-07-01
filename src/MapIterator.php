@@ -7,10 +7,8 @@ namespace BartFeenstra\Functional;
 /**
  * Defines a mapping iterator.
  */
-final class MapIterator extends \IteratorIterator implements Iterator
+final class MapIterator extends IteratorIterator
 {
-
-    use IteratorTrait;
 
     private $map;
 

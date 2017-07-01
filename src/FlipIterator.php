@@ -7,11 +7,8 @@ namespace BartFeenstra\Functional;
 /**
  * Swaps keys and values.
  */
-final class FlipIterator extends \IteratorIterator implements Iterator
+final class FlipIterator extends IteratorIterator
 {
-
-    use IteratorTrait;
-
     public function current()
     {
         return parent::key();

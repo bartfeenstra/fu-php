@@ -129,4 +129,9 @@ trait IteratorTrait
     {
         return new FlipIterator($this);
     }
+
+    public function reverse(): Iterator
+    {
+        return new ArrayIterator(array_reverse(iterator_to_array($this)));
+    }
 }

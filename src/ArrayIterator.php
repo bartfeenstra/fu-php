@@ -7,7 +7,7 @@ namespace BartFeenstra\Functional;
 /**
  * Iterates over an array.
  */
-final class ArrayIterator implements Iterator, Reversible
+final class ArrayIterator implements Iterator
 {
 
     use IteratorTrait;

@@ -5,10 +5,9 @@ declare(strict_types = 1);
 namespace BartFeenstra\Functional;
 
 /**
- * Iterates over another iterator.
+ * Converts any \Traversable to a universal iterator.
  */
-final class IteratorIterator extends \IteratorIterator implements Iterator
+class IteratorIterator extends \IteratorIterator implements Iterator
 {
-
     use IteratorTrait;
 }

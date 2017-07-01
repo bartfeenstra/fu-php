@@ -165,4 +165,11 @@ interface Iterator extends \Iterator, \Countable
      * @return \BartFeenstra\Functional\Iterator
      */
     public function flip(): self;
+
+    /**
+     * Reverses the values.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function reverse(): Iterator;
 }
