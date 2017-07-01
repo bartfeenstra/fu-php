@@ -124,4 +124,9 @@ trait IteratorTrait
     {
         return new KeyIterator($this);
     }
+
+    public function flip(): Iterator
+    {
+        return new FlipIterator($this);
+    }
 }

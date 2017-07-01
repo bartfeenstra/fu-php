@@ -155,4 +155,14 @@ interface Iterator extends \Iterator, \Countable
      * @return \BartFeenstra\Functional\Iterator
      */
     public function keys(): self;
+
+    /**
+     * Swaps keys and values.
+     *
+     * Not all types are valid keys. Refer to the \Iterator documentation on php.net for more information.
+     * @see http://php.net/manual/en/class.iterator.php
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function flip(): self;
 }

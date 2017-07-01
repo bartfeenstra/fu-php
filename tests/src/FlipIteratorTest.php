@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace BartFeenstra\Tests\Functional;
+
+use BartFeenstra\Functional\ArrayIterator;
+use BartFeenstra\Functional\FlipIterator;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @coversDefaultClass \BartFeenstra\Functional\FlipIterator
+ */
+final class FlipIteratorTest extends TestCase
+{
+
+    /**
+     * @covers \BartFeenstra\Functional\FlipIterator
+     */
+    public function test()
+    {
+        $array = [
+            'a' => 3,
+            'b' => 1,
+            'c' => 4,
+        ];
+        $iterator = new FlipIterator(new ArrayIterator($array));
+        $expected = [
+            3 => 'a',
+            1 => 'b',
+            4 => 'c',
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+}
