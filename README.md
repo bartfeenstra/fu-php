@@ -22,6 +22,7 @@ applied to the iterator items you actually use.
     1. [Predicates](#predicates)
     1. [The `Option` type](#the-option-type)
     1. [The `Result` type](#the-result-type)
+    1. [Partial function application](#partial-function-application)
 1. [Contributing](#contributing)
 1. [Development](#development)
 
@@ -327,6 +328,34 @@ function handle_result(Result $result) {
     }
 }
 handle_result(get_result());
+?>
+```
+
+### [Partial function application](#partial-function-application)
+[Partial function application](https://en.wikipedia.org/wiki/Partial_application) is the creation of a new function with
+zero or more parameters, based on an existing function, by fixing one or more of the arguments of the original function,
+before calling it. Practically speaking, it allows you to copy a function, and fill out some of the arguments before
+calling it. You can use this to quickly transform existing functions into anonymous functions that can be used as
+callbacks. In PHP, this is possible with any kind of [callable](http://php.net/manual/en/language.types.callable.php)
+(functions, methods, closures, ...).
+
+```php
+<?php
+$originalFunction = function (string $a, string $b, string $c, string $d): string {
+    return $a . $b . $c . $d;
+};
+
+// Fix the two first/left-handed arguments.
+$newFunction = F\apply_l($originalFunction, 'A', 'B');
+assert('ABCD' === $newFunction('C', 'D'));
+
+// Fix the two last/right-handed arguments.
+$newFunction = F\apply_r($originalFunction, 'C', 'D');
+assert('ABCD' === $newFunction('A', 'B'));
+
+// Fix two arguments by index/in the middle.
+$newFunction = F\apply_i($originalFunction, 1, 'B', 'C');
+assert('ABCD' === $newFunction('A', 'D'));
 ?>
 ```
 
