@@ -93,6 +93,14 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ?>
 ```
 
+#### find
+```php
+<?php
+$found = iter([3, 1, 4, 1, 5, 9])->find(F\gt(4));
+assert(new F\SomeValue(5) == $found);
+?>
+```
+
 #### map
 ```php
 <?php
@@ -230,7 +238,7 @@ $result = F\retry_except(function () {/** ... */}, 5, Foo::class, Bar::class, Ba
 
 
 ### [Predicates](#predicates)
-Predicates can be used with [`filter()`](#filter). They can be any
+Predicates can be used with [`filter()`](#filter) and [`find()`](#find). They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) that takes a
 single parameter and returns a boolean, but we added some shortcuts for common
 conditions. These functions take configuration parameters, and return

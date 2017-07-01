@@ -29,6 +29,17 @@ interface Iterator extends \Iterator, \Countable
     public function filter(callable $predicate = null): self;
 
   /**
+   * Tries to find a single item.
+   *
+   * @param callable|null $predicate
+   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+   *
+   * @return Option
+   *   Returns an Ok with the value, if found.
+   */
+    public function find(callable $predicate = null): Option;
+
+  /**
    * Maps/converts items.
    *
    * @param callable $conversion
