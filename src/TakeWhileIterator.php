@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace BartFeenstra\Functional;
 
 /**
- * Takes all items up to but not including the first one for which the predicate evaluates to FALSE.
+ * Takes all values up to but not including the first one for which the predicate evaluates to FALSE.
  */
 final class TakeWhileIterator extends \FilterIterator implements Iterator
 {
@@ -21,7 +21,7 @@ final class TakeWhileIterator extends \FilterIterator implements Iterator
    * @param \Iterator $iterator
    *   The iterator to iterate over.
    * @param callable $predicate
-   *   Signature: function($item): bool.
+   *   Signature: function(mixed $value, mixed $key): bool.
    */
     public function __construct(\Iterator $iterator, callable $predicate)
     {
@@ -31,7 +31,7 @@ final class TakeWhileIterator extends \FilterIterator implements Iterator
 
     public function accept()
     {
-        $accept = call_user_func($this->predicate, parent::current());
+        $accept = call_user_func($this->predicate, $this->current(), $this->key());
         if (!$accept) {
             $this->while = false;
         }

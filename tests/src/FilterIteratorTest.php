@@ -20,14 +20,14 @@ final class FilterIteratorTest extends TestCase
     public function test()
     {
         $array = [3, 1, 4, 1, 5, 9];
-        $iterator = new FilterIterator(new ArrayIterator($array), function (int $value) :bool {
-            return $value < 4;
+        $iterator = new FilterIterator(new ArrayIterator($array), function (int $value, int $key) :bool {
+            // Use both the key and the value.
+            return $key % 2 === 0 and $value >= 4;
         });
         $expected = [
             // Make sure the result remains associative.
-            0 => 3,
-            1 => 1,
-            3 => 1,
+            2 => 4,
+            4 => 5,
         ];
         $this->assertSame($expected, iterator_to_array($iterator));
     }

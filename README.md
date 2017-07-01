@@ -72,6 +72,7 @@ $iterator = iter($toIterator);
 ```
 
 ### [Operations](#operations)
+The following operations work with iterator values, and even keys in the case of user-supplied callbacks:
 
 #### each
 ```php

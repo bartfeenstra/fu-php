@@ -22,7 +22,7 @@ final class FilterIterator extends \FilterIterator implements Iterator
    * @param \Iterator $iterator
    *   The iterator to iterate over.
    * @param callable $predicate
-   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    */
     public function __construct(\Iterator $iterator, callable $predicate = null)
     {
@@ -32,6 +32,6 @@ final class FilterIterator extends \FilterIterator implements Iterator
 
     public function accept()
     {
-        return call_user_func($this->predicate, parent::current());
+        return call_user_func($this->predicate, $this->current(), $this->key());
     }
 }

@@ -11,28 +11,28 @@ interface Iterator extends \Iterator, \Countable
 {
 
   /**
-   * Performs an operation for each item.
+   * Performs an operation for each value.
    *
    * @param callable $operation
-   *   Signature: function(mixed $item): void.
+   *   Signature: function(mixed $value, mixed $key): void.
    */
     public function each(callable $operation): void;
 
   /**
-   * Filters items using a predicate.
+   * Filters values using a predicate.
    *
    * @param callable|null $predicate
-   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function filter(callable $predicate = null): self;
 
   /**
-   * Tries to find a single item.
+   * Tries to find a single value.
    *
    * @param callable|null $predicate
-   *   Signature: function($item): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    *
    * @return Option
    *   Returns an Ok with the value, if found.
@@ -40,31 +40,33 @@ interface Iterator extends \Iterator, \Countable
     public function find(callable $predicate = null): Option;
 
   /**
-   * Maps/converts items.
+   * Maps/converts values.
    *
    * @param callable $conversion
-   *   Signature: function(mixed $item): mixed.
+   *   Signature: function(mixed $value, mixed $key): mixed.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function map(callable $conversion): self;
 
   /**
-   * Reduces items to a single value.
+   * Reduces values to a single value.
    *
    * @param callable $reduction
-   *   Signature: function(mixed $carrier, mixed $item): mixed. The parameter and return types are identical.
+   *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The parameter and return types are
+   *   identical.
    *
    * @return mixed
-   *   The type is the same as that of the items.
+   *   The type is the same as that of the values.
    */
     public function reduce(callable $reduction);
 
   /**
-   * Folds items to a single value.
+   * Folds values to a single value.
    *
    * @param callable $fold
-   *   Signature: function(mixed $carrier, mixed $item): mixed. The return type is the same as that of the carrier.
+   *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The return type is the same as that of the
+   *   carrier.
    * @param mixed $initial_carrier
    *
    * @return mixed
@@ -73,70 +75,70 @@ interface Iterator extends \Iterator, \Countable
     public function fold(callable $fold, $initial_carrier);
 
   /**
-   * Takes only the first n items.
+   * Takes only the first n values.
    *
    * @param int $length
-   *   The number of items to take.
+   *   The number of values to take.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function take(int $length): self;
 
   /**
-   * Takes all items up to but not including the first one for which the predicate evaluates to FALSE.
+   * Takes all values up to but not including the first one for which the predicate evaluates to FALSE.
    *
    * @param callable $predicate
-   *   Signature: function($item): bool.
+   *   Signature: function(mixed $value, mixed $key): bool.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function takeWhile(callable $predicate): self;
 
   /**
-   * Takes a slice out of the items.
+   * Takes a slice out of the values.
    *
    * @param int $start
-   *   The index of the first item to take. Indexes start at 0.
+   *   The index of the first value to take. Indexes start at 0.
    * @param int $length
-   *   The number of items to take.
+   *   The number of values to take.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function slice(int $start, int $length): self;
 
   /**
-   * Gets the item with the lowest value.
+   * Gets the value with the lowest value.
    *
    * @return mixed
-   *   The type is the same as that of the items.
+   *   The type is the same as that of the values.
    */
     public function min();
 
   /**
-   * Gets the item with the highest value.
+   * Gets the value with the highest value.
    *
    * @return mixed
-   *   The type is the same as that of the items.
+   *   The type is the same as that of the values.
    */
     public function max();
 
   /**
-   * Gets the sum of all the items.
+   * Gets the sum of all the values.
    *
    * @return mixed
-   *   The type is the same as that of the items.
+   *   The type is the same as that of the values.
    */
     public function sum();
 
   /**
-   * Repeats all items forever.
+   * Repeats all values forever.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
     public function forever(): self;
 
     /**
-     * Zips each item into a tuple with corresponding items from each of the other traversables.
+     * Zips each value into a tuple with corresponding values from each of the other traversables.
      *
      * @param mixed $other
      *   Any value taken by \BartFeenstra\Functional\iter().

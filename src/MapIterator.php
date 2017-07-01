@@ -20,7 +20,7 @@ final class MapIterator extends \IteratorIterator implements Iterator
    * @param \Iterator $iterator
    *   The iterator to iterate over.
    * @param callable $map
-   *   Signature: function($item): bool.
+   *   Signature: function(mixed $value, mixed $key): bool.
    */
     public function __construct(\Iterator $iterator, callable  $map)
     {
@@ -30,6 +30,6 @@ final class MapIterator extends \IteratorIterator implements Iterator
 
     public function current()
     {
-        return call_user_func($this->map, parent::current());
+        return call_user_func($this->map, parent::current(), $this->key());
     }
 }

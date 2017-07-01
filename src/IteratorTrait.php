@@ -12,8 +12,8 @@ trait IteratorTrait
 
     public function each(callable $operation): void
     {
-        foreach ($this as $item) {
-            $operation($item);
+        foreach ($this as $key => $value) {
+            $operation($value, $key);
         }
     }
 
@@ -25,9 +25,9 @@ trait IteratorTrait
     public function find(callable $predicate = null): Option
     {
         $predicate = $predicate ?: truthy();
-        return $this->fold(function ($none, $item) use ($predicate): Option {
-            if ($predicate($item)) {
-                throw new TerminateFold(new SomeValue($item));
+        return $this->fold(function ($none, $value, $key) use ($predicate): Option {
+            if ($predicate($value, $key)) {
+                throw new TerminateFold(new SomeValue($value));
             }
             return $none;
         }, new None());
@@ -45,7 +45,7 @@ trait IteratorTrait
             $carrier = $this->current();
             $this->next();
             while ($this->valid()) {
-                $carrier = $reduction($carrier, $this->current());
+                $carrier = $reduction($carrier, $this->current(), $this->key());
                 $this->next();
             }
             return $carrier;
@@ -58,8 +58,8 @@ trait IteratorTrait
     {
         $carrier = $initial_carrier;
         try {
-            foreach ($this as $item) {
-                $carrier = $fold($carrier, $item);
+            foreach ($this as $key => $value) {
+                $carrier = $fold($carrier, $value, $key);
             }
             return $carrier;
         } catch (TerminateFold $t) {
@@ -91,22 +91,22 @@ trait IteratorTrait
 
     public function min()
     {
-        return $this->reduce(function ($carrier, $item) {
-            return $item < $carrier ? $item : $carrier;
+        return $this->reduce(function ($carrier, $value) {
+            return $value < $carrier ? $value : $carrier;
         });
     }
 
     public function max()
     {
-        return $this->reduce(function ($carrier, $item) {
-            return $item > $carrier ? $item : $carrier;
+        return $this->reduce(function ($carrier, $value) {
+            return $value > $carrier ? $value : $carrier;
         });
     }
 
     public function sum()
     {
-        return $this->reduce(function ($carrier, $item) {
-            return $item + $carrier;
+        return $this->reduce(function ($carrier, $value) {
+            return $value + $carrier;
         });
     }
 
