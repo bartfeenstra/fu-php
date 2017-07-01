@@ -277,4 +277,19 @@ final class IteratorTraitTest extends TestCase
         $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
         $this->assertSame($expected, iterator_to_array($iterator));
     }
+
+    /**
+     * @covers ::keys
+     */
+    public function testKeys()
+    {
+        $array = [
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+        ];
+        $iterator = new ArrayIterator($array);
+        $expected = ['a', 'b', 'c'];
+        $this->assertSame($expected, iterator_to_array($iterator->keys()));
+    }
 }

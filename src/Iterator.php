@@ -146,4 +146,11 @@ interface Iterator extends \Iterator, \Countable
      * @return \BartFeenstra\Functional\Iterator
      */
     public function zip($other, ...$others): self;
+
+    /**
+     * Returns the keys as indexed values.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function keys(): self;
 }

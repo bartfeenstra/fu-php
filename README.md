@@ -218,6 +218,20 @@ assert($expected === iterator_to_array($zip));
 ?>
 ```
 
+#### keys
+```php
+<?php
+$array = [
+    'a' => 'A',
+    'b' => 'B',
+    'c' => 'C',
+];
+$keys = iter($array)->keys();
+$expected = ['a', 'b', 'c'];
+assert($expected === iterator_to_array($keys));
+?>
+```
+
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php

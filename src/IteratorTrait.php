@@ -119,4 +119,9 @@ trait IteratorTrait
     {
         return new ZipIterator($this, ...func_get_args());
     }
+
+    public function keys(): Iterator
+    {
+        return new KeyIterator($this);
+    }
 }
