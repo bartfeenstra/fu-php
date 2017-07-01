@@ -20,10 +20,11 @@ final class MapIteratorTest extends TestCase
     public function test()
     {
         $array = [3, 1, 4, 1, 5, 9];
-        $iterator = new MapIterator(new ArrayIterator($array), function (int $value) :string {
-            return (string) (3 * $value);
+        $iterator = new MapIterator(new ArrayIterator($array), function (int $value, int $key) :string {
+            // Use both the key and the value.
+            return (string) ($key + $value);
         });
-        $expected = ['9', '3', '12', '3', '15', '27'];
+        $expected = ['3', '2', '6', '4', '9', '14'];
         $this->assertSame($expected, iterator_to_array($iterator));
     }
 }

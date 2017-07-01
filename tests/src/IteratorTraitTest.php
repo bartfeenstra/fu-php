@@ -23,10 +23,11 @@ final class IteratorTraitTest extends TestCase
     public function testEach()
     {
         $carrier = [];
-        $array = [3, 1, 4, 1, 5, 9];
+        $array = array_reverse([3, 1, 4, 1, 5, 9], true);
         $iterator = new ArrayIterator($array);
-        $iterator->each(function (int $i) use (&$carrier): void {
-            $carrier[] = $i;
+        $iterator->each(function (int $value, int $key) use (&$carrier): void {
+            // Use both the key and the value.
+            $carrier[$key] = $value;
         });
         $this->assertSame($array, $carrier);
     }
@@ -38,14 +39,14 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->filter(function (int $value) :bool {
-            return $value < 4;
+        $iterator = $iterator->filter(function (int $value, int $key) :bool {
+            // Use both the key and the value.
+            return $key % 2 === 0 and $value >= 4;
         });
         $expected = [
             // Make sure the result remains associative.
-            0 => 3,
-            1 => 1,
-            3 => 1,
+            2 => 4,
+            4 => 5,
         ];
         $this->assertSame($expected, iterator_to_array($iterator));
     }
@@ -57,10 +58,11 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $found = $iterator->find(function (int $value) :bool {
-            return $value > 4;
+        $found = $iterator->find(function (int $value, int $key) :bool {
+            // Use both the key and the value.
+            return $key % 2 === 0 and $value >= 4;
         });
-        $this->assertEquals(new SomeValue(5), $found);
+        $this->assertEquals(new SomeValue(4), $found);
     }
 
     /**
@@ -94,10 +96,11 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->map(function (int $value) :string {
-            return (string) (3 * $value);
+        $iterator = $iterator->map(function (int $value, int $key) :string {
+            // Use both the key and the value.
+            return (string) ($key + $value);
         });
-        $expected = ['9', '3', '12', '3', '15', '27'];
+        $expected = ['3', '2', '6', '4', '9', '14'];
         $this->assertSame($expected, iterator_to_array($iterator));
     }
 
@@ -108,10 +111,11 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4];
         $iterator = new ArrayIterator($array);
-        $actual = $iterator->reduce(function (int $carrier, int $item): int {
-            return $carrier + $item;
+        $actual = $iterator->reduce(function (int $carrier, int $value, int $key): int {
+            // Use both the key and the value.
+            return $carrier + $value + $key;
         });
-        $this->assertSame(8, $actual);
+        $this->assertSame(11, $actual);
     }
 
     /**
@@ -122,8 +126,8 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $actual = $iterator->reduce(function (int $carrier, int $item): int {
-            $carrier = $carrier + $item;
+        $actual = $iterator->reduce(function (int $carrier, int $value): int {
+            $carrier = $carrier + $value;
             if ($carrier > 9) {
                 throw new TerminateReduction($carrier);
             }
@@ -139,10 +143,11 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4];
         $iterator = new ArrayIterator($array);
-        $actual = $iterator->fold(function (int $carrier, int $item): int {
-            return $carrier + $item;
+        $actual = $iterator->fold(function (int $carrier, int $value, int $key): int {
+            // Use both the key and the value.
+            return $carrier + $value + $key;
         }, 1);
-        $this->assertSame(9, $actual);
+        $this->assertSame(12, $actual);
     }
 
     /**
@@ -153,8 +158,8 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $actual = $iterator->fold(function (int $carrier, int $item): int {
-            $carrier = $carrier + $item;
+        $actual = $iterator->fold(function (int $carrier, int $value): int {
+            $carrier = $carrier + $value;
             if ($carrier > 9) {
                 throw new TerminateFold($carrier);
             }
@@ -193,13 +198,16 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->takeWhile(function (int $i): bool {
-            return $i < 4;
+        $iterator = $iterator->takeWhile(function (int $value, int $key): bool {
+            // Use both the key and the value.
+            return $key + $value < 9;
         });
         $expected = [
             // Make sure the result remains associative.
             0 => 3,
             1 => 1,
+            2 => 4,
+            3 => 1,
         ];
         $this->assertSame($expected, iterator_to_array($iterator));
     }

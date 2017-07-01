@@ -11,7 +11,7 @@ interface Reversible
 {
 
     /**
-     * Reverses the items.
+     * Reverses the values.
      *
      * @return \BartFeenstra\Functional\Iterator
      */
