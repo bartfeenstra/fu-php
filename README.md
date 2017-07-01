@@ -233,6 +233,25 @@ assert($expected === iterator_to_array($keys));
 ?>
 ```
 
+#### flip
+Swaps keys and values, similarly to [`array_flip()`](http://php.net/manual/en/function.array-flip.php).
+```php
+<?php
+$array = [
+    'a' => 3,
+    'b' => 1,
+    'c' => 4,
+];
+$flipped = iter($array)->flip();
+$expected = [
+    3 => 'a',
+    1 => 'b',
+    4 => 'c',
+];
+assert($expected === iterator_to_array($flipped));
+?>
+```
+
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php
