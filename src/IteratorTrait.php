@@ -129,4 +129,26 @@ trait IteratorTrait
     {
         return new FlipIterator($this);
     }
+
+    public function first(): Option
+    {
+        $this->rewind();
+        if ($this->valid()) {
+            return new SomeValue($this->current());
+        }
+        return new None;
+    }
+
+    public function last(): Option
+    {
+        $this->rewind();
+        if (!$this->valid()) {
+            return new None();
+        }
+        $last;
+        foreach ($this as $value) {
+            $last = $value;
+        }
+        return new SomeValue($last);
+    }
 }

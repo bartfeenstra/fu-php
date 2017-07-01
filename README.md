@@ -252,6 +252,24 @@ assert($expected === iterator_to_array($flipped));
 ?>
 ```
 
+#### first
+Gets the first value.
+```php
+<?php
+$array = [3, 1, 4, 1, 5, 9];
+assert(new F\SomeValue(3) == iter($array)->first());
+?>
+```
+
+#### last
+Gets the last value.
+```php
+<?php
+$array = [3, 1, 4, 1, 5, 9];
+assert(new F\SomeValue(9) == iter($array)->last());
+?>
+```
+
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php
