@@ -302,6 +302,21 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::indexed
+     */
+    public function testIndexed()
+    {
+        $array = [
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+        ];
+        $iterator = new ArrayIterator($array);
+        $expected = ['A', 'B', 'C'];
+        $this->assertSame($expected, iterator_to_array($iterator->indexed()));
+    }
+
+    /**
      * @covers ::flip
      */
     public function testFlip()

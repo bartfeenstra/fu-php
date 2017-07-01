@@ -233,6 +233,21 @@ assert($expected === iterator_to_array($keys));
 ?>
 ```
 
+#### indexed
+Converts all keys to integers, starting from 0.
+```php
+<?php
+$array = [
+    'a' => 'A',
+    'b' => 'B',
+    'c' => 'C',
+];
+$indexed = iter($array)->indexed();
+$expected = ['A', 'B', 'C'];
+assert($expected === iterator_to_array($indexed));
+?>
+```
+
 #### flip
 Swaps keys and values, similarly to [`array_flip()`](http://php.net/manual/en/function.array-flip.php).
 ```php
