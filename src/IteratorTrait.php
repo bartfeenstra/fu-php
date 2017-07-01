@@ -125,6 +125,11 @@ trait IteratorTrait
         return new KeyIterator($this);
     }
 
+    public function indexed(): Iterator
+    {
+        return new IndexedIterator($this);
+    }
+
     public function flip(): Iterator
     {
         return new FlipIterator($this);

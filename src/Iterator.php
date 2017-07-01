@@ -157,6 +157,13 @@ interface Iterator extends \Iterator, \Countable
     public function keys(): self;
 
     /**
+     * Converts all keys to integers, starting from 0.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function indexed(): self;
+
+    /**
      * Swaps keys and values.
      *
      * Not all types are valid keys. Refer to the \Iterator documentation on php.net for more information.
