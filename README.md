@@ -342,26 +342,21 @@ callbacks. In PHP, this is possible with any kind of [callable](http://php.net/m
 
 ```php
 <?php
-// Fix the two first/left-handed arguments.
-$function = function (string $a, string $b, string $c, string $d): string {
+$originalFunction = function (string $a, string $b, string $c, string $d): string {
     return $a . $b . $c . $d;
 };
-$function = F\apply_l($function, 'A', 'B');
-assert('ABCD' === $function('C', 'D'));
+
+// Fix the two first/left-handed arguments.
+$newFunction = F\apply_l($originalFunction, 'A', 'B');
+assert('ABCD' === $newFunction('C', 'D'));
 
 // Fix the two last/right-handed arguments.
-$function = function (string $a, string $b, string $c, string $d): string {
-    return $a . $b . $c . $d;
-};
-$function = F\apply_r($function, 'C', 'D');
-assert('ABCD' === $function('A', 'B'));
+$newFunction = F\apply_r($originalFunction, 'C', 'D');
+assert('ABCD' === $newFunction('A', 'B'));
 
 // Fix two arguments by index/in the middle.
-$function = function (string $a, string $b, string $c, string $d): string {
-    return $a . $b . $c . $d;
-};
-$function = F\apply_i($function, 1, 'B', 'C');
-assert('ABCD' === $function('A', 'D'));
+$newFunction = F\apply_i($originalFunction, 1, 'B', 'C');
+assert('ABCD' === $newFunction('A', 'D'));
 ?>
 ```
 
