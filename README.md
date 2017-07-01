@@ -75,6 +75,7 @@ $iterator = iter($toIterator);
 The following operations work with iterator values, and even keys in the case of user-supplied callbacks:
 
 #### each
+Executes code for every value.
 ```php
 <?php
 $carrier = [];
@@ -87,6 +88,7 @@ assert($list === $carrier);
 ```
 
 #### filter
+Filters out values that do not match.
 ```php
 <?php
 $result = iter([3, 1, 4])->filter(F\gt(2));
@@ -95,6 +97,7 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ```
 
 #### find
+Tries to find a single matching value.
 ```php
 <?php
 $found = iter([3, 1, 4, 1, 5, 9])->find(F\gt(4));
@@ -103,6 +106,7 @@ assert(new F\SomeValue(5) == $found);
 ```
 
 #### map
+Converts all values individually.
 ```php
 <?php
 $original = [3, 1, 4];
@@ -115,6 +119,7 @@ assert($expected === iterator_to_array($result));
 ```
 
 #### reduce
+Combines all values into a single one.
 ```php
 <?php
 $list = [3, 1, 4];
@@ -128,6 +133,7 @@ To terminate the reduction before all items have been processed, throw a `Termin
 value.
 
 #### fold
+Combines all values into a single one, with a default start value.
 ```php
 <?php
 $start = 2;
@@ -141,6 +147,7 @@ assert(10 === $total);
 To terminate the fold before all items have been processed, throw a `TerminateFold` with the final carrier value.
 
 #### take
+Takes *n* values.
 ```php
 <?php
 $start = 2;
@@ -151,6 +158,7 @@ assert([3, 1, 4, 1] === iterator_to_array($result));
 ```
 
 #### takeWhile
+Take as many consecutively matching values as possible from the beginning.
 ```php
 <?php
 $start = 2;
@@ -161,6 +169,7 @@ assert([3, 1] === iterator_to_array($result));
 ```
 
 #### slice
+Slices the values into a smaller collection.
 ```php
 <?php
 $start = 2;
@@ -171,6 +180,7 @@ assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
 ```
 
 #### min
+Gets the lowest value.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
@@ -180,6 +190,7 @@ assert(1 === $min);
 ```
 
 #### max
+Gets the highest value.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
@@ -189,6 +200,7 @@ assert(9 === $max);
 ```
 
 #### sum
+Sums all values.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
@@ -198,6 +210,7 @@ assert(23 === $sum);
 ```
 
 #### forever
+Infinitely repeats the set of values.
 ```php
 <?php
 $list = [3, 1, 4];
@@ -208,6 +221,7 @@ assert($expected === iterator_to_array($iterator->take(7), false));
 ```
 
 #### zip
+Combines the values of two or more iterables into [tuples](https://en.wikipedia.org/wiki/Tuple).
 ```php
 <?php
 $one = [3, 1, 4];
@@ -220,6 +234,7 @@ assert($expected === iterator_to_array($zip));
 ```
 
 #### keys
+Uses keys as values, and the new keys are indexes.
 ```php
 <?php
 $array = [
@@ -286,7 +301,7 @@ assert(new F\SomeValue(9) == iter($array)->last());
 ```
 
 #### empty
-Gets the last value.
+Checks if there are no values.
 ```php
 <?php
 assert(TRUE === iter([])->empty());
