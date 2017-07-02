@@ -84,8 +84,11 @@ trait IteratorTrait
         return new TakeWhileIterator($this, $predicate);
     }
 
-    public function slice(int $start, int $length): Iterator
+    public function slice(int $start, int $length = null): Iterator
     {
+        if (is_null($length)) {
+            $length = -1;
+        }
         return new LimitIterator($this, $start, $length);
     }
 

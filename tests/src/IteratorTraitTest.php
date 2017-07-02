@@ -215,7 +215,7 @@ final class IteratorTraitTest extends TestCase
     /**
      * @covers ::slice
      */
-    public function testSlice()
+    public function testSliceWithLength()
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
@@ -225,6 +225,24 @@ final class IteratorTraitTest extends TestCase
             2 => 4,
             3 => 1,
             4 => 5,
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::slice
+     */
+    public function testSliceWithoutLength()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->slice(2);
+        $expected = [
+            // Make sure the result remains associative.
+            2 => 4,
+            3 => 1,
+            4 => 5,
+            5 => 9,
         ];
         $this->assertSame($expected, iterator_to_array($iterator));
     }
