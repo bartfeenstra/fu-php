@@ -99,12 +99,12 @@ interface Iterator extends \Iterator, \Countable
    *
    * @param int $start
    *   The index of the first value to take. Indexes start at 0.
-   * @param int $length
-   *   The number of values to take.
+   * @param int|null $length
+   *   The number of values to take, or NULL to create an infinite slice.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
-    public function slice(int $start, int $length): self;
+    public function slice(int $start, int $length = null): self;
 
   /**
    * Gets the value with the lowest value.
