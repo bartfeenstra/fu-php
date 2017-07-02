@@ -2,19 +2,16 @@
 
 [![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php)
 
-This library provides several tools to write more functional PHP. Its main goal
-is to make you more productive by providing universal iterators, and to make
-your code shorter and more self-documenting at the same time.
-
-Many of the features exist in PHP in one way or another, such as mapping,
-filtering, and reductions. They are, however, inconsistent, sometimes verbose,
-and different depending on the type of traversable data you are working with.
-This library uses native PHP features where possible, wrapping them in a
-unified API. Additionally, many of the operations are lazy, so they are only
-applied to the iterator items you actually use.
+This library provides tools to write more functional PHP code. Its concise and consistent API
+makes you more productive in different ways:
+ - Universal tools for [processing iterables](#iterators) like arrays.
+ - Callback [generation](#predicates) and [modification](#partial-function-application) functions.
+ - [Optional value types](#the-option-type) to aid with stronger typing and erorr handling.
+ - Shorthand [exception handling](#exception-handling).
 
 ## Table of contents
 1. [Installation](#installation)
+1. [About](#about)
 1. [Usage](#usage)
     1. [Iterators](#iterators)
     1. [Operations](#operations)
@@ -25,6 +22,24 @@ applied to the iterator items you actually use.
     1. [Partial function application](#partial-function-application)
 1. [Contributing](#contributing)
 1. [Development](#development)
+
+## [About](#about)
+This library was written to address several concerns:
+- Provide a single, consistent API to the different [iterable](http://php.net/manual/en/language.types.iterable.php)
+  types in PHP, and the different [operations](#operations) available to the individual types: one API, any iterable,
+  always associative, access to keys.
+- Provide iterable processing operations that do not yet exist in PHP.
+- Make writing closures quick and easy. [Predicate](#predicates) factories can be used to generate common (filter)
+  conditions.
+- Allow developers to create functions that easily distinguish between different function outputs using
+  [optional value types](#the-option-type). These can be used to solve problems like with `json_decode()`, which returns
+  `NULL` in case of an error, or when it successfully decodes the JSON string `null`. It is impossible to distinguish
+  between the different outcomes without additional code, such as option types.
+- Use native PHP features where possible for improved interoperability and performance. Naming and parameter order
+  follow the predominant conventions in PHP. This means all iterators implement `\Iterator`, and many PHP core functions
+  are used internally.
+- Add laziness where possible, so many [operations](#operations) are only applied to the iterator items you actually
+  use.
 
 ## [Installation](#installation)
 Run `composer require bartfeenstra/fu` in your project's root directory.
@@ -75,6 +90,7 @@ $iterator = iter($toIterator);
 The following operations work with iterator values, and even keys in the case of user-supplied callbacks:
 
 #### each
+Executes code for every value.
 ```php
 <?php
 $carrier = [];
@@ -87,6 +103,7 @@ assert($list === $carrier);
 ```
 
 #### filter
+Filters out values that do not match.
 ```php
 <?php
 $result = iter([3, 1, 4])->filter(F\gt(2));
@@ -95,6 +112,7 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ```
 
 #### find
+Tries to find a single matching value.
 ```php
 <?php
 $found = iter([3, 1, 4, 1, 5, 9])->find(F\gt(4));
@@ -103,6 +121,7 @@ assert(new F\SomeValue(5) == $found);
 ```
 
 #### map
+Converts all values individually.
 ```php
 <?php
 $original = [3, 1, 4];
@@ -115,19 +134,21 @@ assert($expected === iterator_to_array($result));
 ```
 
 #### reduce
+Combines all values into a single one.
 ```php
 <?php
 $list = [3, 1, 4];
 $sum = iter($list)->reduce(function (int $sum, int $item): int {
   return $sum + $item;
 });
-assert(8 === $sum);
+assert(new F\SomeValue(8) == $sum);
 ?>
 ```
 To terminate the reduction before all items have been processed, throw a `TerminateReduction` with the final carrier
 value.
 
 #### fold
+Combines all values into a single one, with a default start value.
 ```php
 <?php
 $start = 2;
@@ -141,6 +162,7 @@ assert(10 === $total);
 To terminate the fold before all items have been processed, throw a `TerminateFold` with the final carrier value.
 
 #### take
+Takes *n* values.
 ```php
 <?php
 $start = 2;
@@ -151,6 +173,7 @@ assert([3, 1, 4, 1] === iterator_to_array($result));
 ```
 
 #### takeWhile
+Take as many consecutively matching values as possible from the beginning.
 ```php
 <?php
 $start = 2;
@@ -161,6 +184,7 @@ assert([3, 1] === iterator_to_array($result));
 ```
 
 #### slice
+Slices the values into a smaller collection.
 ```php
 <?php
 $start = 2;
@@ -171,33 +195,37 @@ assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
 ```
 
 #### min
+Gets the lowest value.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $min = iter($list)->min();
-assert(1 === $min);
+assert(new F\SomeValue(1) == $min);
 ?>
 ```
 
 #### max
+Gets the highest value.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $max = iter($list)->max();
-assert(9 === $max);
+assert(new F\SomeValue(9) == $max);
 ?>
 ```
 
 #### sum
+Sums all values.
 ```php
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $sum = iter($list)->sum();
-assert(23 === $sum);
+assert(new F\SomeValue(23) == $sum);
 ?>
 ```
 
 #### forever
+Infinitely repeats the set of values.
 ```php
 <?php
 $list = [3, 1, 4];
@@ -208,6 +236,7 @@ assert($expected === iterator_to_array($iterator->take(7), false));
 ```
 
 #### zip
+Combines the values of two or more iterables into [tuples](https://en.wikipedia.org/wiki/Tuple).
 ```php
 <?php
 $one = [3, 1, 4];
@@ -220,6 +249,7 @@ assert($expected === iterator_to_array($zip));
 ```
 
 #### keys
+Uses keys as values, and the new keys are indexes.
 ```php
 <?php
 $array = [
@@ -230,6 +260,21 @@ $array = [
 $keys = iter($array)->keys();
 $expected = ['a', 'b', 'c'];
 assert($expected === iterator_to_array($keys));
+?>
+```
+
+#### indexed
+Converts all keys to integers, starting from 0.
+```php
+<?php
+$array = [
+    'a' => 'A',
+    'b' => 'B',
+    'c' => 'C',
+];
+$indexed = iter($array)->indexed();
+$expected = ['A', 'B', 'C'];
+assert($expected === iterator_to_array($indexed));
 ?>
 ```
 
@@ -259,6 +304,74 @@ Reverses the order of the values.
 $array = [3, 1, 4];
 $reverse = iter($array)->reverse();
 assert([4, 1, 3] === iterator_to_array($reverse));
+?>
+```
+
+#### first
+Gets the first value.
+```php
+<?php
+$array = [3, 1, 4, 1, 5, 9];
+assert(new F\SomeValue(3) == iter($array)->first());
+?>
+```
+
+#### last
+Gets the last value.
+```php
+<?php
+$array = [3, 1, 4, 1, 5, 9];
+assert(new F\SomeValue(9) == iter($array)->last());
+?>
+```
+
+#### empty
+Checks if there are no values.
+```php
+<?php
+assert(TRUE === iter([])->empty());
+assert(FALSE === iter([3, 1, 4])->empty());
+
+?>
+```
+
+#### sort
+Sorts items by their values.
+```php
+<?php
+$array = [
+    3 => 'c',
+    1 => 'a',
+    4 => 'd',
+];
+// ::sort() also takes an optional custom comparison callable.
+$sort = iter($array)->sort();
+$expected = [
+    1 => 'a',
+    3 => 'c',
+    4 => 'd',
+];
+assert($expected === iterator_to_array($sort));
+?>
+```
+
+#### sortKeys
+Sorts items by their keys.
+```php
+<?php
+$array = [
+    'c' => 3,
+    'a' => 1,
+    'd' => 4,
+];
+// ::sortKeys() also takes an optional custom comparison callable.
+$sort = iter($array)->sortKeys();
+$expected = [
+    'a' => 1,
+    'c' => 3,
+    'd' => 4,
+];
+assert($expected === iterator_to_array($sort));
 ?>
 ```
 
@@ -321,6 +434,15 @@ $predicate = F\le(666);
 
 // All values that are instances of Foo, Bar, Baz, or Qux.
 $predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
+
+// One or more values are lesser than 0 OR greater than 9.
+$predicate = F\any(F\lt(0), F\gt(9));
+
+// All values are greater than 0 AND lesser than 9.
+$predicate = F\all(F\gt(0), F\lt(9));
+
+// All values different from "Apples and oranges".
+$predicate = F\not(F\eq('Apples and oranges'));
 ?>
 ```
 

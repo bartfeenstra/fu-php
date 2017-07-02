@@ -38,19 +38,22 @@ trait IteratorTrait
         return new MapIterator($this, $conversion);
     }
 
-    public function reduce(callable $reduction)
+    public function reduce(callable $reduction): Option
     {
         try {
             $this->rewind();
+            if (!$this->valid()) {
+                return new None();
+            }
             $carrier = $this->current();
             $this->next();
             while ($this->valid()) {
                 $carrier = $reduction($carrier, $this->current(), $this->key());
                 $this->next();
             }
-            return $carrier;
+            return new SomeValue($carrier);
         } catch (TerminateReduction $t) {
-            return $t->getCarrier();
+            return new SomeValue($t->getCarrier());
         }
     }
 
@@ -84,26 +87,29 @@ trait IteratorTrait
         return new TakeWhileIterator($this, $predicate);
     }
 
-    public function slice(int $start, int $length): Iterator
+    public function slice(int $start, int $length = null): Iterator
     {
+        if (is_null($length)) {
+            $length = -1;
+        }
         return new LimitIterator($this, $start, $length);
     }
 
-    public function min()
+    public function min(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value < $carrier ? $value : $carrier;
         });
     }
 
-    public function max()
+    public function max(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value > $carrier ? $value : $carrier;
         });
     }
 
-    public function sum()
+    public function sum(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value + $carrier;
@@ -125,13 +131,66 @@ trait IteratorTrait
         return new KeyIterator($this);
     }
 
+    public function indexed(): Iterator
+    {
+        return new IndexedIterator($this);
+    }
+
     public function flip(): Iterator
     {
         return new FlipIterator($this);
     }
-
     public function reverse(): Iterator
     {
         return new ArrayIterator(array_reverse(iterator_to_array($this)));
+    }
+
+    public function first(): Option
+    {
+        $this->rewind();
+        if ($this->valid()) {
+            return new SomeValue($this->current());
+        }
+        return new None;
+    }
+
+    public function last(): Option
+    {
+        $this->rewind();
+        if (!$this->valid()) {
+            return new None();
+        }
+        $last;
+        foreach ($this as $value) {
+            $last = $value;
+        }
+        return new SomeValue($last);
+    }
+
+    public function empty(): bool
+    {
+        $this->rewind();
+        return !$this->valid();
+    }
+    public function sort(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uasort($array, $sort);
+        } else {
+            asort($array);
+        }
+        return new ArrayIterator($array);
+    }
+
+    public function sortKeys(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uksort($array, $sort);
+        } else {
+            ksort($array);
+        }
+        return new ArrayIterator($array);
     }
 }

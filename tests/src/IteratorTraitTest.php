@@ -116,7 +116,7 @@ final class IteratorTraitTest extends TestCase
             // Use both the key and the value.
             return $carrier + $value + $key;
         });
-        $this->assertSame(11, $actual);
+        $this->assertEquals(new SomeValue(11), $actual);
     }
 
     /**
@@ -134,7 +134,7 @@ final class IteratorTraitTest extends TestCase
             }
             return $carrier;
         });
-        $this->assertSame(14, $actual);
+        $this->assertEquals(new SomeValue(14), $actual);
     }
 
     /**
@@ -216,7 +216,7 @@ final class IteratorTraitTest extends TestCase
     /**
      * @covers ::slice
      */
-    public function testSlice()
+    public function testSliceWithLength()
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
@@ -231,13 +231,31 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::slice
+     */
+    public function testSliceWithoutLength()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->slice(2);
+        $expected = [
+            // Make sure the result remains associative.
+            2 => 4,
+            3 => 1,
+            4 => 5,
+            5 => 9,
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
      * @covers ::min
      */
     public function testMin()
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(1, $iterator->min());
+        $this->assertEquals(new SomeValue(1), $iterator->min());
     }
 
     /**
@@ -247,7 +265,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(9, $iterator->max());
+        $this->assertEquals(new SomeValue(9), $iterator->max());
     }
 
     /**
@@ -257,7 +275,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(23, $iterator->sum());
+        $this->assertEquals(new SomeValue(23), $iterator->sum());
     }
 
     /**
@@ -303,6 +321,21 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::indexed
+     */
+    public function testIndexed()
+    {
+        $array = [
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+        ];
+        $iterator = new ArrayIterator($array);
+        $expected = ['A', 'B', 'C'];
+        $this->assertSame($expected, iterator_to_array($iterator->indexed()));
+    }
+
+    /**
      * @covers ::flip
      */
     public function testFlip()
@@ -331,5 +364,147 @@ final class IteratorTraitTest extends TestCase
         $iterator = new IteratorIterator(new \ArrayIterator($array));
         $iterator = $iterator->reverse();
         $this->assertSame([4, 1, 3], iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers ::first
+     */
+    public function testFirst()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertEquals(new SomeValue(3), $iterator->first());
+    }
+
+    /**
+     * @covers ::first
+     */
+    public function testFirstWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertEquals(new None(), $iterator->first());
+    }
+
+    /**
+     * @covers ::last
+     */
+    public function testLast()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertEquals(new SomeValue(9), $iterator->last());
+    }
+
+    /**
+     * @covers ::last
+     */
+    public function testLastWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertEquals(new None(), $iterator->last());
+    }
+
+    /**
+     * @covers ::empty
+     */
+    public function testEmptyWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $this->assertTrue($iterator->empty());
+    }
+
+    /**
+     * @covers ::empty
+     */
+    public function testEmptyWithNonEmptyIterator()
+    {
+        $iterator = new ArrayIterator([3, 1, 4]);
+        $this->assertFalse($iterator->empty());
+    }
+
+    /**
+     * @covers ::sort
+     */
+    public function testSort()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sort(function (string $a, string $b): int {
+            // Reverse the order, so we are different from the default sort.
+            return -1 * ($a <=> $b);
+        });
+        $expected = [
+            4 => 'd',
+            3 => 'c',
+            1 => 'a',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sort
+     */
+    public function testSortWithoutSort()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sort();
+        $expected = [
+            1 => 'a',
+            3 => 'c',
+            4 => 'd',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sortKeys
+     */
+    public function testSortKeys()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sortKeys(function (string $a, string $b): int {
+            // Reverse the order, so we are different from the default sort.
+            return -1 * ($a <=> $b);
+        });
+        $expected = [
+            4 => 'd',
+            3 => 'c',
+            1 => 'a',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sortKeys
+     */
+    public function testSortKeysWithoutSort()
+    {
+        $array = [
+            'c' => 3,
+            'a' => 1,
+            'd' => 4,
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sortKeys();
+        $expected = [
+            'a' => 1,
+            'c' => 3,
+            'd' => 4,
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
     }
 }
