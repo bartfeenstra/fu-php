@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional;
 
 use BartFeenstra\Functional\ArrayIterator;
+use BartFeenstra\Functional\IteratorIterator;
 use BartFeenstra\Functional\None;
 use BartFeenstra\Functional\SomeValue;
 use BartFeenstra\Functional\TerminateFold;
@@ -351,6 +352,18 @@ final class IteratorTraitTest extends TestCase
             4 => 'c',
         ];
         $this->assertSame($expected, iterator_to_array($iterator->flip()));
+    }
+
+    /**
+     * @covers ::reverse
+     */
+    public function testReverse()
+    {
+        $array = [3, 1, 4];
+        // This package's ArrayIterator overrides this method, so avoid it in this test.
+        $iterator = new IteratorIterator(new \ArrayIterator($array));
+        $iterator = $iterator->reverse();
+        $this->assertSame([4, 1, 3], iterator_to_array($iterator));
     }
 
     /**

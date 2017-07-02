@@ -7,10 +7,8 @@ namespace BartFeenstra\Functional;
 /**
  * Iterates over keys.
  */
-final class KeyIterator extends \IteratorIterator implements Iterator
+final class KeyIterator extends IteratorIterator
 {
-
-    use IteratorTrait;
 
     private $index = 0;
 

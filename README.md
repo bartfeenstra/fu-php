@@ -297,6 +297,16 @@ assert($expected === iterator_to_array($flipped));
 ?>
 ```
 
+#### reverse
+Reverses the order of the values.
+```php
+<?php
+$array = [3, 1, 4];
+$reverse = iter($array)->reverse();
+assert([4, 1, 3] === iterator_to_array($reverse));
+?>
+```
+
 #### first
 Gets the first value.
 ```php

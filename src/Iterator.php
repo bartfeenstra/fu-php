@@ -174,6 +174,13 @@ interface Iterator extends \Iterator, \Countable
     public function flip(): self;
 
     /**
+     * Reverses the values.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function reverse(): Iterator;
+
+    /**
      * Gets the first value.
      *
      * @return \BartFeenstra\Functional\Option
