@@ -612,6 +612,20 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\not
+     *
+    <<<<<<< HEAD
+     * @depends testEq
+     */
+    public function testNot()
+    {
+        $not = F\not(F\eq('Apples and oranges'));
+        $this->assertTrue($not('apples and Oranges'));
+        $this->assertTrue($not('Pineapples and orange juice'));
+        $this->assertFalse($not('Apples and oranges'));
+    }
+
+    /**
      * @covers \BartFeenstra\Functional\apply_l
      */
     public function testApplyL()

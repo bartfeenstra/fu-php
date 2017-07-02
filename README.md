@@ -389,6 +389,9 @@ $predicate = F\any(F\lt(0), F\gt(9));
 
 // All values are greater than 0 AND lesser than 9.
 $predicate = F\all(F\gt(0), F\lt(9));
+
+// All values different from "Apples and oranges".
+$predicate = F\not(F\eq('Apples and oranges'));
 ?>
 ```
 
