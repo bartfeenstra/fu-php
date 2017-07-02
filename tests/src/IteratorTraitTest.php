@@ -115,7 +115,7 @@ final class IteratorTraitTest extends TestCase
             // Use both the key and the value.
             return $carrier + $value + $key;
         });
-        $this->assertSame(11, $actual);
+        $this->assertEquals(new SomeValue(11), $actual);
     }
 
     /**
@@ -133,7 +133,7 @@ final class IteratorTraitTest extends TestCase
             }
             return $carrier;
         });
-        $this->assertSame(14, $actual);
+        $this->assertEquals(new SomeValue(14), $actual);
     }
 
     /**
@@ -254,7 +254,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(1, $iterator->min());
+        $this->assertEquals(new SomeValue(1), $iterator->min());
     }
 
     /**
@@ -264,7 +264,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(9, $iterator->max());
+        $this->assertEquals(new SomeValue(9), $iterator->max());
     }
 
     /**
@@ -274,7 +274,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $this->assertSame(23, $iterator->sum());
+        $this->assertEquals(new SomeValue(23), $iterator->sum());
     }
 
     /**

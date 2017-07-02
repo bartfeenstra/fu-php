@@ -56,10 +56,10 @@ interface Iterator extends \Iterator, \Countable
    *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The parameter and return types are
    *   identical.
    *
-   * @return mixed
-   *   The type is the same as that of the values.
+   * @return \BartFeenstra\Functional\Option
+   *   A Some with a value of the same type as that of the values, or None.
    */
-    public function reduce(callable $reduction);
+    public function reduce(callable $reduction): Option;
 
   /**
    * Folds values to a single value.
@@ -109,24 +109,24 @@ interface Iterator extends \Iterator, \Countable
   /**
    * Gets the value with the lowest value.
    *
-   * @return mixed
-   *   The type is the same as that of the values.
+   * @return \BartFeenstra\Functional\Option
+   *   A Some with a value of the same type as that of the values, or None.
    */
     public function min();
 
   /**
    * Gets the value with the highest value.
    *
-   * @return mixed
-   *   The type is the same as that of the values.
+   * @return \BartFeenstra\Functional\Option
+   *   A Some with a value of the same type as that of the values, or None.
    */
     public function max();
 
   /**
    * Gets the sum of all the values.
    *
-   * @return mixed
-   *   The type is the same as that of the values.
+   * @return \BartFeenstra\Functional\Option
+   *   A Some with a value of the same type as that of the values, or None.
    */
     public function sum();
 

@@ -38,19 +38,22 @@ trait IteratorTrait
         return new MapIterator($this, $conversion);
     }
 
-    public function reduce(callable $reduction)
+    public function reduce(callable $reduction): Option
     {
         try {
             $this->rewind();
+            if (!$this->valid()) {
+                return new None();
+            }
             $carrier = $this->current();
             $this->next();
             while ($this->valid()) {
                 $carrier = $reduction($carrier, $this->current(), $this->key());
                 $this->next();
             }
-            return $carrier;
+            return new SomeValue($carrier);
         } catch (TerminateReduction $t) {
-            return $t->getCarrier();
+            return new SomeValue($t->getCarrier());
         }
     }
 
@@ -92,21 +95,21 @@ trait IteratorTrait
         return new LimitIterator($this, $start, $length);
     }
 
-    public function min()
+    public function min(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value < $carrier ? $value : $carrier;
         });
     }
 
-    public function max()
+    public function max(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value > $carrier ? $value : $carrier;
         });
     }
 
-    public function sum()
+    public function sum(): Option
     {
         return $this->reduce(function ($carrier, $value) {
             return $value + $carrier;
