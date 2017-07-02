@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace BartFeenstra\Tests\Functional;
 
 use BartFeenstra\Functional as F;
+use BartFeenstra\Functional\InvalidIterable;
 use BartFeenstra\Functional\Iterator;
 use PHPUnit\Framework\TestCase;
 
@@ -62,7 +63,7 @@ final class FunctionsTest extends TestCase
    */
     public function testIterWithClosureWithRequiredParameters()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidIterable::class);
         $func = function ($required) {
         };
         F\iter($func);
@@ -73,7 +74,7 @@ final class FunctionsTest extends TestCase
    */
     public function testIterWithClosureWithInvocationError()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidIterable::class);
         $func = function () {
             throw new \RuntimeException();
         };
@@ -85,7 +86,7 @@ final class FunctionsTest extends TestCase
    */
     public function testIterWithClosureWithNonIteratorReturnValue()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidIterable::class);
         $array = [3, 1, 4];
         $func = function () use ($array) {
             return 'fooz';
