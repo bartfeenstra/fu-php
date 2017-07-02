@@ -306,6 +306,47 @@ Checks if there are no values.
 <?php
 assert(TRUE === iter([])->empty());
 assert(FALSE === iter([3, 1, 4])->empty());
+
+?>
+```
+
+#### sort
+Sorts items by their values.
+```php
+<?php
+$array = [
+    3 => 'c',
+    1 => 'a',
+    4 => 'd',
+];
+// ::sort() also takes an optional custom comparison callable.
+$sort = iter($array)->sort();
+$expected = [
+    1 => 'a',
+    3 => 'c',
+    4 => 'd',
+];
+assert($expected === iterator_to_array($sort));
+?>
+```
+
+#### sortKeys
+Sorts items by their keys.
+```php
+<?php
+$array = [
+    'c' => 3,
+    'a' => 1,
+    'd' => 4,
+];
+// ::sortKeys() also takes an optional custom comparison callable.
+$sort = iter($array)->sortKeys();
+$expected = [
+    'a' => 1,
+    'c' => 3,
+    'd' => 4,
+];
+assert($expected === iterator_to_array($sort));
 ?>
 ```
 

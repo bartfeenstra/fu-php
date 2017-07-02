@@ -390,4 +390,90 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator([3, 1, 4]);
         $this->assertFalse($iterator->empty());
     }
+
+    /**
+     * @covers ::sort
+     */
+    public function testSort()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sort(function (string $a, string $b): int {
+            // Reverse the order, so we are different from the default sort.
+            return -1 * ($a <=> $b);
+        });
+        $expected = [
+            4 => 'd',
+            3 => 'c',
+            1 => 'a',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sort
+     */
+    public function testSortWithoutSort()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sort();
+        $expected = [
+            1 => 'a',
+            3 => 'c',
+            4 => 'd',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sortKeys
+     */
+    public function testSortKeys()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sortKeys(function (string $a, string $b): int {
+            // Reverse the order, so we are different from the default sort.
+            return -1 * ($a <=> $b);
+        });
+        $expected = [
+            4 => 'd',
+            3 => 'c',
+            1 => 'a',
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
+
+    /**
+     * @covers ::sortKeys
+     */
+    public function testSortKeysWithoutSort()
+    {
+        $array = [
+            'c' => 3,
+            'a' => 1,
+            'd' => 4,
+        ];
+        $iterator = new ArrayIterator($array);
+        $sort = $iterator->sortKeys();
+        $expected = [
+            'a' => 1,
+            'c' => 3,
+            'd' => 4,
+        ];
+        $this->assertSame($expected, iterator_to_array($sort));
+    }
 }

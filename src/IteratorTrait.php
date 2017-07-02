@@ -162,4 +162,25 @@ trait IteratorTrait
         $this->rewind();
         return !$this->valid();
     }
+    public function sort(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uasort($array, $sort);
+        } else {
+            asort($array);
+        }
+        return new ArrayIterator($array);
+    }
+
+    public function sortKeys(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uksort($array, $sort);
+        } else {
+            ksort($array);
+        }
+        return new ArrayIterator($array);
+    }
 }
