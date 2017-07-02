@@ -577,6 +577,55 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\any
+     *
+     * @depends testGt
+     * @depends testLt
+     */
+    public function testAny()
+    {
+        $any = F\any(F\lt(0), F\gt(9));
+        $this->assertTrue($any(-111));
+        $this->assertTrue($any(-1));
+        $this->assertTrue($any(10));
+        $this->assertTrue($any(1000));
+        $this->assertFalse($any(0));
+        $this->assertFalse($any(5));
+        $this->assertFalse($any(9));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\all
+     *
+     * @depends testGt
+     * @depends testLt
+     */
+    public function testAll()
+    {
+        $all = F\all(F\gt(0), F\lt(9));
+        $this->assertTrue($all(1));
+        $this->assertTrue($all(8));
+        $this->assertFalse($all(-111));
+        $this->assertFalse($all(0));
+        $this->assertFalse($all(9));
+        $this->assertFalse($all(999));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\not
+     *
+    <<<<<<< HEAD
+     * @depends testEq
+     */
+    public function testNot()
+    {
+        $not = F\not(F\eq('Apples and oranges'));
+        $this->assertTrue($not('apples and Oranges'));
+        $this->assertTrue($not('Pineapples and orange juice'));
+        $this->assertFalse($not('Apples and oranges'));
+    }
+
+    /**
      * @covers \BartFeenstra\Functional\apply_l
      */
     public function testApplyL()

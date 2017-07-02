@@ -87,8 +87,11 @@ trait IteratorTrait
         return new TakeWhileIterator($this, $predicate);
     }
 
-    public function slice(int $start, int $length): Iterator
+    public function slice(int $start, int $length = null): Iterator
     {
+        if (is_null($length)) {
+            $length = -1;
+        }
         return new LimitIterator($this, $start, $length);
     }
 
@@ -164,5 +167,26 @@ trait IteratorTrait
     {
         $this->rewind();
         return !$this->valid();
+    }
+    public function sort(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uasort($array, $sort);
+        } else {
+            asort($array);
+        }
+        return new ArrayIterator($array);
+    }
+
+    public function sortKeys(callable $sort = null): Iterator
+    {
+        $array = iterator_to_array($this);
+        if ($sort) {
+            uksort($array, $sort);
+        } else {
+            ksort($array);
+        }
+        return new ArrayIterator($array);
     }
 }

@@ -99,12 +99,12 @@ interface Iterator extends \Iterator, \Countable
    *
    * @param int $start
    *   The index of the first value to take. Indexes start at 0.
-   * @param int $length
-   *   The number of values to take.
+   * @param int|null $length
+   *   The number of values to take, or NULL to create an infinite slice.
    *
    * @return \BartFeenstra\Functional\Iterator
    */
-    public function slice(int $start, int $length): self;
+    public function slice(int $start, int $length = null): self;
 
   /**
    * Gets the value with the lowest value.
@@ -196,4 +196,24 @@ interface Iterator extends \Iterator, \Countable
      *   TRUE if there are no items. FALSE if there is at least one.
      */
     public function empty(): bool;
+
+    /**
+     * Sorts items by their values.
+     *
+     * @param  callable $sort
+     *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a regular sort.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function sort(callable $sort = null): self;
+
+    /**
+     * Sorts items by their keys.
+     *
+     * @param  callable $sort
+     *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a regular sort.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function sortKeys(callable $sort = null): self;
 }
