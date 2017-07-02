@@ -369,7 +369,7 @@ $predicate = F\le(666);
 // All values that are instances of Foo, Bar, Baz, or Qux.
 $predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
 
-// All values lesser than 0 OR greater than 9.
+// One or more values are lesser than 0 OR greater than 9.
 $predicate = F\any(F\lt(0), F\gt(9));
 ?>
 ```
