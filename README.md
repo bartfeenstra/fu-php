@@ -368,6 +368,9 @@ $predicate = F\le(666);
 
 // All values that are instances of Foo, Bar, Baz, or Qux.
 $predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
+
+// All values different from "Apples and oranges".
+$predicate = F\not(F\eq('Apples and oranges'));
 ?>
 ```
 

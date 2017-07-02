@@ -290,6 +290,21 @@ function instance_of(string $type, string ...$types): callable
 }
 
 /**
+ * Gets a predicate that negates another predicate's result.
+ *
+ * @param callable $predicate
+ *
+ * @return callable
+ *   A predicate.
+ */
+function not(callable $predicate): callable
+{
+    return function ($value) use ($predicate) {
+        return !$predicate($value);
+    };
+}
+
+/**
  * Partially applies a callable, left-sided.
  *
  * @see https://en.wikipedia.org/wiki/Partial_application
