@@ -126,7 +126,7 @@ $list = [3, 1, 4];
 $sum = iter($list)->reduce(function (int $sum, int $item): int {
   return $sum + $item;
 });
-assert(8 === $sum);
+assert(new F\SomeValue(8) == $sum);
 ?>
 ```
 To terminate the reduction before all items have been processed, throw a `TerminateReduction` with the final carrier
@@ -185,7 +185,7 @@ Gets the lowest value.
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $min = iter($list)->min();
-assert(1 === $min);
+assert(new F\SomeValue(1) == $min);
 ?>
 ```
 
@@ -195,7 +195,7 @@ Gets the highest value.
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $max = iter($list)->max();
-assert(9 === $max);
+assert(new F\SomeValue(9) == $max);
 ?>
 ```
 
@@ -205,7 +205,7 @@ Sums all values.
 <?php
 $list = [3, 1, 4, 1, 5, 9];
 $sum = iter($list)->sum();
-assert(23 === $sum);
+assert(new F\SomeValue(23) == $sum);
 ?>
 ```
 
