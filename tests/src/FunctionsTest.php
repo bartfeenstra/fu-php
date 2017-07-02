@@ -577,6 +577,23 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\all
+     *
+     * @depends testGt
+     * @depends testLt
+     */
+    public function testAll()
+    {
+        $all = F\all(F\gt(0), F\lt(9));
+        $this->assertTrue($all(1));
+        $this->assertTrue($all(8));
+        $this->assertFalse($all(-111));
+        $this->assertFalse($all(0));
+        $this->assertFalse($all(9));
+        $this->assertFalse($all(999));
+    }
+
+    /**
      * @covers \BartFeenstra\Functional\apply_l
      */
     public function testApplyL()
