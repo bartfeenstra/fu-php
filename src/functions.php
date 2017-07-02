@@ -12,7 +12,7 @@ namespace BartFeenstra\Functional;
  *
  * @return \BartFeenstra\Functional\Iterator
  *
- * @throws \InvalidArgumentException
+ * @throws \BartFeenstra\Functional\InvalidIterable
  */
 function iter($iterable) :Iterator
 {
@@ -29,20 +29,20 @@ function iter($iterable) :Iterator
         try {
             $iterable = $iterable();
         } catch (\ArgumentCountError $e) {
-            throw new \InvalidArgumentException(sprintf('Callables must take no arguments, '), 0, $e);
+            throw new InvalidIterable(sprintf('Callables must take no arguments, '), $iterable, $e);
         } catch (\Throwable $e) {
-            throw new \InvalidArgumentException(sprintf('Error when invoking callable.'), 0, $e);
+            throw new InvalidIterable(sprintf('Error when invoking callable.'), $iterable, $e);
         }
 
         // Catch any problems with the return value.
         try {
             return iter($iterable);
         } catch (\Throwable $e) {
-            throw new \InvalidArgumentException(sprintf('Callable does not return anything that can be resolved to an iterator.'), 0, $e);
+            throw new InvalidIterable(sprintf('Callable does not return anything that can be resolved to an iterator.'), $iterable, $e);
         }
     }
 
-    throw new \InvalidArgumentException(sprintf('%s is not a valid iterable.', type($iterable)));
+    throw new InvalidIterable(sprintf('%s is not a valid iterable.', type($iterable)), $iterable);
 }
 
 /**
