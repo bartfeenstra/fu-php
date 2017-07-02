@@ -577,6 +577,24 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\any
+     *
+     * @depends testGt
+     * @depends testLt
+     */
+    public function testAny()
+    {
+        $any = F\any(F\lt(0), F\gt(9));
+        $this->assertTrue($any(-111));
+        $this->assertTrue($any(-1));
+        $this->assertTrue($any(10));
+        $this->assertTrue($any(1000));
+        $this->assertFalse($any(0));
+        $this->assertFalse($any(5));
+        $this->assertFalse($any(9));
+    }
+
+    /**
      * @covers \BartFeenstra\Functional\all
      *
      * @depends testGt

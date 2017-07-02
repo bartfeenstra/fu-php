@@ -290,6 +290,28 @@ function instance_of(string $type, string ...$types): callable
 }
 
 /**
+ * Gets a predicate that wraps other predicates and checks at least one of them matches.
+ *
+ * @param callable $predicate
+ * @param callable[] ...$predicates
+ *
+ * @return callable
+ *   A predicate.
+ */
+function any(callable $predicate, callable ...$predicates): callable
+{
+    $predicates = func_get_args();
+    return function ($value) use ($predicates) {
+        foreach ($predicates as $predicate) {
+            if ($predicate($value)) {
+                return true;
+            }
+        }
+        return false;
+    };
+}
+
+/**
  * Gets a predicate that wraps other predicates and checks all of them match.
  *
  * @param callable $predicate
