@@ -375,6 +375,35 @@ assert($expected === iterator_to_array($sort));
 ?>
 ```
 
+#### chain
+Chains other iterables to an existing iterator, and re-indexes the values.
+```php
+<?php
+$arrayOne = [3, 1, 4];
+$arrayTwo = [1, 5, 9];
+$arrayThree = [2, 6, 5];
+$iterator = iter($arrayOne)->chain($arrayTwo, $arrayThree);
+$expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+assert($expected === iterator_to_array($iterator));
+?>
+```
+
+#### flatten
+Flattens the iterables contained by an iterator into a single new iterator.
+```php
+<?php
+$array = [
+    [3, 1, 4],
+    [1, 5, 9],
+    [2, 6, 5],
+];
+$iterator = iter($array)->flatten();
+$expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+assert($expected === iterator_to_array($iterator));
+?>
+```
+
+
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php

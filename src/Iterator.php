@@ -223,4 +223,24 @@ interface Iterator extends \Iterator, \Countable
      * @return \BartFeenstra\Functional\Iterator
      */
     public function sortKeys(callable $sort = null): self;
+
+    /**
+     * Chains other iterables to this iterator, and re-indexes the values.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     *
+     * @throws \BartFeenstra\Functional\InvalidIterable
+     *   Thrown if one of the items is not an iterable.
+     */
+    public function chain(...$iterables): self;
+
+    /**
+     * Flattens the iterables contained by this iterator into a single new iterator.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     *
+     * @throws \BartFeenstra\Functional\InvalidIterable
+     *   Thrown if one of the items is not an iterable.
+     */
+    public function flatten(): self;
 }

@@ -193,4 +193,14 @@ trait IteratorTrait
         }
         return new ArrayIterator($array);
     }
+
+    public function chain(...$iterables): Iterator
+    {
+        return new ChainIterator($this, ...$iterables);
+    }
+
+    public function flatten(): Iterator
+    {
+        return new ChainIterator(...$this);
+    }
 }
