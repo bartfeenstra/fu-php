@@ -38,6 +38,11 @@ trait IteratorTrait
         return new MapIterator($this, $conversion);
     }
 
+    public function mapKeys(callable $conversion): Iterator
+    {
+        return new KeyMapIterator($this, $conversion);
+    }
+
     public function reduce(callable $reduction): Option
     {
         try {
