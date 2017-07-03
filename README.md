@@ -424,6 +424,27 @@ assert($expected === iterator_to_array($iterator));
 ?>
 ```
 
+#### unique
+Removes all duplicate values.
+```php
+<?php
+$objectOne = new \stdClass();
+$objectTwo = new \stdClass();
+$array = [0, false, false, null, [], [], '0', $objectOne, $objectOne, $objectTwo];
+$iterator = iter($array)->unique();
+$expected = [
+    0 => 0,
+    1 => false,
+    3 => null,
+    4 => [],
+    6 => '0',
+    7 => $objectOne,
+    9 => $objectTwo,
+];
+assert($expected === iterator_to_array($iterator));
+?>
+```
+
 
 ### [Exception handling](#exceptions)
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
