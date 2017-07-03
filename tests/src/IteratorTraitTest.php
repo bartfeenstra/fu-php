@@ -560,4 +560,54 @@ final class IteratorTraitTest extends TestCase
         $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
         $this->assertSame($expected, iterator_to_array($flattened));
     }
+
+    /**
+     * @covers ::unique
+     */
+    public function testUnique()
+    {
+        $objectOne = new \stdClass();
+        $objectTwo = new \stdClass();
+        $array = [
+            0 => 3,
+            1 => 1,
+            2 => 4,
+            3 => 1,
+            4 => 5,
+            5 => 9,
+            6 => 2,
+            7 => 6,
+            8 => 5,
+            9 => '3',
+            10 => true,
+            11 => false,
+            12 => null,
+            13 => 0,
+            14 => $objectOne,
+            15 => $objectOne,
+            16 => $objectTwo,
+            17 => [],
+            18 => [],
+        ];
+        $iterator = new ArrayIterator($array);
+        $unique = $iterator->unique();
+        $expected = [
+            0 => 3,
+            1 => 1,
+            2 => 4,
+            4 => 5,
+            5 => 9,
+            6 => 2,
+            7 => 6,
+            9 => '3',
+            10 => true,
+            11 => false,
+            12 => null,
+            13 => 0,
+            14 => $objectOne,
+            16 => $objectTwo,
+            17 => [],
+        ];
+        $this->assertSame($expected, iterator_to_array($unique));
+    }
 }
