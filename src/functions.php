@@ -268,7 +268,7 @@ function le($other): callable
 }
 
 /**
- * Gets a predicate to check if a value is an instance of one or more types.
+ * Gets a predicate to check if an object or class name is an instance of one or more types.
  *
  * @param string $type
  * @param string ..$types
@@ -281,7 +281,7 @@ function instance_of(string $type, string ...$types): callable
     $types = func_get_args();
     return function ($value) use ($types) {
         foreach ($types as $type) {
-            if ($value instanceof $type) {
+            if ($value instanceof $type or is_subclass_of($value, $type) or $value === $type) {
                 return true;
             }
         }

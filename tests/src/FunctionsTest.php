@@ -553,16 +553,19 @@ final class FunctionsTest extends TestCase
 
         // The exact same type.
         $data[] = [true, new \BadFunctionCallException(), [\BadFunctionCallException::class]];
+        $data[] = [true, \BadFunctionCallException::class, [\BadFunctionCallException::class]];
         // A super type.
         $data[] = [true, new \BadMethodCallException(), [\BadFunctionCallException::class]];
+        $data[] = [true, \BadMethodCallException::class, [\BadFunctionCallException::class]];
         // An interface.
         $data[] = [true, new \BadMethodCallException(), [\Throwable::class]];
+        $data[] = [true, \BadMethodCallException::class, [\Throwable::class]];
         // A different type.
         $data[] = [false, new \BadMethodCallException(), [\InvalidArgumentException::class]];
+        $data[] = [false, \BadMethodCallException::class, [\InvalidArgumentException::class]];
         // Non-objects.
         $data[] = [false, 666, [\Throwable::class]];
         $data[] = [false, 'foo', [\Throwable::class]];
-        $data[] = [false, \Throwable::class, [\Throwable::class]];
 
         return $data;
     }
