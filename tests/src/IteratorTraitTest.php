@@ -507,4 +507,34 @@ final class IteratorTraitTest extends TestCase
         ];
         $this->assertSame($expected, iterator_to_array($sort));
     }
+
+    /**
+     * @covers ::chain
+     */
+    public function testChain()
+    {
+        $arrayOne = [3, 1, 4];
+        $arrayTwo = [1, 5, 9];
+        $arrayThree = [2, 6, 5];
+        $iterator = new ArrayIterator($arrayOne);
+        $chain = $iterator->chain($arrayTwo, $arrayThree);
+        $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+        $this->assertSame($expected, iterator_to_array($chain));
+    }
+
+    /**
+     * @covers ::flatten
+     */
+    public function testFlatten()
+    {
+        $array = [
+            [3, 1, 4],
+            [1, 5, 9],
+            [2, 6, 5],
+        ];
+        $iterator = new ArrayIterator($array);
+        $flattened = $iterator->flatten();
+        $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+        $this->assertSame($expected, iterator_to_array($flattened));
+    }
 }
