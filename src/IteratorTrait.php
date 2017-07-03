@@ -208,4 +208,9 @@ trait IteratorTrait
     {
         return new ChainIterator(...$this);
     }
+
+    public function unique(): Iterator
+    {
+        return new UniqueIterator($this);
+    }
 }
