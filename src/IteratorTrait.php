@@ -136,7 +136,7 @@ trait IteratorTrait
         return new KeyIterator($this);
     }
 
-    public function indexed(): Iterator
+    public function index(): Iterator
     {
         return new IndexedIterator($this);
     }
