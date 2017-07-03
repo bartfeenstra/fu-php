@@ -144,6 +144,19 @@ final class IteratorTraitTest extends TestCase
 
     /**
      * @covers ::reduce
+     */
+    public function testReduceWithEmptyIterator()
+    {
+        $iterator = new ArrayIterator([]);
+        $actual = $iterator->reduce(function (int $carrier, int $value, int $key): int {
+            // Use both the key and the value.
+            return $carrier + $value + $key;
+        });
+        $this->assertEquals(new None(), $actual);
+    }
+
+    /**
+     * @covers ::reduce
      * @covers \BartFeenstra\Functional\TerminateReduction
      */
     public function testReduceWithTermination()
