@@ -253,4 +253,13 @@ interface Iterator extends \Iterator, \Countable
      *   Thrown if one of the items is not an iterable.
      */
     public function flatten(): self;
+
+    /**
+     * Removes all duplicate items.
+     *
+     * This uses strict comparison.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function unique(): self;
 }
