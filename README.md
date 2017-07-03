@@ -133,6 +133,27 @@ assert($expected === iterator_to_array($result));
 ?>
 ```
 
+#### mapKeys
+Converts all keys individually.
+```php
+<?php
+$original = [
+    3 => 'c',
+    1 => 'a',
+    4 => 'd',
+];
+$expected = [
+    9 => 'c',
+    3 => 'a',
+    12 => 'd',
+];
+$result = iter($original)->mapKeys(function (string $value, int $key): int {
+  return 3 * $key;
+});
+assert($expected === iterator_to_array($result));
+?>
+```
+
 #### reduce
 Combines all values into a single one.
 ```php

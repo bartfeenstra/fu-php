@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace BartFeenstra\Functional;
 
 /**
- * Defines a value mapping iterator.
+ * Defines a key mapping iterator.
  */
-final class MapIterator extends IteratorIterator
+final class KeyMapIterator extends IteratorIterator
 {
 
     private $map;
@@ -26,8 +26,8 @@ final class MapIterator extends IteratorIterator
         $this->map = $map;
     }
 
-    public function current()
+    public function key()
     {
-        return call_user_func($this->map, parent::current(), $this->key());
+        return call_user_func($this->map, $this->current(), parent::key());
     }
 }

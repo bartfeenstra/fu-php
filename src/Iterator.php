@@ -49,6 +49,16 @@ interface Iterator extends \Iterator, \Countable
    */
     public function map(callable $conversion): self;
 
+    /**
+     * Maps/converts keys.
+     *
+     * @param callable $conversion
+     *   Signature: function(mixed $value, mixed $key): mixed.
+     *
+     * @return \BartFeenstra\Functional\Iterator
+     */
+    public function mapKeys(callable $conversion): self;
+
   /**
    * Reduces values to a single value.
    *

@@ -106,6 +106,29 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::mapKeys
+     */
+    public function testMapKeys()
+    {
+        $array = [
+            3 => 'c',
+            1 => 'a',
+            4 => 'd',
+        ];
+        $iterator = new ArrayIterator($array);
+        $iterator = $iterator->mapKeys(function (string $value, int $key) :string {
+            // Use both the key and the value.
+            return (string) $key . $value;
+        });
+        $expected = [
+            '3c' => 'c',
+            '1a' => 'a',
+            '4d' => 'd',
+        ];
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
      * @covers ::reduce
      */
     public function testReduce()
