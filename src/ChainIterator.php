@@ -87,6 +87,7 @@ class ChainIterator implements Iterator
             $this->currentIterator = $nextIterator;
         }
 
+        // Return the last available iterator.
         return $this->currentIterator;
     }
 }
