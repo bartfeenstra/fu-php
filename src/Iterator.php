@@ -15,8 +15,10 @@ interface Iterator extends \Iterator, \Countable
    *
    * @param callable $operation
    *   Signature: function(mixed $value, mixed $key): void.
+   *
+   * @return \BartFeenstra\Functional\Iterator
    */
-    public function each(callable $operation): void;
+    public function each(callable $operation): self;
 
   /**
    * Filters values using a predicate.

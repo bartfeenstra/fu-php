@@ -10,11 +10,12 @@ namespace BartFeenstra\Functional;
 trait IteratorTrait
 {
 
-    public function each(callable $operation): void
+    public function each(callable $operation): Iterator
     {
         foreach ($this as $key => $value) {
             $operation($value, $key);
         }
+        return $this;
     }
 
     public function filter(callable $predicate = null): Iterator
