@@ -82,7 +82,7 @@ class ChainIterator implements Iterator
         }
 
         // The current iterator is exhausted. Advance to the next one if it is available.
-        $nextIterator = next($this->iterators);
+        while (!$this->currentIterator->valid() and $nextIterator = next($this->iterators))
         if ($nextIterator) {
             $this->currentIterator = $nextIterator;
             $this->currentIterator->rewind();

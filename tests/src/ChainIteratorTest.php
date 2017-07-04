@@ -31,6 +31,21 @@ final class ChainIteratorTest extends TestCase
     /**
      * @covers \BartFeenstra\Functional\ChainIterator
      */
+    public function testWithEmptyIterators()
+    {
+        $arrayOne = [3, 1, 4];
+        $arrayTwo = [];
+        $arrayThree = [1, 5, 9];
+        $iterator = new ChainIterator($arrayOne, $arrayTwo, $arrayThree);
+        $expected = [3, 1, 4, 1, 5, 9];
+        $this->assertSame($expected, iterator_to_array($iterator));
+        // Test again, to cover rewinding.
+        $this->assertSame($expected, iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\ChainIterator
+     */
     public function testWithoutIterators()
     {
         $iterator = new ChainIterator();
