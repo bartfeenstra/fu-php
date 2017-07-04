@@ -357,9 +357,9 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
-     * @covers ::indexed
+     * @covers ::index
      */
-    public function testIndexed()
+    public function testIndex()
     {
         $array = [
             'a' => 'A',
@@ -368,7 +368,7 @@ final class IteratorTraitTest extends TestCase
         ];
         $iterator = new ArrayIterator($array);
         $expected = ['A', 'B', 'C'];
-        $this->assertSame($expected, iterator_to_array($iterator->indexed()));
+        $this->assertSame($expected, iterator_to_array($iterator->index()));
     }
 
     /**

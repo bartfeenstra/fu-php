@@ -137,7 +137,7 @@ trait IteratorTrait
         return new KeyIterator($this);
     }
 
-    public function indexed(): Iterator
+    public function index(): Iterator
     {
         return new IndexedIterator($this);
     }
@@ -207,7 +207,7 @@ trait IteratorTrait
 
     public function flatten(): Iterator
     {
-        return new ChainIterator(...$this->indexed());
+        return new ChainIterator(...$this->index());
     }
 
     public function unique(): Iterator

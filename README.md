@@ -284,7 +284,7 @@ assert($expected === iterator_to_array($keys));
 ?>
 ```
 
-#### indexed
+#### index
 Converts all keys to integers, starting from 0.
 ```php
 <?php
@@ -293,7 +293,7 @@ $array = [
     'b' => 'B',
     'c' => 'C',
 ];
-$indexed = iter($array)->indexed();
+$indexed = iter($array)->index();
 $expected = ['A', 'B', 'C'];
 assert($expected === iterator_to_array($indexed));
 ?>

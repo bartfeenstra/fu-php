@@ -173,7 +173,7 @@ interface Iterator extends \Iterator, \Countable
      *
      * @return \BartFeenstra\Functional\Iterator
      */
-    public function indexed(): self;
+    public function index(): self;
 
     /**
      * Swaps keys and values.
