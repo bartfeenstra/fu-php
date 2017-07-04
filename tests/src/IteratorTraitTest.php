@@ -575,6 +575,22 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::flatten
+     */
+    public function testFlattenWithNonIntegerKeys()
+    {
+        $array = [
+            'a' => [3, 1, 4],
+            'b' => [1, 5, 9],
+            'c' => [2, 6, 5],
+        ];
+        $iterator = new ArrayIterator($array);
+        $flattened = $iterator->flatten();
+        $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+        $this->assertSame($expected, iterator_to_array($flattened));
+    }
+
+    /**
      * @covers ::unique
      */
     public function testUnique()
