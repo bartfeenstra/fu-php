@@ -207,7 +207,7 @@ trait IteratorTrait
 
     public function flatten(): Iterator
     {
-        return new ChainIterator(...$this->indexed());
+        return new ChainIterator(...$this->index());
     }
 
     public function unique(): Iterator
