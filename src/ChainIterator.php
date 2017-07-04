@@ -65,7 +65,7 @@ class ChainIterator implements Iterator
     public function rewind()
     {
         $this->currentIterator = reset($this->iterators);
-        $this->getCurrentIterator()->rewind();
+        $this->currentIterator->rewind();
         $this->index = 0;
     }
 
@@ -85,6 +85,7 @@ class ChainIterator implements Iterator
         $nextIterator = next($this->iterators);
         if ($nextIterator) {
             $this->currentIterator = $nextIterator;
+            $this->currentIterator->rewind();
         }
 
         // Return the last available iterator.
