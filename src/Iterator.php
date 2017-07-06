@@ -249,12 +249,15 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Flattens the iterables contained by this iterator into a single new iterator.
      *
+     * @param int $levels
+     *   The number of levels to flatten.
+     *
      * @return \BartFeenstra\Functional\Iterator
      *
      * @throws \BartFeenstra\Functional\InvalidIterable
      *   Thrown if one of the items is not an iterable.
      */
-    public function flatten(): self;
+    public function flatten(int $levels = 1): self;
 
     /**
      * Removes all duplicate items.
