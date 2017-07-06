@@ -205,9 +205,14 @@ trait IteratorTrait
         return new ChainIterator($this, ...$iterables);
     }
 
-    public function flatten(): Iterator
+    public function flatten(int $levels = 1): Iterator
     {
-        return new ChainIterator(...$this->indexed());
+        $iterator = $this;
+        do {
+            $iterator = new ChainIterator(...$iterator->indexed());
+            $levels--;
+        } while ($levels);
+        return $iterator;
     }
 
     public function unique(): Iterator
