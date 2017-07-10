@@ -349,6 +349,46 @@ function not(callable $predicate): callable
 }
 
 /**
+ * Curries a callable.
+ *
+ * @see https://en.wikipedia.org/wiki/Currying
+ *
+ * @param callable $callable
+ *   The callable to curry.
+ *
+ * @return callable
+ *   The curried callable.
+ */
+function curry(callable $callable): callable {
+    $r = new \ReflectionFunction(\Closure::fromCallable($callable));
+    $requiredParameters = $r->getNumberOfRequiredParameters() - 1;
+
+    if ($requiredParameters < 2) {
+        return $callable;
+    }
+
+    // 3 different wrapper functions:
+    // 1) Root which creates a carrier and passes it on.
+    // 2) The final wrapper, which calls the original callable with all carried arguments unpacked.
+    // 3) Middle wrappers, accepting, modifying, and passing on carriers.
+
+    $curry = function(callable $curry, array $arguments, callable $callable, int $remainingRequiredParameters) {
+        return function($argument) use ($callable) {
+
+        };
+    };
+
+//    while ($requiredParameters) {
+//        $requiredParameters--;
+//        $callable = $curry_one($callable, $arguments;)
+//    }
+//    $callable = function($argument) use ($callable) {
+//        return func
+//    }
+    return $callable;
+}
+
+/**
  * Partially applies a callable, left-sided.
  *
  * @see https://en.wikipedia.org/wiki/Partial_application
