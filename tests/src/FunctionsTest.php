@@ -642,12 +642,23 @@ final class FunctionsTest extends TestCase
     /**
      * @covers \BartFeenstra\Functional\curry
      */
+    public function testCurryWithoutParameters()
+    {
+        $this->expectException(\TypeError::class);
+        $function = function () {
+        };
+        F\curry($function);
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\curry
+     */
     public function testCurryWithoutRequiredParameters()
     {
-        $function = function (string $a = 'Z'): string {
-            return $a;
+        $this->expectException(\TypeError::class);
+        $function = function (string $a = 'Z') {
         };
-        $this->assertSame('A', F\curry($function)('A'));
+        F\curry($function);
     }
 
     /**

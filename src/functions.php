@@ -364,7 +364,9 @@ function curry(callable $callable): callable
     $r = new \ReflectionFunction(\Closure::fromCallable($callable));
     $requiredParameters = $r->getNumberOfRequiredParameters();
 
-    if ($requiredParameters < 2) {
+    if ($requiredParameters < 1) {
+        throw new \TypeError(sprintf('Callables must have at least one required parameter in order to be curried, but a callable with %d required parameters was given.', $requiredParameters));
+    } elseif ($requiredParameters === 1) {
         return $callable;
     }
 
