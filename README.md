@@ -604,6 +604,23 @@ assert('ABCD' === $newFunction('A', 'D'));
 ?>
 ```
 
+### [Currying](#currying)
+[Currying](https://en.wikipedia.org/wiki/Currying) converts a single function with *n* parameters to *n* functions with
+one parameter each. Practically speaking, it allows you to copy a function, and fill out some of the arguments one at a
+time before calling it. You can use this to quickly transform existing functions into anonymous functions that can be
+used as callbacks. In PHP, this is possible with any kind of
+[callable](http://php.net/manual/en/language.types.callable.php) (functions, methods, closures, ...).
+
+```php
+<?php
+$originalFunction = function (string $a, string $b, string $c, string $d = 'D'): string {
+    return $a . $b . $c . $d;
+};
+
+assert('ABCD' === F\curry($originalFunction)('A')('B')('C'));
+?>
+```
+
 
 ## [Contributing](#contributing)
 Your involvement is more than welcome. Please

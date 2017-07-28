@@ -618,7 +618,6 @@ final class FunctionsTest extends TestCase
     /**
      * @covers \BartFeenstra\Functional\not
      *
-    <<<<<<< HEAD
      * @depends testEq
      */
     public function testNot()
@@ -634,12 +633,10 @@ final class FunctionsTest extends TestCase
      */
     public function testCurry()
     {
-        $function = function (string $a, string $b, string $c, string $d): string {
+        $function = function (string $a, string $b, string $c, string $d = 'D'): string {
             return $a . $b . $c . $d;
         };
-        $function = F\curry($function);
-        $expected = 'ABCD';
-        $this->assertSame($expected, $function('A')('B')('C')('D'));
+        $this->assertSame('ABCD', F\curry($function)('A')('B')('C'));
     }
 
     /**
@@ -650,8 +647,7 @@ final class FunctionsTest extends TestCase
         $function = function (string $a = 'Z'): string {
             return $a;
         };
-        $function = F\curry($function);
-        $this->assertSame('A', $function('A'));
+        $this->assertSame('A', F\curry($function)('A'));
     }
 
     /**
