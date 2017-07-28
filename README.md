@@ -20,6 +20,7 @@ makes you more productive in different ways:
     1. [The `Option` type](#the-option-type)
     1. [The `Result` type](#the-result-type)
     1. [Partial function application](#partial-function-application)
+    1. [Currying](#currying)
 1. [Contributing](#contributing)
 1. [Development](#development)
 
