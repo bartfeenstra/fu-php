@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ChainIterator;
+use BartFeenstra\Functional\Iterable\ChainIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +14,7 @@ final class ChainIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\ChainIterator
+     * @covers \BartFeenstra\Functional\Iterable\ChainIterator
      */
     public function test()
     {
@@ -29,7 +29,7 @@ final class ChainIteratorTest extends TestCase
     }
 
     /**
-     * @covers \BartFeenstra\Functional\ChainIterator
+     * @covers \BartFeenstra\Functional\Iterable\ChainIterator
      */
     public function testWithEmptyIterators()
     {
@@ -44,7 +44,7 @@ final class ChainIteratorTest extends TestCase
     }
 
     /**
-     * @covers \BartFeenstra\Functional\ChainIterator
+     * @covers \BartFeenstra\Functional\Iterable\ChainIterator
      */
     public function testWithoutIterators()
     {

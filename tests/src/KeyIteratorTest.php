@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\KeyIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\KeyIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class KeyIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\KeyIterator
+     * @covers \BartFeenstra\Functional\Iterable\KeyIterator
      */
     public function test()
     {

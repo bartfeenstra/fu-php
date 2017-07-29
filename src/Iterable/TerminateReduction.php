@@ -2,7 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
+
+use BartFeenstra\Functional\ImmutableTrait;
 
 /**
  * Defines a throwable to terminate a reduction.

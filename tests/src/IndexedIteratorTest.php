@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\IndexedIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\IndexedIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class IndexedIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\IndexedIterator
+     * @covers \BartFeenstra\Functional\Iterable\IndexedIterator
      */
     public function test()
     {

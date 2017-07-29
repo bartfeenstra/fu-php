@@ -2,17 +2,20 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
 
 /**
- * Converts all keys to integers, starting from 0.
+ * Iterates over keys.
  */
-class IndexedIterator extends \IteratorIterator implements Iterator
+final class KeyIterator extends IteratorIterator
 {
 
-    use IteratorTrait;
-
     private $index = 0;
+
+    public function current()
+    {
+        return parent::key();
+    }
 
     public function key()
     {

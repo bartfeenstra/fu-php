@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\KeyMapIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\KeyMapIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class KeyMapIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\KeyMapIterator
+     * @covers \BartFeenstra\Functional\Iterable\KeyMapIterator
      */
     public function test()
     {
