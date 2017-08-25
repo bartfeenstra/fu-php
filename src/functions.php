@@ -358,6 +358,9 @@ function not(callable $predicate): callable
  *
  * @return callable
  *   The curried callable.
+ *
+ * @throws \TypeError
+ *   Thrown if the callable cannot be curried.
  */
 function curry(callable $callable): callable
 {
