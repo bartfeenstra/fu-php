@@ -349,6 +349,55 @@ function not(callable $predicate): callable
 }
 
 /**
+ * Curries a callable.
+ *
+ * @see https://en.wikipedia.org/wiki/Currying
+ *
+ * @param callable $callable
+ *   The callable to curry.
+ *
+ * @return callable
+ *   The curried callable.
+ *
+ * @throws \TypeError
+ *   Thrown if the callable cannot be curried.
+ */
+function curry(callable $callable): callable
+{
+    $r = new \ReflectionFunction(\Closure::fromCallable($callable));
+    $requiredParameters = $r->getNumberOfRequiredParameters();
+
+    if ($requiredParameters < 1) {
+        throw new \TypeError(sprintf('Callables must have at least one required parameter in order to be curried, but a callable with %d required parameters was given.', $requiredParameters));
+    } elseif ($requiredParameters === 1) {
+        return $callable;
+    }
+
+    // Curries the callable for a single parameter only, and keeps track of arguments that have been passed on already,
+    // and when it must stop the curry and invoke the callable.
+    $curry = function (callable $curry, array $arguments, callable $callable, int $remainingRequiredParameters) {
+        $remainingRequiredParameters--;
+
+        // If any other parameter need to be curried after this one, do so.
+        if ($remainingRequiredParameters > 0) {
+            return function ($argument) use ($curry, $arguments, $callable, $remainingRequiredParameters) {
+                $arguments[] = $argument;
+                return $curry($curry, $arguments, $callable, $remainingRequiredParameters);
+            };
+        }
+
+        // This was the last parameter to be curried, so invoke the original callable.
+        return function ($argument) use ($arguments, $callable) {
+            $arguments[] = $argument;
+            return $callable(...$arguments);
+        };
+    };
+
+    // Initialize the curry, with an empty argument list, as the callable is not invoked yet.
+    return $curry($curry, [], $callable, $requiredParameters);
+}
+
+/**
  * Partially applies a callable, left-sided.
  *
  * @see https://en.wikipedia.org/wiki/Partial_application

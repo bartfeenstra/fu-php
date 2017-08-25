@@ -20,6 +20,7 @@ makes you more productive in different ways:
     1. [The `Option` type](#the-option-type)
     1. [The `Result` type](#the-result-type)
     1. [Partial function application](#partial-function-application)
+    1. [Currying](#currying)
 1. [Contributing](#contributing)
 1. [Development](#development)
 
@@ -601,6 +602,23 @@ assert('ABCD' === $newFunction('A', 'B'));
 // Fix two arguments by index/in the middle.
 $newFunction = F\apply_i($originalFunction, 1, 'B', 'C');
 assert('ABCD' === $newFunction('A', 'D'));
+?>
+```
+
+### [Currying](#currying)
+[Currying](https://en.wikipedia.org/wiki/Currying) converts a single function with *n* parameters to *n* functions with
+one parameter each. Practically speaking, it allows you to copy a function, and fill out some of the arguments one at a
+time before calling it. You can use this to quickly transform existing functions into anonymous functions that can be
+used as callbacks. In PHP, this is possible with any kind of
+[callable](http://php.net/manual/en/language.types.callable.php) (functions, methods, closures, ...).
+
+```php
+<?php
+$originalFunction = function (string $a, string $b, string $c, string $d = 'D'): string {
+    return $a . $b . $c . $d;
+};
+
+assert('ABCD' === F\curry($originalFunction)('A')('B')('C'));
 ?>
 ```
 
