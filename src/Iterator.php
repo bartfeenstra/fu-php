@@ -162,18 +162,18 @@ interface Iterator extends \Iterator, \Countable
     public function zip($other, ...$others): self;
 
     /**
-     * Returns the keys as indexed values.
+     * Creates a list with all keys set to integers, starting from 0.
      *
      * @return \BartFeenstra\Functional\Iterator
      */
-    public function keys(): self;
+    public function list(): self;
 
     /**
-     * Converts all keys to integers, starting from 0.
+     * Returns the keys as indexed values, starting from 0.
      *
      * @return \BartFeenstra\Functional\Iterator
      */
-    public function indexed(): self;
+    public function listKeys(): self;
 
     /**
      * Swaps keys and values.

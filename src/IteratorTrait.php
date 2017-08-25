@@ -132,14 +132,14 @@ trait IteratorTrait
         return new ZipIterator($this, ...func_get_args());
     }
 
-    public function keys(): Iterator
-    {
-        return new KeyIterator($this);
-    }
-
-    public function indexed(): Iterator
+    public function list(): Iterator
     {
         return new IndexedIterator($this);
+    }
+
+    public function listKeys(): Iterator
+    {
+        return new KeyIterator($this);
     }
 
     public function flip(): Iterator
@@ -209,7 +209,7 @@ trait IteratorTrait
     {
         $iterator = $this;
         do {
-            $iterator = new ChainIterator(...$iterator->indexed());
+            $iterator = new ChainIterator(...$iterator->list());
             $levels--;
         } while ($levels);
         return $iterator;
