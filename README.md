@@ -272,22 +272,7 @@ assert($expected === iterator_to_array($zip));
 ?>
 ```
 
-#### keys
-Uses keys as values, and the new keys are indexes.
-```php
-<?php
-$array = [
-    'a' => 'A',
-    'b' => 'B',
-    'c' => 'C',
-];
-$keys = iter($array)->keys();
-$expected = ['a', 'b', 'c'];
-assert($expected === iterator_to_array($keys));
-?>
-```
-
-#### indexed
+#### list
 Converts all keys to integers, starting from 0.
 ```php
 <?php
@@ -296,9 +281,24 @@ $array = [
     'b' => 'B',
     'c' => 'C',
 ];
-$indexed = iter($array)->indexed();
+$indexed = iter($array)->list();
 $expected = ['A', 'B', 'C'];
 assert($expected === iterator_to_array($indexed));
+?>
+```
+
+#### listKeys
+Uses keys as values, and indexes them from 0.
+```php
+<?php
+$array = [
+    'a' => 'A',
+    'b' => 'B',
+    'c' => 'C',
+];
+$keys = iter($array)->listKeys();
+$expected = ['a', 'b', 'c'];
+assert($expected === iterator_to_array($keys));
 ?>
 ```
 
