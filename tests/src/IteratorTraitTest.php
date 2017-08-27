@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\IteratorIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\IteratorIterator;
+use BartFeenstra\Functional\Iterable\TerminateFold;
+use BartFeenstra\Functional\Iterable\TerminateReduction;
 use BartFeenstra\Functional\None;
 use BartFeenstra\Functional\SomeValue;
-use BartFeenstra\Functional\TerminateFold;
-use BartFeenstra\Functional\TerminateReduction;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -157,7 +157,7 @@ final class IteratorTraitTest extends TestCase
 
     /**
      * @covers ::reduce
-     * @covers \BartFeenstra\Functional\TerminateReduction
+     * @covers \BartFeenstra\Functional\Iterable\TerminateReduction
      */
     public function testReduceWithTermination()
     {
@@ -189,7 +189,7 @@ final class IteratorTraitTest extends TestCase
 
     /**
      * @covers ::fold
-     * @covers \BartFeenstra\Functional\TerminateFold
+     * @covers \BartFeenstra\Functional\Iterable\TerminateFold
      */
     public function testFoldWithTermination()
     {

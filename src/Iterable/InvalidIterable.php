@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
 
 /**
  * Is thrown when an invalid iterator argument is encountered.

@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
+
+use BartFeenstra\Functional\None;
+use BartFeenstra\Functional\Option;
+use function BartFeenstra\Functional\Predicate\truthy;
+use BartFeenstra\Functional\SomeValue;
 
 /**
  * Implements \BartFeenstra\Functional\Iterator.

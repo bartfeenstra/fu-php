@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\InvalidIterable;
+use BartFeenstra\Functional\Iterable\InvalidIterable;
 use PHPUnit\Framework\TestCase;
 
 /**

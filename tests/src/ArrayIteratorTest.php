@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +14,7 @@ final class ArrayIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\ArrayIterator
+     * @covers \BartFeenstra\Functional\Iterable\ArrayIterator
      */
     public function testIteration()
     {

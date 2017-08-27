@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\UniqueIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\UniqueIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class UniqueIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\UniqueIterator
+     * @covers \BartFeenstra\Functional\Iterable\UniqueIterator
      */
     public function test()
     {

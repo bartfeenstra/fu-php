@@ -13,7 +13,9 @@
       "BartFeenstra\\Functional\\": "src"
     },
     "files": [
-      "src/functions.php"
+      "src/functions.php",
+      "src/Iterable/functions.php",
+      "src/Predicate/functions.php"
     ]
   },
   "autoload-dev": {

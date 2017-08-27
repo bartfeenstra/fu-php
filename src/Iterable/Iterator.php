@@ -2,7 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
+
+use BartFeenstra\Functional\Option;
 
 /**
  * Defines an iterator.
@@ -241,7 +243,7 @@ interface Iterator extends \Iterator, \Countable
      *
      * @return \BartFeenstra\Functional\Iterator
      *
-     * @throws \BartFeenstra\Functional\InvalidIterable
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
      */
     public function chain(...$iterables): self;
@@ -254,7 +256,7 @@ interface Iterator extends \Iterator, \Countable
      *
      * @return \BartFeenstra\Functional\Iterator
      *
-     * @throws \BartFeenstra\Functional\InvalidIterable
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
      */
     public function flatten(int $levels = 1): self;

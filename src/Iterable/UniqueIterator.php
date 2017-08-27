@@ -2,7 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
+
+use function BartFeenstra\Functional\Predicate\truthy;
 
 /**
  * Removes all duplicate items.

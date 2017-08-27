@@ -50,7 +50,9 @@ To use any of the code, you must first import the namespaces at the top of your 
 ```php
 <?php
 use BartFeenstra\Functional as F;
-use function BartFeenstra\Functional\iter;
+use BartFeenstra\Functional\Iterable as I;
+use BartFeenstra\Functional\Predicate as P;
+use function BartFeenstra\Functional\Iterable\iter;
 ?>
 ```
 
@@ -78,8 +80,8 @@ $iterator = iter([]);
 assert($iterator === iter($iterator));
 
 // Objects can expose universal iterators as well.
-$toIterator = new class() implements F\ToIterator {
-  public function iter(): F\Iterator {
+$toIterator = new class() implements I\ToIterator {
+  public function iter(): I\Iterator {
     return iter([]);
   }
 };
@@ -107,7 +109,7 @@ assert($list === $carrier);
 Filters out values that do not match.
 ```php
 <?php
-$result = iter([3, 1, 4])->filter(F\gt(2));
+$result = iter([3, 1, 4])->filter(P\gt(2));
 assert([0 => 3, 2 => 4] === iterator_to_array($result));
 ?>
 ```
@@ -116,7 +118,7 @@ assert([0 => 3, 2 => 4] === iterator_to_array($result));
 Tries to find a single matching value.
 ```php
 <?php
-$found = iter([3, 1, 4, 1, 5, 9])->find(F\gt(4));
+$found = iter([3, 1, 4, 1, 5, 9])->find(P\gt(4));
 assert(new F\SomeValue(5) == $found);
 ?>
 ```
@@ -200,7 +202,7 @@ Take as many consecutively matching values as possible from the beginning.
 <?php
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
-$result = iter($list)->takeWhile(F\le(3));
+$result = iter($list)->takeWhile(P\le(3));
 assert([3, 1] === iterator_to_array($result));
 ?>
 ```
@@ -475,46 +477,46 @@ predicates.
 ```php
 <?php
 // All values strictly identical to TRUE.
-$predicate = F\true();
+$predicate = P\true();
 
 // All values strictly identical to FALSE.
-$predicate = F\false();
+$predicate = P\false();
 
 // All values that evaluate to TRUE.
-$predicate = F\truthy();
+$predicate = P\truthy();
 
 // All values that evaluate to FALSE.
-$predicate = F\falsy();
+$predicate = P\falsy();
 
 // All values strictly identical to 0.
-$predicate = F\id(0);
+$predicate = P\id(0);
 
 // All values equal to "Apples and oranges".
-$predicate = F\eq('Apples and oranges');
+$predicate = P\eq('Apples and oranges');
 
 // All values greater than 9.
-$predicate = F\gt(9);
+$predicate = P\gt(9);
 
 // All values greater than or equal to 99.
-$predicate = F\ge(99);
+$predicate = P\ge(99);
 
 // All values lesser than 15.
-$predicate = F\lt(15);
+$predicate = P\lt(15);
 
 // All values lesser than or equal to 666.
-$predicate = F\le(666);
+$predicate = P\le(666);
 
 // All values that are instances of Foo, Bar, Baz, or Qux.
-$predicate = F\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
+$predicate = P\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
 
 // One or more values are lesser than 0 OR greater than 9.
-$predicate = F\any(F\lt(0), F\gt(9));
+$predicate = P\any(P\lt(0), P\gt(9));
 
 // All values are greater than 0 AND lesser than 9.
-$predicate = F\all(F\gt(0), F\lt(9));
+$predicate = P\all(P\gt(0), P\lt(9));
 
 // All values different from "Apples and oranges".
-$predicate = F\not(F\eq('Apples and oranges'));
+$predicate = P\not(P\eq('Apples and oranges'));
 ?>
 ```
 

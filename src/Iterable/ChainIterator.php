@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
 
 /**
  * Chains multiple iterables together, and re-indexes the values.
@@ -12,7 +12,7 @@ class ChainIterator implements Iterator
     use IteratorTrait;
 
     /**
-     * @var \BartFeenstra\Functional\Iterator
+     * @var \BartFeenstra\Functional\Iterable\Iterator
      */
     private $currentIterator;
     private $index = 0;
@@ -23,7 +23,7 @@ class ChainIterator implements Iterator
      *
      * @param mixed[] ...$iterables
      *
-     * @throws \BartFeenstra\Functional\InvalidIterable
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      */
     public function __construct(...$iterables)
     {

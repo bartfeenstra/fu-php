@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\MapIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\MapIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class MapIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\MapIterator
+     * @covers \BartFeenstra\Functional\Iterable\MapIterator
      */
     public function test()
     {

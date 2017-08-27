@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ZipIterator;
+use BartFeenstra\Functional\Iterable\ZipIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +14,7 @@ final class ZipIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\ZipIterator
+     * @covers \BartFeenstra\Functional\Iterable\ZipIterator
      */
     public function testIteration()
     {

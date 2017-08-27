@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional\ArrayIterator;
-use BartFeenstra\Functional\TakeWhileIterator;
+use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\TakeWhileIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,7 +15,7 @@ final class TakeWhileIteratorTest extends TestCase
 {
 
     /**
-     * @covers \BartFeenstra\Functional\TakeWhileIterator
+     * @covers \BartFeenstra\Functional\Iterable\TakeWhileIterator
      */
     public function test()
     {

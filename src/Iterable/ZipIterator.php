@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace BartFeenstra\Functional;
+namespace BartFeenstra\Functional\Iterable;
 
 /**
  * Zips iterators into tuples.
@@ -13,7 +13,7 @@ final class ZipIterator implements Iterator
     use IteratorTrait;
 
     private $key = 0;
-    /** @var \BartFeenstra\Functional\Iterator[] */
+    /** @var \BartFeenstra\Functional\Iterable\Iterator[] */
     private $iterators;
 
     /**
