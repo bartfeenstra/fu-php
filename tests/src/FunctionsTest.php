@@ -138,6 +138,50 @@ final class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers \BartFeenstra\Functional\curry
+     */
+    public function testCurry()
+    {
+        $function = function (string $a, string $b, string $c, string $d = 'D'): string {
+            return $a . $b . $c . $d;
+        };
+        $this->assertSame('ABCD', F\curry($function)('A')('B')('C'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\curry
+     */
+    public function testCurryWithTooManyParameters()
+    {
+        $function = function (string $a, string $b, string $c, string $d = 'D'): string {
+            return $a . $b . $c . $d;
+        };
+        $this->assertSame('ABCD', F\curry($function)('A', 'X')('B', 'Y')('C', 'Z'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\curry
+     */
+    public function testCurryWithoutParameters()
+    {
+        $this->expectException(\TypeError::class);
+        $function = function () {
+        };
+        F\curry($function);
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\curry
+     */
+    public function testCurryWithoutRequiredParameters()
+    {
+        $this->expectException(\TypeError::class);
+        $function = function (string $a = 'Z') {
+        };
+        F\curry($function);
+    }
+
+    /**
      * @covers \BartFeenstra\Functional\apply_l
      */
     public function testApplyL()
