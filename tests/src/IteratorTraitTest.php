@@ -342,24 +342,9 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
-     * @covers ::keys
+     * @covers ::list
      */
-    public function testKeys()
-    {
-        $array = [
-            'a' => 'A',
-            'b' => 'B',
-            'c' => 'C',
-        ];
-        $iterator = new ArrayIterator($array);
-        $expected = ['a', 'b', 'c'];
-        $this->assertSame($expected, iterator_to_array($iterator->keys()));
-    }
-
-    /**
-     * @covers ::indexed
-     */
-    public function testIndexed()
+    public function testList()
     {
         $array = [
             'a' => 'A',
@@ -368,7 +353,22 @@ final class IteratorTraitTest extends TestCase
         ];
         $iterator = new ArrayIterator($array);
         $expected = ['A', 'B', 'C'];
-        $this->assertSame($expected, iterator_to_array($iterator->indexed()));
+        $this->assertSame($expected, iterator_to_array($iterator->list()));
+    }
+
+    /**
+     * @covers ::listKeys
+     */
+    public function testListKeys()
+    {
+        $array = [
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+        ];
+        $iterator = new ArrayIterator($array);
+        $expected = ['a', 'b', 'c'];
+        $this->assertSame($expected, iterator_to_array($iterator->listKeys()));
     }
 
     /**
