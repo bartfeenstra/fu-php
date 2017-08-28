@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\UniqueIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\UniqueIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\UniqueIterator
  */
 final class UniqueIteratorTest extends TestCase
 {

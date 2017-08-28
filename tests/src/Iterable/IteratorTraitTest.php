@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\IteratorIterator;
@@ -13,7 +13,7 @@ use BartFeenstra\Functional\SomeValue;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\IteratorTrait
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\IteratorTrait
  */
 final class IteratorTraitTest extends TestCase
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ChainIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\ChainIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\ChainIterator
  */
 final class ChainIteratorTest extends TestCase
 {

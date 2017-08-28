@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\FilterIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\FilterIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\FilterIterator
  */
 final class FilterIteratorTest extends TestCase
 {

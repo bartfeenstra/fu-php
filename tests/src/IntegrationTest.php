@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use BartFeenstra\Functional as F;
+use function BartFeenstra\Functional\Iterable\iter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,7 +20,7 @@ final class IntegrationTest extends TestCase
     {
         $carrier = [];
         $list = [3, 1, 4, 1, 5, 9];
-        F\iter($list)->map(function (int $i): string {
+        iter($list)->map(function (int $i): string {
             return str_repeat('.', $i);
         })->filter(function (string $s): bool {
             return strlen($s) > 1;

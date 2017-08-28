@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\TakeWhileIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\TakeWhileIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\TakeWhileIterator
  */
 final class TakeWhileIteratorTest extends TestCase
 {

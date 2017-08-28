@@ -1,14 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional\Iterable;
 
-use BartFeenstra\Functional as F;
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\InvalidIterable;
 use BartFeenstra\Functional\Iterable\Iterator;
+use BartFeenstra\Functional\Iterable\ToIterator;
 use PHPUnit\Framework\TestCase;
+use function BartFeenstra\Functional\Iterable\iter;
 
 /**
  * Covers functions.php.
@@ -16,20 +17,20 @@ use PHPUnit\Framework\TestCase;
 final class FunctionsTest extends TestCase
 {
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithArray()
     {
         $array = [3, 1, 4];
-        $iterator = F\iter($array);
+        $iterator = iter($array);
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame($array, iterator_to_array($iterator));
     }
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithGenerator()
     {
         $array = [3, 1, 4];
@@ -38,14 +39,14 @@ final class FunctionsTest extends TestCase
                 yield $value;
             }
         };
-        $iterator = F\iter($func());
+        $iterator = iter($func());
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame($array, iterator_to_array($iterator));
     }
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithClosure()
     {
         $array = [3, 1, 4];
@@ -54,37 +55,37 @@ final class FunctionsTest extends TestCase
                 yield $value;
             }
         };
-        $iterator = F\iter($func);
+        $iterator = iter($func);
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame($array, iterator_to_array($iterator));
     }
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithClosureWithRequiredParameters()
     {
         $this->expectException(InvalidIterable::class);
         $func = function ($required) {
         };
-        F\iter($func);
+        iter($func);
     }
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithClosureWithInvocationError()
     {
         $this->expectException(InvalidIterable::class);
         $func = function () {
             throw new \RuntimeException();
         };
-        F\iter($func);
+        iter($func);
     }
 
-  /**
-   * @covers \BartFeenstra\Functional\iter
-   */
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\iter
+     */
     public function testIterWithClosureWithNonIteratorReturnValue()
     {
         $this->expectException(InvalidIterable::class);
@@ -92,37 +93,38 @@ final class FunctionsTest extends TestCase
         $func = function () use ($array) {
             return 'fooz';
         };
-        F\iter($func);
+        iter($func);
     }
 
     /**
-     * @covers \BartFeenstra\Functional\iter
+     * @covers \BartFeenstra\Functional\Iterable\iter
      */
     public function testIterWithIterator()
     {
         $array = [3, 1, 4];
-        $iterator = F\iter(new ArrayIterator($array));
+        $iterator = iter(new ArrayIterator($array));
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame($array, iterator_to_array($iterator));
     }
 
     /**
-     * @covers \BartFeenstra\Functional\iter
+     * @covers \BartFeenstra\Functional\Iterable\iter
      */
     public function testIterWithSplIterator()
     {
         $array = [3, 1, 4];
-        $iterator = F\iter(new \ArrayIterator($array));
+        $iterator = iter(new \ArrayIterator($array));
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame($array, iterator_to_array($iterator));
     }
 
     /**
-     * @covers \BartFeenstra\Functional\iter
+     * @covers \BartFeenstra\Functional\Iterable\iter
      */
     public function testIterWithToIterator()
     {
-        $iterator = F\iter(new class() implements F\Iterable\ToIterator {
+        $iterator = iter(new class() implements ToIterator
+        {
             public function iter(): Iterator
             {
                 return new ArrayIterator([3, 1, 4]);

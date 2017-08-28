@@ -28,7 +28,7 @@ final class ZipIterator implements Iterator
      */
     public function __construct($one, $two, ...$more)
     {
-        $this->iterators = array_map('\BartFeenstra\Functional\iter', func_get_args());
+        $this->iterators = array_map('\BartFeenstra\Functional\Iterable\iter', func_get_args());
     }
 
     public function current()
