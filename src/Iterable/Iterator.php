@@ -25,7 +25,7 @@ interface Iterator extends \Iterator, \Countable
    * @param callable $operation
    *   Signature: function(mixed $value, mixed $key): void.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function each(callable $operation): self;
 
@@ -35,7 +35,7 @@ interface Iterator extends \Iterator, \Countable
    * @param callable|null $predicate
    *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function filter(callable $predicate = null): self;
 
@@ -56,7 +56,7 @@ interface Iterator extends \Iterator, \Countable
    * @param callable $conversion
    *   Signature: function(mixed $value, mixed $key): mixed.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function map(callable $conversion): self;
 
@@ -66,7 +66,7 @@ interface Iterator extends \Iterator, \Countable
      * @param callable $conversion
      *   Signature: function(mixed $value, mixed $key): mixed.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function mapKeys(callable $conversion): self;
 
@@ -101,7 +101,7 @@ interface Iterator extends \Iterator, \Countable
    * @param int $length
    *   The number of values to take.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function take(int $length): self;
 
@@ -111,7 +111,7 @@ interface Iterator extends \Iterator, \Countable
    * @param callable $predicate
    *   Signature: function(mixed $value, mixed $key): bool.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function takeWhile(callable $predicate): self;
 
@@ -123,7 +123,7 @@ interface Iterator extends \Iterator, \Countable
    * @param int|null $length
    *   The number of values to take, or NULL to create an infinite slice.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function slice(int $start, int $length = null): self;
 
@@ -154,7 +154,7 @@ interface Iterator extends \Iterator, \Countable
   /**
    * Repeats all values forever.
    *
-   * @return \BartFeenstra\Functional\Iterator
+   * @return \BartFeenstra\Functional\Iterable\Iterator
    */
     public function forever(): self;
 
@@ -166,21 +166,21 @@ interface Iterator extends \Iterator, \Countable
      * @param mixed ...$others
      *   Any values taken by \BartFeenstra\Functional\iter().
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function zip($other, ...$others): self;
 
     /**
      * Creates a list with all keys set to integers, starting from 0.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function list(): self;
 
     /**
      * Returns the keys as indexed values, starting from 0.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function listKeys(): self;
 
@@ -190,14 +190,14 @@ interface Iterator extends \Iterator, \Countable
      * Not all types are valid keys. Refer to the \Iterator documentation on php.net for more information.
      * @see http://php.net/manual/en/class.iterator.php
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function flip(): self;
 
     /**
      * Reverses the values.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function reverse(): Iterator;
 
@@ -231,7 +231,7 @@ interface Iterator extends \Iterator, \Countable
      * @param  callable $sort
      *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a regular sort.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function sort(callable $sort = null): self;
 
@@ -241,14 +241,14 @@ interface Iterator extends \Iterator, \Countable
      * @param  callable $sort
      *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a regular sort.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function sortKeys(callable $sort = null): self;
 
     /**
      * Chains other iterables to this iterator, and re-indexes the values.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      *
      * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
@@ -261,7 +261,7 @@ interface Iterator extends \Iterator, \Countable
      * @param int $levels
      *   The number of levels to flatten.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      *
      * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
@@ -273,7 +273,7 @@ interface Iterator extends \Iterator, \Countable
      *
      * This uses strict comparison.
      *
-     * @return \BartFeenstra\Functional\Iterator
+     * @return \BartFeenstra\Functional\Iterable\Iterator
      */
     public function unique(): self;
 }
