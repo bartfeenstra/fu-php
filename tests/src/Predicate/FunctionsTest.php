@@ -43,7 +43,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\true
+     * @covers \BartFeenstra\Functional\Predicate\true
      *
      * @dataProvider provideTrue
      */
@@ -69,7 +69,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\false
+     * @covers \BartFeenstra\Functional\Predicate\false
      *
      * @dataProvider provideFalse
      */
@@ -98,7 +98,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\truthy
+     * @covers \BartFeenstra\Functional\Predicate\truthy
      *
      * @dataProvider provideTruthy
      */
@@ -124,7 +124,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\falsy
+     * @covers \BartFeenstra\Functional\Predicate\falsy
      *
      * @dataProvider provideFalsy
      */
@@ -163,7 +163,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\id
+     * @covers \BartFeenstra\Functional\Predicate\id
      *
      * @dataProvider provideId
      */
@@ -202,7 +202,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\eq
+     * @covers \BartFeenstra\Functional\Predicate\eq
      *
      * @dataProvider provideEq
      */
@@ -227,7 +227,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\gt
+     * @covers \BartFeenstra\Functional\Predicate\gt
      *
      * @dataProvider provideGt
      */
@@ -254,7 +254,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\ge
+     * @covers \BartFeenstra\Functional\Predicate\ge
      *
      * @dataProvider provideGe
      */
@@ -279,7 +279,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\lt
+     * @covers \BartFeenstra\Functional\Predicate\lt
      *
      * @dataProvider provideLt
      */
@@ -306,7 +306,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\le
+     * @covers \BartFeenstra\Functional\Predicate\le
      *
      * @dataProvider provideLe
      */
@@ -342,7 +342,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\instance_of
+     * @covers \BartFeenstra\Functional\Predicate\instance_of
      *
      * @dataProvider provideInstanceOf
      */
@@ -352,7 +352,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\any
+     * @covers  \BartFeenstra\Functional\Predicate\any
      *
      * @depends testGt
      * @depends testLt
@@ -370,7 +370,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\all
+     * @covers  \BartFeenstra\Functional\Predicate\all
      *
      * @depends testGt
      * @depends testLt
@@ -387,7 +387,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\not
+     * @covers  \BartFeenstra\Functional\Predicate\not
      *
      * @depends testEq
      */

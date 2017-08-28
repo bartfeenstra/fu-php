@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ZipIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\ZipIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\ZipIterator
  */
 final class ZipIteratorTest extends TestCase
 {
