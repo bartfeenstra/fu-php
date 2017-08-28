@@ -15,6 +15,10 @@ use BartFeenstra\Functional\SomeValue;
 trait IteratorTrait
 {
 
+    public function toArray(): array {
+        return iterator_to_array($this);
+    }
+
     public function each(callable $operation): Iterator
     {
         foreach ($this as $key => $value) {

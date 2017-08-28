@@ -13,6 +13,13 @@ interface Iterator extends \Iterator, \Countable
 {
 
   /**
+   * Converts the iterator to an array.
+   *
+   * @return array
+   */
+    public function toArray(): array;
+
+  /**
    * Performs an operation for each value.
    *
    * @param callable $operation
