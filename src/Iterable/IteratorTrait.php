@@ -15,7 +15,8 @@ use BartFeenstra\Functional\SomeValue;
 trait IteratorTrait
 {
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return iterator_to_array($this);
     }
 
