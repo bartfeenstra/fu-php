@@ -10,7 +10,7 @@ use function BartFeenstra\Functional\Predicate\truthy;
 use BartFeenstra\Functional\SomeValue;
 
 /**
- * Implements \BartFeenstra\Functional\Iterator.
+ * Implements \BartFeenstra\Functional\Iterable\Iterator.
  */
 trait IteratorTrait
 {
