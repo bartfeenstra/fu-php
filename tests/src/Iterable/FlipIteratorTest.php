@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BartFeenstra\Tests\Functional;
+namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\FlipIterator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \BartFeenstra\Functional\FlipIterator
+ * @coversDefaultClass \BartFeenstra\Functional\Iterable\FlipIterator
  */
 final class FlipIteratorTest extends TestCase
 {
