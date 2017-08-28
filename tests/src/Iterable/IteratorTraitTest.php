@@ -19,6 +19,16 @@ final class IteratorTraitTest extends TestCase
 {
 
     /**
+     * @covers ::toArray
+     */
+    public function testToArray()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame($array, $iterator->toArray());
+    }
+
+    /**
      * @covers ::each
      */
     public function testEach()
