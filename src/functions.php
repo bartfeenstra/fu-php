@@ -104,8 +104,8 @@ function try_except(callable $goal, string ...$except): Result
  *
  * @param callable $goal
  *   The code to try and execute. Signature: `function(): mixed`.
- * @param int $attempts
- *   The number of times to try to reach the goal. Defaults to 2 attempts / 1 retry.
+ * @param int|null $attempts
+ *   The number of times to try to reach the goal. Use NULL to retry infinitely. Defaults to 2 attempts / 1 retry.
  * @param string ...$except
  *   The fully qualified names of \Throwable implementations to limit the catch to. Any throwable not listed, will not
  *   be caught. If not given, all throwables will be caught.
@@ -115,23 +115,30 @@ function try_except(callable $goal, string ...$except): Result
  * @throws \Throwable
  *   If $except is given, any throwable thrown by $goal that is not in $except.
  */
-function retry_except(callable $goal, int $attempts = 2, string ...$except): Result
+function retry_except(callable $goal, ?int $attempts = 2, string ...$except): Result
 {
+    $retry = true;
     $remainingAttempts = $attempts;
     do {
-        $remainingAttempts--;
+        if (is_int($attempts)) {
+            if ($remainingAttempts > 2) {
+                $remainingAttempts--;
+            } else {
+                $retry = false;
+            }
+        }
         try {
             return new OkValue($goal());
         } catch (\Throwable $t) {
             if (!$except or instance_of(...$except)($t)) {
-                if ($remainingAttempts) {
+                if ($retry) {
                     continue;
                 }
                 return new ThrowableError($t);
             }
             throw $t;
         }
-    } while ($remainingAttempts);
+    } while ($retry);
 }
 
 /**

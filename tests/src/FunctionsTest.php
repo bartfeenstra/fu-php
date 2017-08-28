@@ -114,6 +114,24 @@ final class FunctionsTest extends TestCase
     /**
      * @covers \BartFeenstra\Functional\retry_except
      */
+    public function testRetryExceptOkAfterInfiniteRetry()
+    {
+        $value = new \stdClass();
+        $goal = function () use ($value) {
+            static $invocations = 0;
+            $invocations++;
+            if ($invocations > 999) {
+                return $value;
+            }
+            throw new \Exception();
+        };
+        $expected = new F\OkValue($value);
+        $this->assertEquals($expected, F\retry_except($goal, null));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\retry_except
+     */
     public function testRetryExceptCaughtThrowable()
     {
         $throwable = new \BadMethodCallException();
