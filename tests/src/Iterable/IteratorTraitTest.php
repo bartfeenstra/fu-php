@@ -569,6 +569,36 @@ final class IteratorTraitTest extends TestCase
     }
 
     /**
+     * @covers ::merge
+     */
+    public function testMerge()
+    {
+        $arrayOne = [
+            'one' => 'One',
+            'two' => 'Two',
+            'three' => 'Three',
+        ];
+        $arrayTwo = [
+            'zero' => 'Nul',
+            'three' => 'Drie',
+        ];
+        $arrayThree = [
+            'two' => 'Dva',
+            'four' => 'Chotyry',
+        ];
+        $iterator = new ArrayIterator($arrayOne);
+        $merge = $iterator->merge($arrayTwo, $arrayThree);
+        $expected = [
+            'one' => 'One',
+            'two' => 'Dva',
+            'three' => 'Drie',
+            'zero' => 'Nul',
+            'four' => 'Chotyry',
+        ];
+        $this->assertSame($expected, $merge->toArray());
+    }
+
+    /**
      * @covers ::flatten
      */
     public function testFlatten()

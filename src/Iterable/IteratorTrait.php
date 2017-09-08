@@ -215,6 +215,11 @@ trait IteratorTrait
         return new ChainIterator($this, ...$iterables);
     }
 
+    public function merge(...$iterables): Iterator
+    {
+        return new ArrayIterator(array_merge(...array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables))));
+    }
+
     public function flatten(int $levels = 1): Iterator
     {
         $iterator = $this;

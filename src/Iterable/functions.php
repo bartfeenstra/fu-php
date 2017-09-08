@@ -44,3 +44,17 @@ function iter($iterable) :Iterator
 
     throw new InvalidIterable(sprintf('%s is not a valid iterable.', type($iterable)), $iterable);
 }
+
+/**
+ * Ensures an iterable is an array.
+ *
+ * @param iterable $iterable
+ *   The iterable that must be ensured to be an array.
+ *
+ * @return array
+ *   The iterable as an array.
+ */
+function ensure_array(iterable $iterable): array
+{
+    return is_array($iterable) ? $iterable : iterator_to_array($iterable);
+}
