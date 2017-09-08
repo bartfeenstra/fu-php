@@ -256,6 +256,16 @@ interface Iterator extends \Iterator, \Countable
     public function chain(...$iterables): self;
 
     /**
+     * Merges other iterables into this iterator, where later values override earlier ones with the same keys.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     *
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
+     *   Thrown if one of the items is not an iterable.
+     */
+    public function merge(...$iterables): self;
+
+    /**
      * Flattens the iterables contained by this iterator into a single new iterator.
      *
      * @param int $levels

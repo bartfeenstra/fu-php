@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
+use function BartFeenstra\Functional\Iterable\ensure_array;
 use BartFeenstra\Functional\Iterable\InvalidIterable;
 use BartFeenstra\Functional\Iterable\Iterator;
 use BartFeenstra\Functional\Iterable\ToIterator;
@@ -132,5 +133,24 @@ final class FunctionsTest extends TestCase
         });
         $this->assertInstanceOf(Iterator::class, $iterator);
         $this->assertSame([3, 1, 4], iterator_to_array($iterator));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\ensure_array()
+     */
+    public function testEnsureArrayWithArray()
+    {
+        $array = [new \stdClass(), new \stdClass(), new \stdClass()];
+        $this->assertSame($array, ensure_array($array));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\Iterable\ensure_array()
+     */
+    public function testEnsureArrayWithIterator()
+    {
+        $array = [new \stdClass(), new \stdClass(), new \stdClass()];
+        $iterator = new ArrayIterator($array);
+        $this->assertSame($array, ensure_array($iterator));
     }
 }
