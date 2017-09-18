@@ -228,22 +228,22 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Sorts items by their values.
      *
-     * @param  callable $sort
-     *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a regular sort.
+     * @param  callable $comparator
+     *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a native PHP comparison.
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      */
-    public function sort(callable $sort = null): self;
+    public function sort(callable $comparator = null): self;
 
     /**
      * Sorts items by their keys.
      *
-     * @param  callable $sort
-     *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a regular sort.
+     * @param  callable $comparator
+     *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a native PHP comparison.
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      */
-    public function sortKeys(callable $sort = null): self;
+    public function sortKeys(callable $comparator = null): self;
 
     /**
      * Chains other iterables to this iterator, and re-indexes the values.
@@ -264,6 +264,38 @@ interface Iterator extends \Iterator, \Countable
      *   Thrown if one of the items is not an iterable.
      */
     public function merge(...$iterables): self;
+
+    /**
+     * Returns all items of which the values do not appear in any of the other iterables.
+     *
+     * @param iterable[] $iterables
+     *   The other iterables to diff against.
+     *
+     * @param  callable $comparator
+     *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a native PHP comparison.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     *
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
+     *   Thrown if one of the items is not an iterable.
+     */
+    public function diff(array $iterables, callable $comparator = null): self;
+
+    /**
+     * Returns all items of which the keys do not appear in any of the other iterables.
+     *
+     * @param iterable[] $iterables
+     *   The other iterables to diff against.
+     *
+     * @param  callable $comparator
+     *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a native PHP comparison.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     *
+     * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
+     *   Thrown if one of the items is not an iterable.
+     */
+    public function diffKeys(array $iterables, callable $comparator = null): self;
 
     /**
      * Flattens the iterables contained by this iterator into a single new iterator.
