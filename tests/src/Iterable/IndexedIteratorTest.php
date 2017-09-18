@@ -26,6 +26,6 @@ final class IndexedIteratorTest extends TestCase
         ];
         $iterator = new IndexedIterator(new ArrayIterator($array));
         $expected = ['A', 'B', 'C'];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

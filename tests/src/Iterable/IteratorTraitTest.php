@@ -60,7 +60,7 @@ final class IteratorTraitTest extends TestCase
             2 => 4,
             4 => 5,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -161,7 +161,7 @@ final class IteratorTraitTest extends TestCase
             return (string) ($key + $value);
         });
         $expected = ['3', '2', '6', '4', '9', '14'];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -184,7 +184,7 @@ final class IteratorTraitTest extends TestCase
             '1a' => 'a',
             '4d' => 'd',
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -284,7 +284,7 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator($array);
         $iterator = $iterator->take(3);
         $expected = [3, 1, 4];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -305,7 +305,7 @@ final class IteratorTraitTest extends TestCase
             2 => 4,
             3 => 1,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -322,7 +322,7 @@ final class IteratorTraitTest extends TestCase
             3 => 1,
             4 => 5,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -340,7 +340,7 @@ final class IteratorTraitTest extends TestCase
             4 => 5,
             5 => 9,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -384,7 +384,7 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator($array);
         $iterator = $iterator->forever();
         $expected = [3, 1, 4, 3, 1, 4, 3];
-        $this->assertSame($expected, iterator_to_array($iterator->take(7), false));
+        $this->assertSame($expected, $iterator->take(7)->list()->toArray());
     }
 
     /**
@@ -397,7 +397,7 @@ final class IteratorTraitTest extends TestCase
         $three = [2, 9, 2];
         $iterator = $one->zip($two, $three);
         $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 
     /**
@@ -412,7 +412,7 @@ final class IteratorTraitTest extends TestCase
         ];
         $iterator = new ArrayIterator($array);
         $expected = ['A', 'B', 'C'];
-        $this->assertSame($expected, iterator_to_array($iterator->list()));
+        $this->assertSame($expected, $iterator->list()->toArray());
     }
 
     /**
@@ -427,7 +427,7 @@ final class IteratorTraitTest extends TestCase
         ];
         $iterator = new ArrayIterator($array);
         $expected = ['a', 'b', 'c'];
-        $this->assertSame($expected, iterator_to_array($iterator->listKeys()));
+        $this->assertSame($expected, $iterator->listKeys()->toArray());
     }
 
     /**
@@ -446,7 +446,7 @@ final class IteratorTraitTest extends TestCase
             1 => 'b',
             4 => 'c',
         ];
-        $this->assertSame($expected, iterator_to_array($iterator->flip()));
+        $this->assertSame($expected, $iterator->flip()->toArray());
     }
 
     /**
@@ -458,7 +458,7 @@ final class IteratorTraitTest extends TestCase
         // This package's ArrayIterator overrides this method, so avoid it in this test.
         $iterator = new IteratorIterator(new \ArrayIterator($array));
         $iterator = $iterator->reverse();
-        $this->assertSame([4, 1, 3], iterator_to_array($iterator));
+        $this->assertSame([4, 1, 3], $iterator->toArray());
     }
 
     /**
@@ -537,7 +537,7 @@ final class IteratorTraitTest extends TestCase
             3 => 'c',
             1 => 'a',
         ];
-        $this->assertSame($expected, iterator_to_array($sort));
+        $this->assertSame($expected, $sort->toArray());
     }
 
     /**
@@ -557,7 +557,7 @@ final class IteratorTraitTest extends TestCase
             3 => 'c',
             4 => 'd',
         ];
-        $this->assertSame($expected, iterator_to_array($sort));
+        $this->assertSame($expected, $sort->toArray());
     }
 
     /**
@@ -580,7 +580,7 @@ final class IteratorTraitTest extends TestCase
             3 => 'c',
             1 => 'a',
         ];
-        $this->assertSame($expected, iterator_to_array($sort));
+        $this->assertSame($expected, $sort->toArray());
     }
 
     /**
@@ -600,7 +600,7 @@ final class IteratorTraitTest extends TestCase
             'c' => 3,
             'd' => 4,
         ];
-        $this->assertSame($expected, iterator_to_array($sort));
+        $this->assertSame($expected, $sort->toArray());
     }
 
     /**

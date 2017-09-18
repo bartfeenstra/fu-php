@@ -26,6 +26,6 @@ final class KeyIteratorTest extends TestCase
         ];
         $iterator = new KeyIterator(new ArrayIterator($array));
         $expected = ['a', 'b', 'c'];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

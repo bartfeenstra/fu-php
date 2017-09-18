@@ -25,6 +25,6 @@ final class MapIteratorTest extends TestCase
             return (string) ($key + $value);
         });
         $expected = ['3', '2', '6', '4', '9', '14'];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

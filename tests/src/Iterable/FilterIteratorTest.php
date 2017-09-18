@@ -29,6 +29,6 @@ final class FilterIteratorTest extends TestCase
             2 => 4,
             4 => 5,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

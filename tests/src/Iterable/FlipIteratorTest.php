@@ -30,6 +30,6 @@ final class FlipIteratorTest extends TestCase
             1 => 'b',
             4 => 'c',
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

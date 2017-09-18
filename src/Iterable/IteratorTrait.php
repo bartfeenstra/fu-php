@@ -173,7 +173,7 @@ trait IteratorTrait
     }
     public function reverse(): Iterator
     {
-        return new ArrayIterator(array_reverse(iterator_to_array($this)));
+        return new ArrayIterator(array_reverse($this->toArray()));
     }
 
     public function first(): Option
@@ -205,7 +205,7 @@ trait IteratorTrait
     }
     public function sort(callable $sort = null): Iterator
     {
-        $array = iterator_to_array($this);
+        $array = $this->toArray();
         if ($sort) {
             uasort($array, $sort);
         } else {
@@ -216,7 +216,7 @@ trait IteratorTrait
 
     public function sortKeys(callable $sort = null): Iterator
     {
-        $array = iterator_to_array($this);
+        $array = $this->toArray();
         if ($sort) {
             uksort($array, $sort);
         } else {

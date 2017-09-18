@@ -26,7 +26,7 @@ final class FunctionsTest extends TestCase
         $array = [3, 1, 4];
         $iterator = iter($array);
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 
     /**
@@ -42,7 +42,7 @@ final class FunctionsTest extends TestCase
         };
         $iterator = iter($func());
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 
     /**
@@ -58,7 +58,7 @@ final class FunctionsTest extends TestCase
         };
         $iterator = iter($func);
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 
     /**
@@ -105,7 +105,7 @@ final class FunctionsTest extends TestCase
         $array = [3, 1, 4];
         $iterator = iter(new ArrayIterator($array));
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 
     /**
@@ -116,7 +116,7 @@ final class FunctionsTest extends TestCase
         $array = [3, 1, 4];
         $iterator = iter(new \ArrayIterator($array));
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 
     /**
@@ -132,7 +132,7 @@ final class FunctionsTest extends TestCase
             }
         });
         $this->assertInstanceOf(Iterator::class, $iterator);
-        $this->assertSame([3, 1, 4], iterator_to_array($iterator));
+        $this->assertSame([3, 1, 4], $iterator->toArray());
     }
 
     /**

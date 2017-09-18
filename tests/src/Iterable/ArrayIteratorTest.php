@@ -19,7 +19,7 @@ final class ArrayIteratorTest extends TestCase
     public function testIteration()
     {
         $array = [3, 1, 4];
-        $this->assertSame($array, iterator_to_array(new ArrayIterator($array)));
+        $this->assertSame($array, (new ArrayIterator($array))->toArray());
     }
 
     /**
@@ -30,6 +30,6 @@ final class ArrayIteratorTest extends TestCase
         $array = [3, 1, 4];
         $iterator = new ArrayIterator($array);
         $iterator = $iterator->reverse();
-        $this->assertSame([4, 1, 3], iterator_to_array($iterator));
+        $this->assertSame([4, 1, 3], $iterator->toArray());
     }
 }
