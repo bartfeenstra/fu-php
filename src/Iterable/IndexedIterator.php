@@ -7,7 +7,7 @@ namespace BartFeenstra\Functional\Iterable;
 /**
  * Converts all keys to integers, starting from 0.
  */
-class IndexedIterator extends \IteratorIterator implements Iterator
+class IndexedIterator extends IteratorIterator
 {
 
     use IteratorTrait;

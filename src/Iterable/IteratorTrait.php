@@ -177,7 +177,6 @@ trait IteratorTrait
         if (!$this->valid()) {
             return new None();
         }
-        $last;
         foreach ($this as $value) {
             $last = $value;
         }
