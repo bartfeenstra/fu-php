@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
@@ -10,10 +10,10 @@ namespace BartFeenstra\Functional\Iterable;
 interface ToIterator
 {
 
-  /**
-   * Gets an iterator over this data.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Gets an iterator over this data.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function iter(): Iterator;
 }

@@ -20,7 +20,7 @@ final class FilterIteratorTest extends TestCase
     public function test()
     {
         $array = [3, 1, 4, 1, 5, 9];
-        $iterator = new FilterIterator(new ArrayIterator($array), function (int $value, int $key) :bool {
+        $iterator = new FilterIterator(new ArrayIterator($array), function (int $value, int $key): bool {
             // Use both the key and the value.
             return $key % 2 === 0 and $value >= 4;
         });

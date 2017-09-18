@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
@@ -16,14 +16,14 @@ final class FilterIterator extends \FilterIterator implements Iterator
 
     private $predicate;
 
-  /**
-   * Constructs a new instance.
-   *
-   * @param \Iterator $iterator
-   *   The iterator to iterate over.
-   * @param callable $predicate
-   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
-   */
+    /**
+     * Constructs a new instance.
+     *
+     * @param \Iterator $iterator
+     *   The iterator to iterate over.
+     * @param callable $predicate
+     *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+     */
     public function __construct(\Iterator $iterator, callable $predicate = null)
     {
         parent::__construct($iterator);

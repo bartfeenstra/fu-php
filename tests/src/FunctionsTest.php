@@ -32,7 +32,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers \BartFeenstra\Functional\type
+     * @covers       \BartFeenstra\Functional\type
      *
      * @dataProvider provideType
      */

@@ -50,7 +50,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->filter(function (int $value, int $key) :bool {
+        $iterator = $iterator->filter(function (int $value, int $key): bool {
             // Use both the key and the value.
             return $key % 2 === 0 and $value >= 4;
         });
@@ -69,7 +69,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $found = $iterator->find(function (int $value, int $key) :bool {
+        $found = $iterator->find(function (int $value, int $key): bool {
             // Use both the key and the value.
             return $key % 2 === 0 and $value >= 4;
         });
@@ -83,7 +83,7 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $found = $iterator->find(function (int $value) :bool {
+        $found = $iterator->find(function (int $value): bool {
             return $value > 9;
         });
         $this->assertEquals(new None(), $found);
@@ -107,9 +107,9 @@ final class IteratorTraitTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->map(function (int $value, int $key) :string {
+        $iterator = $iterator->map(function (int $value, int $key): string {
             // Use both the key and the value.
-            return (string) ($key + $value);
+            return (string)($key + $value);
         });
         $expected = ['3', '2', '6', '4', '9', '14'];
         $this->assertSame($expected, $iterator->toArray());
@@ -126,9 +126,9 @@ final class IteratorTraitTest extends TestCase
             4 => 'd',
         ];
         $iterator = new ArrayIterator($array);
-        $iterator = $iterator->mapKeys(function (string $value, int $key) :string {
+        $iterator = $iterator->mapKeys(function (string $value, int $key): string {
             // Use both the key and the value.
-            return (string) $key . $value;
+            return (string)$key . $value;
         });
         $expected = [
             '3c' => 'c',

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
-use function BartFeenstra\Functional\Iterable\ensure_array;
 use BartFeenstra\Functional\Iterable\InvalidIterable;
 use BartFeenstra\Functional\Iterable\Iterator;
 use BartFeenstra\Functional\Iterable\ToIterator;
 use PHPUnit\Framework\TestCase;
+use function BartFeenstra\Functional\Iterable\ensure_array;
 use function BartFeenstra\Functional\Iterable\iter;
 
 /**

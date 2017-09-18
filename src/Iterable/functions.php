@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
@@ -14,7 +14,7 @@ namespace BartFeenstra\Functional\Iterable;
  *
  * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
  */
-function iter($iterable) :Iterator
+function iter($iterable): Iterator
 {
     if ($iterable instanceof Iterator) {
         return $iterable;
@@ -38,7 +38,11 @@ function iter($iterable) :Iterator
         try {
             return iter($iterable);
         } catch (\Throwable $e) {
-            throw new InvalidIterable(sprintf('Callable does not return anything that can be resolved to an iterator.'), $iterable, $e);
+            throw new InvalidIterable(
+                sprintf('Callable does not return anything that can be resolved to an iterator.'),
+                $iterable,
+                $e
+            );
         }
     }
 
