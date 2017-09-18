@@ -60,6 +60,6 @@ final class UniqueIteratorTest extends TestCase
             16 => $objectTwo,
             17 => [],
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

@@ -110,7 +110,7 @@ Filters out values that do not match.
 ```php
 <?php
 $result = iter([3, 1, 4])->filter(P\gt(2));
-assert([0 => 3, 2 => 4] === iterator_to_array($result));
+assert([0 => 3, 2 => 4] === $result->toArray());
 ?>
 ```
 
@@ -132,7 +132,7 @@ $expected = [9, 3, 12];
 $result = iter($original)->map(function (int $i): int {
   return 3 * $i;
 });
-assert($expected === iterator_to_array($result));
+assert($expected === $result->toArray());
 ?>
 ```
 
@@ -153,7 +153,7 @@ $expected = [
 $result = iter($original)->mapKeys(function (string $value, int $key): int {
   return 3 * $key;
 });
-assert($expected === iterator_to_array($result));
+assert($expected === $result->toArray());
 ?>
 ```
 
@@ -192,7 +192,7 @@ Takes *n* values.
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
 $result = iter($list)->take(4);
-assert([3, 1, 4, 1] === iterator_to_array($result));
+assert([3, 1, 4, 1] === $result->toArray());
 ?>
 ```
 
@@ -203,7 +203,7 @@ Take as many consecutively matching values as possible from the beginning.
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
 $result = iter($list)->takeWhile(P\le(3));
-assert([3, 1] === iterator_to_array($result));
+assert([3, 1] === $result->toArray());
 ?>
 ```
 
@@ -214,7 +214,7 @@ Slices the values into a smaller collection.
 $start = 2;
 $list = [3, 1, 4, 1, 5, 9];
 $result = iter($list)->slice(2, 3);
-assert([2 => 4, 3 => 1, 4 => 5] === iterator_to_array($result));
+assert([2 => 4, 3 => 1, 4 => 5] === $result->toArray());
 ?>
 ```
 
@@ -317,7 +317,7 @@ $expected = [
     1 => 'b',
     4 => 'c',
 ];
-assert($expected === iterator_to_array($flipped));
+assert($expected === $flipped->toArray());
 ?>
 ```
 
@@ -327,7 +327,7 @@ Reverses the order of the values.
 <?php
 $array = [3, 1, 4];
 $reverse = iter($array)->reverse();
-assert([4, 1, 3] === iterator_to_array($reverse));
+assert([4, 1, 3] === $reverse->toArray());
 ?>
 ```
 
@@ -408,7 +408,7 @@ $arrayTwo = [1, 5, 9];
 $arrayThree = [2, 6, 5];
 $iterator = iter($arrayOne)->chain($arrayTwo, $arrayThree);
 $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
-assert($expected === iterator_to_array($iterator));
+assert($expected === $iterator->toArray());
 ?>
 ```
 
@@ -423,7 +423,7 @@ $array = [
 ];
 $iterator = iter($array)->flatten();
 $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
-assert($expected === iterator_to_array($iterator));
+assert($expected === $iterator->toArray());
 ?>
 ```
 
@@ -444,7 +444,7 @@ $expected = [
     7 => $objectOne,
     9 => $objectTwo,
 ];
-assert($expected === iterator_to_array($iterator));
+assert($expected === $iterator->toArray());
 ?>
 ```
 

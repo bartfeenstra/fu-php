@@ -20,6 +20,6 @@ final class IteratorIteratorTest extends TestCase
     {
         $array = [3, 1, 4, 1, 5, 9];
         $iterator = new IteratorIterator(new \ArrayIterator($array));
-        $this->assertSame($array, iterator_to_array($iterator));
+        $this->assertSame($array, $iterator->toArray());
     }
 }
