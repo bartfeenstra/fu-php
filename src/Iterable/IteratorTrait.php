@@ -6,8 +6,12 @@ namespace BartFeenstra\Functional\Iterable;
 
 use BartFeenstra\Functional\None;
 use BartFeenstra\Functional\Option;
+use function BartFeenstra\Functional\Predicate\falsy;
+use function BartFeenstra\Functional\Predicate\not;
 use function BartFeenstra\Functional\Predicate\truthy;
+use BartFeenstra\Functional\Some;
 use BartFeenstra\Functional\SomeValue;
+use function BartFeenstra\Functional\type;
 
 /**
  * Implements \BartFeenstra\Functional\Iterable\Iterator.
@@ -42,6 +46,17 @@ trait IteratorTrait
             }
             return $none;
         }, new None());
+    }
+
+    public function assert(callable $predicate = null): Iterator
+    {
+        $predicate = $predicate ? not($predicate) : falsy();
+        $found = $this->find($predicate);
+        if ($found instanceof Some) {
+            $item = $found();
+            throw new InvalidItem(sprintf('Assertion failed: %s does not meet the given condition.', type($item)), $item);
+        }
+        return $this;
     }
 
     public function map(callable $conversion): Iterator

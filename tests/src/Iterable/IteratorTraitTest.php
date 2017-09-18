@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
+use BartFeenstra\Functional\Iterable\InvalidItem;
 use BartFeenstra\Functional\Iterable\IteratorIterator;
 use BartFeenstra\Functional\Iterable\TerminateFold;
 use BartFeenstra\Functional\Iterable\TerminateReduction;
@@ -98,6 +99,54 @@ final class IteratorTraitTest extends TestCase
         $iterator = new ArrayIterator($array);
         $found = $iterator->find();
         $this->assertEquals(new SomeValue(666), $found);
+    }
+
+    /**
+     * @covers ::assert
+     * @covers \BartFeenstra\Functional\Iterable\InvalidItem
+     */
+    public function testAssertSome()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        try {
+            $iterator->assert(function (int $value, int $key): bool {
+                // Use both the key and the value.
+                return $key % 2 === 0 or $value < 5;
+            });
+            $this->fail('The expected exception was not thrown.');
+        } catch (InvalidItem $e) {
+            $this->assertEquals(9, $e->getInvalidItem());
+        }
+    }
+
+    /**
+     * @covers ::assert
+     */
+    public function testAssertNone()
+    {
+        $array = [3, 1, 4, 1, 5, 9];
+        $iterator = new ArrayIterator($array);
+        $this_iterator = $iterator->assert(function (int $value) :bool {
+            return $value < 999;
+        });
+        $this->assertSame($iterator, $this_iterator);
+    }
+
+    /**
+     * @covers ::assert
+     * @covers \BartFeenstra\Functional\Iterable\InvalidItem
+     */
+    public function testAssertWithoutPredicate()
+    {
+        $array = [3, 1, 4, 1, 5, 9, 0];
+        $iterator = new ArrayIterator($array);
+        try {
+            $iterator->assert();
+            $this->fail('The expected exception was not thrown.');
+        } catch (InvalidItem $e) {
+            $this->assertEquals(0, $e->getInvalidItem());
+        }
     }
 
     /**
