@@ -31,6 +31,6 @@ final class TakeWhileIteratorTest extends TestCase
             2 => 4,
             3 => 1,
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }

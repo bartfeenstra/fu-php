@@ -33,6 +33,6 @@ final class KeyMapIteratorTest extends TestCase
             '1a' => 'a',
             '4d' => 'd',
         ];
-        $this->assertSame($expected, iterator_to_array($iterator));
+        $this->assertSame($expected, $iterator->toArray());
     }
 }
