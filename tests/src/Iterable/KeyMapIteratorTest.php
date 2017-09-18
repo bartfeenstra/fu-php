@@ -26,7 +26,7 @@ final class KeyMapIteratorTest extends TestCase
         ];
         $iterator = new KeyMapIterator(new ArrayIterator($array), function (string $value, int $key): string {
             // Use both the key and the value.
-            return (string) $key . $value;
+            return (string)$key . $value;
         });
         $expected = [
             '3c' => 'c',

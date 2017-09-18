@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
@@ -12,52 +12,52 @@ use BartFeenstra\Functional\Option;
 interface Iterator extends \Iterator, \Countable
 {
 
-  /**
-   * Converts the iterator to an array.
-   *
-   * @return array
-   */
+    /**
+     * Converts the iterator to an array.
+     *
+     * @return array
+     */
     public function toArray(): array;
 
-  /**
-   * Performs an operation for each value.
-   *
-   * @param callable $operation
-   *   Signature: function(mixed $value, mixed $key): void.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Performs an operation for each value.
+     *
+     * @param callable $operation
+     *   Signature: function(mixed $value, mixed $key): void.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function each(callable $operation): self;
 
-  /**
-   * Filters values using a predicate.
-   *
-   * @param callable|null $predicate
-   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Filters values using a predicate.
+     *
+     * @param callable|null $predicate
+     *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function filter(callable $predicate = null): self;
 
-  /**
-   * Tries to find a single value.
-   *
-   * @param callable|null $predicate
-   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
-   *
-   * @return Option
-   *   Returns an Ok with the value, if found.
-   */
+    /**
+     * Tries to find a single value.
+     *
+     * @param callable|null $predicate
+     *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+     *
+     * @return Option
+     *   Returns an Ok with the value, if found.
+     */
     public function find(callable $predicate = null): Option;
 
-  /**
-   * Maps/converts values.
-   *
-   * @param callable $conversion
-   *   Signature: function(mixed $value, mixed $key): mixed.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Maps/converts values.
+     *
+     * @param callable $conversion
+     *   Signature: function(mixed $value, mixed $key): mixed.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function map(callable $conversion): self;
 
     /**
@@ -70,92 +70,92 @@ interface Iterator extends \Iterator, \Countable
      */
     public function mapKeys(callable $conversion): self;
 
-  /**
-   * Reduces values to a single value.
-   *
-   * @param callable $reduction
-   *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The parameter and return types are
-   *   identical.
-   *
-   * @return \BartFeenstra\Functional\Option
-   *   A Some with a value of the same type as that of the values, or None.
-   */
+    /**
+     * Reduces values to a single value.
+     *
+     * @param callable $reduction
+     *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The parameter and return types are
+     *   identical.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   A Some with a value of the same type as that of the values, or None.
+     */
     public function reduce(callable $reduction): Option;
 
-  /**
-   * Folds values to a single value.
-   *
-   * @param callable $fold
-   *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The return type is the same as that of the
-   *   carrier.
-   * @param mixed $initial_carrier
-   *
-   * @return mixed
-   *   The type is the same as that of the initial carrier.
-   */
+    /**
+     * Folds values to a single value.
+     *
+     * @param callable $fold
+     *   Signature: function(mixed $carrier, mixed $value, mixed $key): mixed. The return type is the same as that of the
+     *   carrier.
+     * @param mixed $initial_carrier
+     *
+     * @return mixed
+     *   The type is the same as that of the initial carrier.
+     */
     public function fold(callable $fold, $initial_carrier);
 
-  /**
-   * Takes only the first n values.
-   *
-   * @param int $length
-   *   The number of values to take.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Takes only the first n values.
+     *
+     * @param int $length
+     *   The number of values to take.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function take(int $length): self;
 
-  /**
-   * Takes all values up to but not including the first one for which the predicate evaluates to FALSE.
-   *
-   * @param callable $predicate
-   *   Signature: function(mixed $value, mixed $key): bool.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Takes all values up to but not including the first one for which the predicate evaluates to FALSE.
+     *
+     * @param callable $predicate
+     *   Signature: function(mixed $value, mixed $key): bool.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function takeWhile(callable $predicate): self;
 
-  /**
-   * Takes a slice out of the values.
-   *
-   * @param int $start
-   *   The index of the first value to take. Indexes start at 0.
-   * @param int|null $length
-   *   The number of values to take, or NULL to create an infinite slice.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Takes a slice out of the values.
+     *
+     * @param int $start
+     *   The index of the first value to take. Indexes start at 0.
+     * @param int|null $length
+     *   The number of values to take, or NULL to create an infinite slice.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function slice(int $start, int $length = null): self;
 
-  /**
-   * Gets the value with the lowest value.
-   *
-   * @return \BartFeenstra\Functional\Option
-   *   A Some with a value of the same type as that of the values, or None.
-   */
+    /**
+     * Gets the value with the lowest value.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   A Some with a value of the same type as that of the values, or None.
+     */
     public function min();
 
-  /**
-   * Gets the value with the highest value.
-   *
-   * @return \BartFeenstra\Functional\Option
-   *   A Some with a value of the same type as that of the values, or None.
-   */
+    /**
+     * Gets the value with the highest value.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   A Some with a value of the same type as that of the values, or None.
+     */
     public function max();
 
-  /**
-   * Gets the sum of all the values.
-   *
-   * @return \BartFeenstra\Functional\Option
-   *   A Some with a value of the same type as that of the values, or None.
-   */
+    /**
+     * Gets the sum of all the values.
+     *
+     * @return \BartFeenstra\Functional\Option
+     *   A Some with a value of the same type as that of the values, or None.
+     */
     public function sum();
 
-  /**
-   * Repeats all values forever.
-   *
-   * @return \BartFeenstra\Functional\Iterable\Iterator
-   */
+    /**
+     * Repeats all values forever.
+     *
+     * @return \BartFeenstra\Functional\Iterable\Iterator
+     */
     public function forever(): self;
 
     /**

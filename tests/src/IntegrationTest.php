@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional;
 
-use function BartFeenstra\Functional\Iterable\iter;
 use PHPUnit\Framework\TestCase;
+use function BartFeenstra\Functional\Iterable\iter;
 
 /**
  * Covers many things.

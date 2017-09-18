@@ -43,6 +43,6 @@ final class ThrowableErrorTest extends TestCase
     {
         $throwable = new \Exception();
         $error = new ThrowableError($throwable);
-        $this->assertContains(__FILE__, (string) $error);
+        $this->assertContains(__FILE__, (string)$error);
     }
 }

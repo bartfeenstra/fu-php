@@ -6,8 +6,8 @@ namespace BartFeenstra\Functional\Iterable;
 
 use BartFeenstra\Functional\None;
 use BartFeenstra\Functional\Option;
-use function BartFeenstra\Functional\Predicate\truthy;
 use BartFeenstra\Functional\SomeValue;
+use function BartFeenstra\Functional\Predicate\truthy;
 
 /**
  * Implements \BartFeenstra\Functional\Iterable\Iterator.
@@ -156,6 +156,7 @@ trait IteratorTrait
     {
         return new FlipIterator($this);
     }
+
     public function reverse(): Iterator
     {
         return new ArrayIterator(array_reverse($this->toArray()));
@@ -187,6 +188,7 @@ trait IteratorTrait
         $this->rewind();
         return !$this->valid();
     }
+
     public function sort(callable $sort = null): Iterator
     {
         $array = $this->toArray();
@@ -216,7 +218,8 @@ trait IteratorTrait
 
     public function merge(...$iterables): Iterator
     {
-        return new ArrayIterator(array_merge(...array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables))));
+        return new ArrayIterator(array_merge(...
+            array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables))));
     }
 
     public function flatten(int $levels = 1): Iterator
