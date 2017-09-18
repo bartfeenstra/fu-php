@@ -220,7 +220,7 @@ function all(callable $predicate, callable ...$predicates): callable
  */
 function not(callable $predicate): callable
 {
-    return function ($value) use ($predicate) {
-        return !$predicate($value);
+    return function (...$arguments) use ($predicate) {
+        return !$predicate(...$arguments);
     };
 }

@@ -51,6 +51,18 @@ interface Iterator extends \Iterator, \Countable
     public function find(callable $predicate = null): Option;
 
   /**
+   * Asserts all items meet the given condition.
+   *
+   * @param callable|null $predicate
+   *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+   *
+   * @return $this
+   *
+   * @throws \BartFeenstra\Functional\Iterable\InvalidItem
+   */
+    public function assert(callable $predicate = null): Iterator;
+
+  /**
    * Maps/converts values.
    *
    * @param callable $conversion

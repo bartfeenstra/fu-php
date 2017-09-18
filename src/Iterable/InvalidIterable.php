@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace BartFeenstra\Functional\Iterable;
 
 /**
- * Is thrown when an invalid iterator argument is encountered.
+ * Is thrown when an invalid iterable is encountered.
  *
  * An iterable is any value that is accepted by \BartFeenstra\Functional\iter().
  *
