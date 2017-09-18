@@ -8,6 +8,7 @@ use BartFeenstra\Functional\None;
 use BartFeenstra\Functional\Option;
 use function BartFeenstra\Functional\Predicate\truthy;
 use BartFeenstra\Functional\SomeValue;
+use Webmozart\Assert\Assert;
 
 /**
  * Implements \BartFeenstra\Functional\Iterable\Iterator.
@@ -188,22 +189,22 @@ trait IteratorTrait
         $this->rewind();
         return !$this->valid();
     }
-    public function sort(callable $sort = null): Iterator
+    public function sort(callable $comparator = null): Iterator
     {
         $array = $this->toArray();
-        if ($sort) {
-            uasort($array, $sort);
+        if ($comparator) {
+            uasort($array, $comparator);
         } else {
             asort($array);
         }
         return new ArrayIterator($array);
     }
 
-    public function sortKeys(callable $sort = null): Iterator
+    public function sortKeys(callable $comparator = null): Iterator
     {
         $array = $this->toArray();
-        if ($sort) {
-            uksort($array, $sort);
+        if ($comparator) {
+            uksort($array, $comparator);
         } else {
             ksort($array);
         }
@@ -218,6 +219,29 @@ trait IteratorTrait
     public function merge(...$iterables): Iterator
     {
         return new ArrayIterator(array_merge(...array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables))));
+    }
+
+    public function diff(array $iterables, callable $comparator = null): Iterator
+    {
+        assert(Assert::allIsTraversable($iterables));
+        $arrays = array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables));
+        if ($comparator) {
+            $diff = array_diff_uassoc(...array_merge($arrays, [$comparator]));
+        } else {
+            $diff = array_diff_assoc(...$arrays);
+        }
+        return new ArrayIterator($diff);
+    }
+
+    public function diffKeys(array $iterables, callable $comparator = null): Iterator
+    {
+        $arrays = array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables));
+        if ($comparator) {
+            $diff = array_diff_ukey(...array_merge($arrays, [$comparator]));
+        } else {
+            $diff = array_diff_key(...$arrays);
+        }
+        return new ArrayIterator($diff);
     }
 
     public function flatten(int $levels = 1): Iterator
