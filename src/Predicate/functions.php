@@ -59,7 +59,7 @@ function falsy(): callable
  */
 function id($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value === $other;
     };
 }
@@ -75,7 +75,7 @@ function id($other): callable
  */
 function eq($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value == $other;
     };
 }
@@ -91,7 +91,7 @@ function eq($other): callable
  */
 function gt($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value > $other;
     };
 }
@@ -107,7 +107,7 @@ function gt($other): callable
  */
 function ge($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value >= $other;
     };
 }
@@ -123,7 +123,7 @@ function ge($other): callable
  */
 function lt($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value < $other;
     };
 }
@@ -139,7 +139,7 @@ function lt($other): callable
  */
 function le($other): callable
 {
-    return function ($value) use ($other) {
+    return function ($value) use ($other): bool {
         return $value <= $other;
     };
 }
@@ -156,7 +156,7 @@ function le($other): callable
 function instance_of(string $type, string ...$types): callable
 {
     $types = func_get_args();
-    return function ($value) use ($types) {
+    return function ($value) use ($types): bool {
         foreach ($types as $type) {
             if ($value instanceof $type or is_subclass_of($value, $type) or $value === $type) {
                 return true;
@@ -178,7 +178,7 @@ function instance_of(string $type, string ...$types): callable
 function any(callable $predicate, callable ...$predicates): callable
 {
     $predicates = func_get_args();
-    return function ($value) use ($predicates) {
+    return function ($value) use ($predicates): bool {
         foreach ($predicates as $predicate) {
             if ($predicate($value)) {
                 return true;
@@ -200,7 +200,7 @@ function any(callable $predicate, callable ...$predicates): callable
 function all(callable $predicate, callable ...$predicates): callable
 {
     $predicates = func_get_args();
-    return function ($value) use ($predicates) {
+    return function ($value) use ($predicates): bool {
         foreach ($predicates as $predicate) {
             if (!$predicate($value)) {
                 return false;
@@ -220,7 +220,7 @@ function all(callable $predicate, callable ...$predicates): callable
  */
 function not(callable $predicate): callable
 {
-    return function ($value) use ($predicate) {
+    return function ($value) use ($predicate): bool {
         return !$predicate($value);
     };
 }

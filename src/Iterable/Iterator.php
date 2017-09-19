@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BartFeenstra\Functional\Iterable;
 
 use BartFeenstra\Functional\Option;
+use function BartFeenstra\Functional\Predicate\assert_predicate;
 
 /**
  * Defines an iterator.
@@ -23,7 +24,7 @@ interface Iterator extends \Iterator, \Countable
      * Performs an operation for each value.
      *
      * @param callable $operation
-     *   Signature: function(mixed $value, mixed $key): void.
+     *   The signature is that of \BartFeenstra\Functional\Callables::iterableItemOperation().
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      */
@@ -33,9 +34,12 @@ interface Iterator extends \Iterator, \Countable
      * Filters values using a predicate.
      *
      * @param callable|null $predicate
-     *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+     *   The signature is that of \BartFeenstra\Functional\Callables::predicate(). Defaults to NULL for
+     *   \BartFeenstra\Functional\truthy().
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
+     *
+     * @see assert_predicate()
      */
     public function filter(callable $predicate = null): self;
 
@@ -43,7 +47,8 @@ interface Iterator extends \Iterator, \Countable
      * Tries to find a single value.
      *
      * @param callable|null $predicate
-     *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
+     *   The signature is that of \BartFeenstra\Functional\Callables::predicate(). Defaults to NULL for
+     *   \BartFeenstra\Functional\truthy().
      *
      * @return Option
      *   Returns an Ok with the value, if found.
@@ -109,7 +114,7 @@ interface Iterator extends \Iterator, \Countable
      * Takes all values up to but not including the first one for which the predicate evaluates to FALSE.
      *
      * @param callable $predicate
-     *   Signature: function(mixed $value, mixed $key): bool.
+     *   The signature is that of \BartFeenstra\Functional\Callables::predicate().
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      */

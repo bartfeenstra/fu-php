@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
+use function BartFeenstra\Functional\Callables\assert_predicate;
+
 /**
  * Defines a filterable iterator.
  *
@@ -26,6 +28,7 @@ final class FilterIterator extends \FilterIterator implements Iterator
      */
     public function __construct(\Iterator $iterator, callable $predicate = null)
     {
+        assert(assert_predicate($predicate));
         parent::__construct($iterator);
         $this->predicate = $predicate ?: truthy();
     }
