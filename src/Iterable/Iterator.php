@@ -46,7 +46,7 @@ interface Iterator extends \Iterator, \Countable
      *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
      *
      * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
-     *   Returns a SomeItem with the value, if found.
+     *   Returns a SomeItem with the value, or None.
      */
     public function find(callable $predicate = null): Option;
 
