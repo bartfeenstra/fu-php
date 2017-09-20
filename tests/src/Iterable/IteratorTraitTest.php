@@ -6,6 +6,7 @@ namespace BartFeenstra\Tests\Functional\Iterable;
 
 use BartFeenstra\Functional\Iterable\ArrayIterator;
 use BartFeenstra\Functional\Iterable\IteratorIterator;
+use BartFeenstra\Functional\Iterable\SomeItem;
 use BartFeenstra\Functional\Iterable\TerminateFold;
 use BartFeenstra\Functional\Iterable\TerminateReduction;
 use BartFeenstra\Functional\None;
@@ -73,7 +74,7 @@ final class IteratorTraitTest extends TestCase
             // Use both the key and the value.
             return $key % 2 === 0 and $value >= 4;
         });
-        $this->assertEquals(new SomeValue(4), $found);
+        $this->assertEquals(new SomeItem(4, 2), $found);
     }
 
     /**
@@ -97,7 +98,7 @@ final class IteratorTraitTest extends TestCase
         $array = [0, null, false, '', [], 666, 777];
         $iterator = new ArrayIterator($array);
         $found = $iterator->find();
-        $this->assertEquals(new SomeValue(666), $found);
+        $this->assertEquals(new SomeItem(666, 5), $found);
     }
 
     /**
@@ -417,9 +418,13 @@ final class IteratorTraitTest extends TestCase
      */
     public function testFirst()
     {
-        $array = [3, 1, 4, 1, 5, 9];
+        $array = [
+            'foo' => 3,
+            'bar' => 1,
+            'baz' => 4,
+        ];
         $iterator = new ArrayIterator($array);
-        $this->assertEquals(new SomeValue(3), $iterator->first());
+        $this->assertEquals(new SomeItem(3, 'foo'), $iterator->first());
     }
 
     /**
@@ -436,9 +441,13 @@ final class IteratorTraitTest extends TestCase
      */
     public function testLast()
     {
-        $array = [3, 1, 4, 1, 5, 9];
+        $array = [
+            'foo' => 3,
+            'bar' => 1,
+            'baz' => 4,
+        ];
         $iterator = new ArrayIterator($array);
-        $this->assertEquals(new SomeValue(9), $iterator->last());
+        $this->assertEquals(new SomeItem(4, 'baz'), $iterator->last());
     }
 
     /**

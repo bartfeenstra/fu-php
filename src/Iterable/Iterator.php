@@ -45,8 +45,8 @@ interface Iterator extends \Iterator, \Countable
      * @param callable|null $predicate
      *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
      *
-     * @return Option
-     *   Returns an Ok with the value, if found.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   Returns a SomeItem with the value, or None.
      */
     public function find(callable $predicate = null): Option;
 
@@ -202,16 +202,16 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Gets the first value.
      *
-     * @return \BartFeenstra\Functional\Option
-     *   An Ok with the value, or None.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   A SomeItem with the value, or None.
      */
     public function first(): Option;
 
     /**
      * Gets the last value.
      *
-     * @return \BartFeenstra\Functional\Option
-     *   An Ok with the value, or None.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   A SomeItem with the value, or None.
      */
     public function last(): Option;
 
