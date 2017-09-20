@@ -119,7 +119,7 @@ Tries to find a single matching value.
 ```php
 <?php
 $found = iter([3, 1, 4, 1, 5, 9])->find(P\gt(4));
-assert(new F\SomeValue(5) == $found);
+assert(new I\SomeItem(5, 4) == $found);
 ?>
 ```
 
@@ -336,7 +336,7 @@ Gets the first value.
 ```php
 <?php
 $array = [3, 1, 4, 1, 5, 9];
-assert(new F\SomeValue(3) == iter($array)->first());
+assert(new I\SomeItem(3, 0) == iter($array)->first());
 ?>
 ```
 
@@ -345,7 +345,7 @@ Gets the last value.
 ```php
 <?php
 $array = [3, 1, 4, 1, 5, 9];
-assert(new F\SomeValue(9) == iter($array)->last());
+assert(new I\SomeItem(9, 5) == iter($array)->last());
 ?>
 ```
 

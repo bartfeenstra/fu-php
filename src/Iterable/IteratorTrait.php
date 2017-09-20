@@ -38,7 +38,7 @@ trait IteratorTrait
         $predicate = $predicate ?: truthy();
         return $this->fold(function ($none, $value, $key) use ($predicate): Option {
             if ($predicate($value, $key)) {
-                throw new TerminateFold(new SomeValue($value));
+                throw new TerminateFold(new SomeItem($value, $key));
             }
             return $none;
         }, new None());
@@ -166,7 +166,7 @@ trait IteratorTrait
     {
         $this->rewind();
         if ($this->valid()) {
-            return new SomeValue($this->current());
+            return new SomeItem($this->current(), $this->key());
         }
         return new None;
     }
@@ -177,10 +177,11 @@ trait IteratorTrait
         if (!$this->valid()) {
             return new None();
         }
-        foreach ($this as $value) {
-            $last = $value;
+        foreach ($this as $key => $value) {
+            $lastValue = $value;
+            $lastKey = $key;
         }
-        return new SomeValue($last);
+        return new SomeItem($lastValue, $lastKey);
     }
 
     public function empty(): bool
