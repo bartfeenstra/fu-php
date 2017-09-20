@@ -19,16 +19,12 @@ final class ZipIterator implements Iterator
     /**
      * Constructs a new instance.
      *
-     * @param mixed $one
-     *   Any value taken by \BartFeenstra\Functional\iter().
-     * @param mixed $two
-     *   Any value taken by \BartFeenstra\Functional\iter().
-     * @param mixed ...$more
+     * @param mixed[] $iterables
      *   Any values taken by \BartFeenstra\Functional\iter().
      */
-    public function __construct($one, $two, ...$more)
+    public function __construct(array $iterables)
     {
-        $this->iterators = array_map('\BartFeenstra\Functional\Iterable\iter', func_get_args());
+        $this->iterators = array_map('\BartFeenstra\Functional\Iterable\iter', $iterables);
     }
 
     public function current()

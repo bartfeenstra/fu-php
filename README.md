@@ -266,7 +266,7 @@ Combines the values of two or more iterables into [tuples](https://en.wikipedia.
 $one = [3, 1, 4];
 $two = [1, 5, 9];
 $three = [2, 9, 2];
-$zip = iter($one)->zip($two, $three);
+$zip = iter($one)->zip([$two, $three]);
 $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
 assert($expected === iterator_to_array($zip));
 ?>
@@ -406,7 +406,7 @@ Chains other iterables to an existing iterator, and re-indexes the values.
 $arrayOne = [3, 1, 4];
 $arrayTwo = [1, 5, 9];
 $arrayThree = [2, 6, 5];
-$iterator = iter($arrayOne)->chain($arrayTwo, $arrayThree);
+$iterator = iter($arrayOne)->chain([$arrayTwo, $arrayThree]);
 $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
 assert($expected === $iterator->toArray());
 ?>
@@ -457,13 +457,13 @@ Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-re
 $result = F\try_except(function () {/** ... */});
 
 // Try executing a callable, catch all Foo, Bar, Baz, and Qux exceptions, and output a Result.
-$result = F\try_except(function () {/** ... */}, Foo::class, Bar::class, Baz::class, Qux::class);
+$result = F\try_except(function () {/** ... */}, [Foo::class, Bar::class, Baz::class, Qux::class]);
 
 // Try executing a callable at most twice, catch all exceptions, and output a Result.
 $result = F\retry_except(function () {/** ... */});
 
 // Try executing a callable at most 5 times, catch all Foo, Bar, Baz, and Qux exceptions, and output a Result.
-$result = F\retry_except(function () {/** ... */}, 5, Foo::class, Bar::class, Baz::class, Qux::class);
+$result = F\retry_except(function () {/** ... */}, 5, [Foo::class, Bar::class, Baz::class, Qux::class]);
 ?>
 ```
 
@@ -507,13 +507,13 @@ $predicate = P\lt(15);
 $predicate = P\le(666);
 
 // All values that are instances of Foo, Bar, Baz, or Qux.
-$predicate = P\instance_of(Foo::class, Bar::class, Baz::class, Qux::class);
+$predicate = P\instance_of([Foo::class, Bar::class, Baz::class, Qux::class]);
 
 // One or more values are lesser than 0 OR greater than 9.
-$predicate = P\any(P\lt(0), P\gt(9));
+$predicate = P\any([P\lt(0), P\gt(9)]);
 
 // All values are greater than 0 AND lesser than 9.
-$predicate = P\all(P\gt(0), P\lt(9));
+$predicate = P\all([P\gt(0), P\lt(9)]);
 
 // All values different from "Apples and oranges".
 $predicate = P\not(P\eq('Apples and oranges'));

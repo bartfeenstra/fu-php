@@ -21,24 +21,27 @@ class ChainIterator implements Iterator
     /**
      * Constructs a new instance.
      *
-     * @param mixed[] ...$iterables
+     * @param mixed[] $iterables
+     *   An array of any values taken by \BartFeenstra\Functional\iter().
      *
      * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      */
-    public function __construct(...$iterables)
+    // @todo What if we want to pass on an iterable of iterables?
+    public function __construct(array $iterables)
     {
         // Use an empty array as default iterable, to simplify the code in this class.
-        $this->append(...$iterables ?: [[]]);
+        $this->append($iterables ?: [[]]);
     }
 
     /**
      * Appends an iterable to the chain.
      *
-     * @param mixed[] ...$iterables
+     * @param mixed[] $iterables
+     *   An array of any values taken by \BartFeenstra\Functional\iter().
      *
      * @return $this
      */
-    public function append(...$iterables): self
+    public function append(array $iterables): self
     {
         foreach ($iterables as $iterable) {
             $this->iterators[] = iter($iterable);

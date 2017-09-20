@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Functional\Iterable;
 
+use function BartFeenstra\Functional\type;
+
 /**
  * Creates an iterator for iterable data.
  *

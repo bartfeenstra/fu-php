@@ -21,7 +21,7 @@ final class ZipIteratorTest extends TestCase
         $one = [3, 1, 4];
         $two = [1, 5, 9];
         $three = [2, 9, 2];
-        $iterator = new ZipIterator($one, $two, $three);
+        $iterator = new ZipIterator([$one, $two, $three]);
         $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
         $this->assertSame($expected, $iterator->toArray());
     }

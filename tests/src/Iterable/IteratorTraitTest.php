@@ -346,7 +346,7 @@ final class IteratorTraitTest extends TestCase
         $one = new ArrayIterator([3, 1, 4]);
         $two = [1, 5, 9];
         $three = [2, 9, 2];
-        $iterator = $one->zip($two, $three);
+        $iterator = $one->zip([$two, $three]);
         $expected = [[3, 1, 2], [1, 5, 9], [4, 9, 2]];
         $this->assertSame($expected, $iterator->toArray());
     }
@@ -563,7 +563,7 @@ final class IteratorTraitTest extends TestCase
         $arrayTwo = [1, 5, 9];
         $arrayThree = [2, 6, 5];
         $iterator = new ArrayIterator($arrayOne);
-        $chain = $iterator->chain($arrayTwo, $arrayThree);
+        $chain = $iterator->chain([$arrayTwo, $arrayThree]);
         $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
         $this->assertSame($expected, iterator_to_array($chain));
     }
@@ -587,7 +587,7 @@ final class IteratorTraitTest extends TestCase
             'four' => 'Chotyry',
         ];
         $iterator = new ArrayIterator($arrayOne);
-        $merge = $iterator->merge($arrayTwo, $arrayThree);
+        $merge = $iterator->merge([$arrayTwo, $arrayThree]);
         $expected = [
             'one' => 'One',
             'two' => 'Dva',
