@@ -45,8 +45,8 @@ interface Iterator extends \Iterator, \Countable
      * @param callable|null $predicate
      *   Signature: function(mixed $value, mixed $key): bool. Defaults to NULL for \BartFeenstra\Functional\truthy().
      *
-     * @return Option
-     *   Returns an Ok with the value, if found.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   Returns a SomeItem with the value, or None.
      */
     public function find(callable $predicate = null): Option;
 
@@ -204,16 +204,16 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Gets the first value.
      *
-     * @return \BartFeenstra\Functional\Option
-     *   An Ok with the value, or None.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   A SomeItem with the value, or None.
      */
     public function first(): Option;
 
     /**
      * Gets the last value.
      *
-     * @return \BartFeenstra\Functional\Option
-     *   An Ok with the value, or None.
+     * @return \BartFeenstra\Functional\Option|\BartFeenstra\Functional\Iterable\SomeItem
+     *   A SomeItem with the value, or None.
      */
     public function last(): Option;
 
@@ -228,7 +228,7 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Sorts items by their values.
      *
-     * @param  callable $sort
+     * @param callable $sort
      *   Signature: function(mixed $value1, mixed $value2): bool. Defaults to NULL for a regular sort.
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
@@ -238,7 +238,7 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Sorts items by their keys.
      *
-     * @param  callable $sort
+     * @param callable $sort
      *   Signature: function(mixed $key1, mixed $key2): bool. Defaults to NULL for a regular sort.
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
