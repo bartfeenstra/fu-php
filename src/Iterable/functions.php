@@ -57,7 +57,7 @@ function iter($iterable): Iterator
  * @param iterable $iterable
  *   The iterable that must be ensured to be an array.
  *
- * @return array
+ * @return mixed[]
  *   The iterable as an array.
  */
 function ensure_array(iterable $iterable): array

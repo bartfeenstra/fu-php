@@ -15,7 +15,7 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Converts the iterator to an array.
      *
-     * @return array
+     * @return mixed[]
      */
     public function toArray(): array;
 
@@ -25,7 +25,7 @@ interface Iterator extends \Iterator, \Countable
      * @param callable $operation
      *   Signature: function(mixed $value, mixed $key): void.
      *
-     * @return \BartFeenstra\Functional\Iterable\Iterator
+     * @return $this
      */
     public function each(callable $operation): self;
 
