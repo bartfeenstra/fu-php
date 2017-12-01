@@ -1,6 +1,6 @@
 # Functional PHP
 
-[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php)
+[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php) [![Coverage Status](https://coveralls.io/repos/github/bartfeenstra/fu-php/badge.svg?branch=master)](https://coveralls.io/github/bartfeenstra/fu-php?branch=master)
 
 This library provides tools to write more functional PHP code. Its concise and consistent API
 makes you more productive in different ways:
