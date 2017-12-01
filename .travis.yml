@@ -22,3 +22,4 @@ install:
 
 script:
   - ./bin/test
+  - php ./vendor/bin/coveralls -v -c ./tmp/clover.yml
