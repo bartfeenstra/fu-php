@@ -1,6 +1,6 @@
 # Functional PHP
 
-[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php) [![Coverage Status](https://coveralls.io/repos/github/bartfeenstra/fu-php/badge.svg?branch=master)](https://coveralls.io/github/bartfeenstra/fu-php?branch=master)
+[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php) [![Coverage Status](https://coveralls.io/repos/github/bartfeenstra/fu-php/badge.svg?branch=master)](https://coveralls.io/github/bartfeenstra/fu-php?branch=master) [![License](https://poser.pugx.org/bartfeenstra/fu/license)](https://packagist.org/packages/bartfeenstra/fu) [![Latest Stable Version](https://poser.pugx.org/bartfeenstra/fu/v/stable)](https://packagist.org/packages/bartfeenstra/fu) [![Latest Unstable Version](https://poser.pugx.org/bartfeenstra/fu/v/unstable)](https://packagist.org/packages/bartfeenstra/fu) [![Total Downloads](https://poser.pugx.org/bartfeenstra/fu/downloads)](https://packagist.org/packages/bartfeenstra/fu)
 
 This library provides tools to write more functional PHP code. Its concise and consistent API
 makes you more productive in different ways:
@@ -24,7 +24,7 @@ makes you more productive in different ways:
 1. [Contributing](#contributing)
 1. [Development](#development)
 
-## [About](#about)
+## About
 This library was written to address several concerns:
 - Provide a single, consistent API to the different [iterable](http://php.net/manual/en/language.types.iterable.php)
   types in PHP, and the different [operations](#operations) available to the individual types: one API, any iterable,
@@ -42,10 +42,10 @@ This library was written to address several concerns:
 - Add laziness where possible, so many [operations](#operations) are only applied to the iterator items you actually
   use.
 
-## [Installation](#installation)
+## Installation
 Run `composer require bartfeenstra/fu` in your project's root directory.
 
-## [Usage](#usage)
+## Usage
 To use any of the code, you must first import the namespaces at the top of your files:
 ```php
 <?php
@@ -57,7 +57,7 @@ use function BartFeenstra\Functional\Iterable\iter;
 ```
 
 
-### [Iterators](#iterators)
+### Iterators
 Traversable/iterable data structures can be converted to universal iterators:
 ```php
 <?php
@@ -89,7 +89,7 @@ $iterator = iter($toIterator);
 ?>
 ```
 
-### [Operations](#operations)
+### Operations
 The following operations work with iterator values, and even keys in the case of user-supplied callbacks:
 
 #### each
@@ -449,7 +449,7 @@ assert($expected === $iterator->toArray());
 ```
 
 
-### [Exception handling](#exceptions)
+### Exception handling
 Complex `try`/`catch` blocks can be replaced and converted to [`Result`](#the-result-type) easily:
 ```php
 <?php
@@ -468,7 +468,7 @@ $result = F\retry_except(function () {/** ... */}, 5, [Foo::class, Bar::class, B
 ```
 
 
-### [Predicates](#predicates)
+### Predicates
 Predicates can be used with [`filter()`](#filter) and [`find()`](#find). They can be any
 [callable](http://php.net/manual/en/language.types.callable.php) that takes a
 single parameter and returns a boolean, but we added some shortcuts for common
@@ -520,7 +520,7 @@ $predicate = P\not(P\eq('Apples and oranges'));
 ?>
 ```
 
-### [The `Option` type](#the-option-type)
+### The `Option` type
 In PHP, `NULL` signifies the absence of a value, but it is also used as a value itself. In such cases, an `Option` type
 helps to distinguish between `NULL` as a value, and no value at all.
 ```php
@@ -548,7 +548,7 @@ handle_option(get_option());
 ?>
 ```
 
-### [The `Result` type](#the-result-type)
+### The `Result` type
 The `Result` type can be used to [complement](#exception-handling) or replace exceptions. As such, it is returned by
 functions like [`try_except()`](#exception-handling). It represents success and a value, or an error.
 ```php
@@ -579,7 +579,7 @@ handle_result(get_result());
 ?>
 ```
 
-### [Partial function application](#partial-function-application)
+### Partial function application
 [Partial function application](https://en.wikipedia.org/wiki/Partial_application) is the creation of a new function with
 zero or more parameters, based on an existing function, by fixing one or more of the arguments of the original function,
 before calling it. Practically speaking, it allows you to copy a function, and fill out some of the arguments before
@@ -607,7 +607,7 @@ assert('ABCD' === $newFunction('A', 'D'));
 ?>
 ```
 
-### [Currying](#currying)
+### Currying
 [Currying](https://en.wikipedia.org/wiki/Currying) converts a single function with *n* parameters to *n* functions with
 one parameter each. Practically speaking, it allows you to copy a function, and fill out some of the arguments one at a
 time before calling it. You can use this to quickly transform existing functions into anonymous functions that can be
@@ -625,7 +625,7 @@ assert('ABCD' === F\curry($originalFunction)('A')('B')('C'));
 ```
 
 
-## [Contributing](#contributing)
+## Contributing
 Your involvement is more than welcome. Please
 [leave feedback in an issue](https://github.com/bartfeenstra/fu-php/issues),
 or [submit code improvements](https://github.com/bartfeenstra/fu-php/pulls)
@@ -636,7 +636,7 @@ and productive, as documented in our [Code of Conduct](./CODE_OF_CONDUCT.md),
 which also includes the project maintainers' contact details in case you want
 to report a situation, on behalf of yourself or others.
 
-## [Development](#development)
+## Development
 
 ### Building the code
 Run `./bin/build`.

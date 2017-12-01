@@ -169,6 +169,17 @@ final class FunctionsTest extends TestCase
     /**
      * @covers \BartFeenstra\Functional\curry
      */
+    public function testCurryWithOneRequiredParameter()
+    {
+        $function = function (string $a, string $b = 'B'): string {
+            return $a . $b;
+        };
+        $this->assertSame('AB', F\curry($function)('A'));
+    }
+
+    /**
+     * @covers \BartFeenstra\Functional\curry
+     */
     public function testCurryWithTooManyParameters()
     {
         $function = function (string $a, string $b, string $c, string $d = 'D'): string {
