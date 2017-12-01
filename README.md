@@ -1,6 +1,6 @@
 # Functional PHP
 
-[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php) [![Coverage Status](https://coveralls.io/repos/github/bartfeenstra/fu-php/badge.svg?branch=master)](https://coveralls.io/github/bartfeenstra/fu-php?branch=master)
+[![Build Status](https://travis-ci.org/bartfeenstra/fu-php.svg?branch=master)](https://travis-ci.org/bartfeenstra/fu-php) [![Coverage Status](https://coveralls.io/repos/github/bartfeenstra/fu-php/badge.svg?branch=master)](https://coveralls.io/github/bartfeenstra/fu-php?branch=master) [![Latest Stable Version](https://poser.pugx.org/bartfeenstra/fu/v/stable)](https://packagist.org/packages/bartfeenstra/fu) [![Latest Unstable Version](https://poser.pugx.org/bartfeenstra/fu/v/unstable)](https://packagist.org/packages/bartfeenstra/fu) [![License](https://poser.pugx.org/bartfeenstra/fu/license)](https://packagist.org/packages/bartfeenstra/fu) [![Total Downloads](https://poser.pugx.org/bartfeenstra/fu/downloads)](https://packagist.org/packages/bartfeenstra/fu)
 
 This library provides tools to write more functional PHP code. Its concise and consistent API
 makes you more productive in different ways:
