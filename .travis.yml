@@ -22,4 +22,6 @@ install:
 
 script:
   - ./bin/test
+
+after_success:
   - php ./vendor/bin/coveralls -v
