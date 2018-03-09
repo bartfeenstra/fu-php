@@ -161,14 +161,12 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Zips each value into a tuple with corresponding values from each of the other traversables.
      *
-     * @param mixed $other
-     *   Any value taken by \BartFeenstra\Functional\iter().
-     * @param mixed ...$others
-     *   Any values taken by \BartFeenstra\Functional\iter().
+     * @param mixed[] $iterables
+     *   An array of any values taken by \BartFeenstra\Functional\iter().
      *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      */
-    public function zip($other, ...$others): self;
+    public function zip(array $iterables): self;
 
     /**
      * Creates a list with all keys set to integers, starting from 0.
@@ -248,22 +246,28 @@ interface Iterator extends \Iterator, \Countable
     /**
      * Chains other iterables to this iterator, and re-indexes the values.
      *
+     * @param mixed[] $iterables
+     *   An array of any values taken by \BartFeenstra\Functional\iter().
+     *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      *
      * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
      */
-    public function chain(...$iterables): self;
+    public function chain(array $iterables): self;
 
     /**
      * Merges other iterables into this iterator, where later values override earlier ones with the same keys.
      *
+     * @param mixed[] $iterables
+     *   An array of any values taken by \BartFeenstra\Functional\iter().
+     *
      * @return \BartFeenstra\Functional\Iterable\Iterator
      *
      * @throws \BartFeenstra\Functional\Iterable\InvalidIterable
      *   Thrown if one of the items is not an iterable.
      */
-    public function merge(...$iterables): self;
+    public function merge(array $iterables): self;
 
     /**
      * Flattens the iterables contained by this iterator into a single new iterator.

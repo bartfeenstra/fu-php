@@ -137,9 +137,10 @@ trait IteratorTrait
         return new InfiniteIterator($this);
     }
 
-    public function zip($other, ...$others): Iterator
+    public function zip(array $iterables): Iterator
     {
-        return new ZipIterator($this, ...func_get_args());
+        array_unshift($iterables, $this);
+        return new ZipIterator($iterables);
     }
 
     public function list(): Iterator
@@ -212,22 +213,23 @@ trait IteratorTrait
         return new ArrayIterator($array);
     }
 
-    public function chain(...$iterables): Iterator
+    public function chain(array $iterables): Iterator
     {
-        return new ChainIterator($this, ...$iterables);
+        array_unshift($iterables, $this);
+        return new ChainIterator($iterables);
     }
 
-    public function merge(...$iterables): Iterator
+    public function merge(array $iterables): Iterator
     {
-        return new ArrayIterator(array_merge(...
-            array_map('\BartFeenstra\Functional\Iterable\ensure_array', array_merge([$this], $iterables))));
+        array_unshift($iterables, $this);
+        return new ArrayIterator(array_merge(...array_map('\BartFeenstra\Functional\Iterable\ensure_array', $iterables)));
     }
 
     public function flatten(int $levels = 1): Iterator
     {
         $iterator = $this;
         do {
-            $iterator = new ChainIterator(...$iterator->list());
+            $iterator = new ChainIterator($iterator->list()->toArray());
             $levels--;
         } while ($levels);
         return $iterator;

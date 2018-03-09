@@ -65,7 +65,7 @@ final class FunctionsTest extends TestCase
         };
         $expected = new F\ThrowableError($throwable);
         // Except a parent class, so we make sure the code under test can handle inheritance.
-        $this->assertEquals($expected, F\try_except($goal, \BadFunctionCallException::class));
+        $this->assertEquals($expected, F\try_except($goal, [\BadFunctionCallException::class]));
     }
 
     /**
@@ -77,7 +77,7 @@ final class FunctionsTest extends TestCase
         $goal = function () {
             throw new \RuntimeException();
         };
-        F\try_except($goal, \InvalidArgumentException::class);
+        F\try_except($goal, [\InvalidArgumentException::class]);
     }
 
     /**
@@ -140,7 +140,7 @@ final class FunctionsTest extends TestCase
         };
         $expected = new F\ThrowableError($throwable);
         // Except a parent class, so we make sure the code under test can handle inheritance.
-        $this->assertEquals($expected, F\retry_except($goal, 2, \BadFunctionCallException::class));
+        $this->assertEquals($expected, F\retry_except($goal, 2, [\BadFunctionCallException::class]));
     }
 
     /**
@@ -152,7 +152,7 @@ final class FunctionsTest extends TestCase
         $goal = function () {
             throw new \RuntimeException();
         };
-        F\retry_except($goal, 2, \InvalidArgumentException::class);
+        F\retry_except($goal, 2, [\InvalidArgumentException::class]);
     }
 
     /**

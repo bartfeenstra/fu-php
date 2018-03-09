@@ -348,7 +348,7 @@ final class FunctionsTest extends TestCase
      */
     public function testInstanceOf(bool $expected, $value, array $types)
     {
-        $this->assertSame($expected, instance_of(...$types)($value));
+        $this->assertSame($expected, instance_of($types)($value));
     }
 
     /**
@@ -359,7 +359,7 @@ final class FunctionsTest extends TestCase
      */
     public function testAny()
     {
-        $any = any(lt(0), gt(9));
+        $any = any([lt(0), gt(9)]);
         $this->assertTrue($any(-111));
         $this->assertTrue($any(-1));
         $this->assertTrue($any(10));
@@ -377,7 +377,7 @@ final class FunctionsTest extends TestCase
      */
     public function testAll()
     {
-        $all = all(gt(0), lt(9));
+        $all = all([gt(0), lt(9)]);
         $this->assertTrue($all(1));
         $this->assertTrue($all(8));
         $this->assertFalse($all(-111));

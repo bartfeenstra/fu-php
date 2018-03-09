@@ -21,7 +21,7 @@ final class ChainIteratorTest extends TestCase
         $arrayOne = [3, 1, 4];
         $arrayTwo = [1, 5, 9];
         $arrayThree = [2, 6, 5];
-        $iterator = new ChainIterator($arrayOne, $arrayTwo, $arrayThree);
+        $iterator = new ChainIterator([$arrayOne, $arrayTwo, $arrayThree]);
         $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5];
         $this->assertSame($expected, $iterator->toArray());
         // Test again, to cover rewinding.
@@ -36,7 +36,7 @@ final class ChainIteratorTest extends TestCase
         $arrayOne = [3, 1, 4];
         $arrayTwo = [];
         $arrayThree = [1, 5, 9];
-        $iterator = new ChainIterator($arrayOne, $arrayTwo, $arrayThree);
+        $iterator = new ChainIterator([$arrayOne, $arrayTwo, $arrayThree]);
         $expected = [3, 1, 4, 1, 5, 9];
         $this->assertSame($expected, $iterator->toArray());
         // Test again, to cover rewinding.
@@ -48,7 +48,7 @@ final class ChainIteratorTest extends TestCase
      */
     public function testWithoutIterators()
     {
-        $iterator = new ChainIterator();
+        $iterator = new ChainIterator([]);
         $this->assertSame([], $iterator->toArray());
     }
 
@@ -61,8 +61,8 @@ final class ChainIteratorTest extends TestCase
         $arrayTwo = [1, 5, 9];
         $arrayThree = [2, 6, 5];
         $arrayFour = [3, 5, 8];
-        $iterator = new ChainIterator($arrayOne, $arrayTwo);
-        $iterator->append($arrayThree, $arrayFour);
+        $iterator = new ChainIterator([$arrayOne, $arrayTwo]);
+        $iterator->append([$arrayThree, $arrayFour]);
         $expected = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8];
         $this->assertSame($expected, $iterator->toArray());
     }

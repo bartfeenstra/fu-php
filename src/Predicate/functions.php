@@ -147,15 +147,13 @@ function le($other): callable
 /**
  * Gets a predicate to check if an object or class name is an instance of one or more types.
  *
- * @param string $type
- * @param string ..$types
+ * @param string[] $types
  *
  * @return callable
  *   A predicate.
  */
-function instance_of(string $type, string ...$types): callable
+function instance_of(array $types): callable
 {
-    $types = func_get_args();
     return function ($value) use ($types) {
         foreach ($types as $type) {
             if ($value instanceof $type or is_subclass_of($value, $type) or $value === $type) {
@@ -169,15 +167,13 @@ function instance_of(string $type, string ...$types): callable
 /**
  * Gets a predicate that wraps other predicates and checks at least one of them matches.
  *
- * @param callable $predicate
- * @param callable[] ...$predicates
+ * @param callable[] $predicates
  *
  * @return callable
  *   A predicate.
  */
-function any(callable $predicate, callable ...$predicates): callable
+function any(array $predicates): callable
 {
-    $predicates = func_get_args();
     return function ($value) use ($predicates) {
         foreach ($predicates as $predicate) {
             if ($predicate($value)) {
@@ -191,15 +187,13 @@ function any(callable $predicate, callable ...$predicates): callable
 /**
  * Gets a predicate that wraps other predicates and checks all of them match.
  *
- * @param callable $predicate
- * @param callable[] ...$predicates
+ * @param callable[] $predicates
  *
  * @return callable
  *   A predicate.
  */
-function all(callable $predicate, callable ...$predicates): callable
+function all(array $predicates): callable
 {
-    $predicates = func_get_args();
     return function ($value) use ($predicates) {
         foreach ($predicates as $predicate) {
             if (!$predicate($value)) {
