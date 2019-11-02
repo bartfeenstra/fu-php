@@ -20,13 +20,13 @@ final class InvalidIterable extends \InvalidArgumentException
      * Constructs a new instance.
      *
      * @param string $message
-     * @param mixed $invalidIterable
+     * @param mixed $invalidCallable
      * @param \Throwable|null $previous
      */
-    public function __construct($message, $invalidIterable, \Throwable $previous = null)
+    public function __construct($message, $invalidCallable, \Throwable $previous = null)
     {
         parent::__construct($message, 0, $previous);
-        $this->invalidIterable = $invalidIterable;
+        $this->invalidIterable = $invalidCallable;
     }
 
     /**

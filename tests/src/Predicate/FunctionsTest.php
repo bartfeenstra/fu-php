@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BartFeenstra\Tests\Functional\Predicate;
 
+use function BartFeenstra\Functional\Callables\assert_predicate;
 use PHPUnit\Framework\TestCase;
 use function BartFeenstra\Functional\Predicate\all;
 use function BartFeenstra\Functional\Predicate\any;
@@ -43,13 +44,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\true
+     * @covers \BartFeenstra\Functional\Predicate\true
      *
      * @dataProvider provideTrue
      */
     public function testTrue($expected, $value)
     {
-        $this->assertSame($expected, true()($value));
+        $true = true();
+        assert_predicate($true);
+        $this->assertSame($expected, $true($value));
     }
 
     /**
@@ -69,13 +72,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\false
+     * @covers \BartFeenstra\Functional\Predicate\false
      *
      * @dataProvider provideFalse
      */
     public function testFalse($expected, $value)
     {
-        $this->assertSame($expected, false()($value));
+        $false = false();
+        assert_predicate($false);
+        $this->assertSame($expected, $false($value));
     }
 
     /**
@@ -98,13 +103,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\truthy
+     * @covers \BartFeenstra\Functional\Predicate\truthy
      *
      * @dataProvider provideTruthy
      */
     public function testTruthy($expected, $value)
     {
-        $this->assertSame($expected, truthy()($value));
+        $truthy = truthy();
+        assert_predicate($truthy);
+        $this->assertSame($expected, $truthy($value));
     }
 
     /**
@@ -124,13 +131,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\falsy
+     * @covers \BartFeenstra\Functional\Predicate\falsy
      *
      * @dataProvider provideFalsy
      */
     public function testFalsy($expected, $value)
     {
-        $this->assertSame($expected, falsy()($value));
+        $falsy = falsy();
+        assert_predicate($falsy);
+        $this->assertSame($expected, $falsy($value));
     }
 
     /**
@@ -163,13 +172,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\id
+     * @covers \BartFeenstra\Functional\Predicate\id
      *
      * @dataProvider provideId
      */
     public function testId($expected, $value, $other)
     {
-        $this->assertSame($expected, id($other)($value));
+        $id = id($other);
+        assert_predicate($id);
+        $this->assertSame($expected, $id($value));
     }
 
     /**
@@ -202,13 +213,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\eq
+     * @covers \BartFeenstra\Functional\Predicate\eq
      *
      * @dataProvider provideEq
      */
     public function testEq($expected, $value, $other)
     {
-        $this->assertSame($expected, eq($other)($value));
+        $eq = eq($other);
+        assert_predicate($eq);
+        $this->assertSame($expected, $eq($value));
     }
 
     /**
@@ -227,13 +240,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\gt
+     * @covers \BartFeenstra\Functional\Predicate\gt
      *
      * @dataProvider provideGt
      */
     public function testGt($expected, $value, $other)
     {
-        $this->assertSame($expected, gt($other)($value));
+        $gt = gt($other);
+        assert_predicate($gt);
+        $this->assertSame($expected, $gt($value));
     }
 
     /**
@@ -254,13 +269,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\ge
+     * @covers \BartFeenstra\Functional\Predicate\ge
      *
      * @dataProvider provideGe
      */
     public function testGe($expected, $value, $other)
     {
-        $this->assertSame($expected, ge($other)($value));
+        $ge = ge($other);
+        assert_predicate($ge);
+        $this->assertSame($expected, $ge($value));
     }
 
     /**
@@ -279,13 +296,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\lt
+     * @covers \BartFeenstra\Functional\Predicate\lt
      *
      * @dataProvider provideLt
      */
     public function testLt($expected, $value, $other)
     {
-        $this->assertSame($expected, lt($other)($value));
+        $lt = lt($other);
+        assert_predicate($lt);
+        $this->assertSame($expected, $lt($value));
     }
 
     /**
@@ -306,13 +325,15 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\le
+     * @covers \BartFeenstra\Functional\Predicate\le
      *
      * @dataProvider provideLe
      */
     public function testLe($expected, $value, $other)
     {
-        $this->assertSame($expected, le($other)($value));
+        $le = le($other);
+        assert_predicate($le);
+        $this->assertSame($expected, $le($value));
     }
 
     /**
@@ -342,17 +363,19 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers       \BartFeenstra\Functional\Predicate\instance_of
+     * @covers \BartFeenstra\Functional\Predicate\instance_of
      *
      * @dataProvider provideInstanceOf
      */
     public function testInstanceOf(bool $expected, $value, array $types)
     {
-        $this->assertSame($expected, instance_of(...$types)($value));
+        $instance_of = instance_of(...$types);
+        assert_predicate($instance_of);
+        $this->assertSame($expected, $instance_of($value));
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\Predicate\any
+     * @covers \BartFeenstra\Functional\Predicate\any
      *
      * @depends testGt
      * @depends testLt
@@ -360,6 +383,7 @@ final class FunctionsTest extends TestCase
     public function testAny()
     {
         $any = any(lt(0), gt(9));
+        assert_predicate($any);
         $this->assertTrue($any(-111));
         $this->assertTrue($any(-1));
         $this->assertTrue($any(10));
@@ -370,7 +394,7 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\Predicate\all
+     * @covers \BartFeenstra\Functional\Predicate\all
      *
      * @depends testGt
      * @depends testLt
@@ -378,6 +402,7 @@ final class FunctionsTest extends TestCase
     public function testAll()
     {
         $all = all(gt(0), lt(9));
+        assert_predicate($all);
         $this->assertTrue($all(1));
         $this->assertTrue($all(8));
         $this->assertFalse($all(-111));
@@ -387,13 +412,14 @@ final class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers  \BartFeenstra\Functional\Predicate\not
+     * @covers \BartFeenstra\Functional\Predicate\not
      *
      * @depends testEq
      */
     public function testNot()
     {
         $not = not(eq('Apples and oranges'));
+        assert_predicate($not);
         $this->assertTrue($not('apples and Oranges'));
         $this->assertTrue($not('Pineapples and orange juice'));
         $this->assertFalse($not('Apples and oranges'));

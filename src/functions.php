@@ -6,6 +6,10 @@ namespace BartFeenstra\Functional;
 
 use function BartFeenstra\Functional\Predicate\instance_of;
 
+const COVARIANCE = 1;
+
+const CONTRAVARIANCE = 2;
+
 /**
  * Get's a value's human-readable (type) representation.
  *
